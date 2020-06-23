@@ -20,7 +20,7 @@ namespace myFor_API.Controllers._Base
         /// 当资源被有意地删除并且资源应被清除时，应该使用这个。
         /// 在收到410状态码后，用户应停止再次请求资源。
         /// </summary>
-        /// <returns></returns>
+        /// <returns>410 status code</returns>
         protected StatusCodeResult Gone() => new StatusCodeResult(410);
     }
 }

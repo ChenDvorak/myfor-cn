@@ -31,7 +31,7 @@ export interface IdentityInfo {
 export class Identity {
 
     /**
-     * 当前登录用户信息，
+     * 当前登录用户信息，没有则为 null
      */
     static get IdentityInfo(): IdentityInfo {
         const VALUE = localStorage.getItem(IDENTITY_KEY);

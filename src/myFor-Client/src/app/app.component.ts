@@ -5,7 +5,7 @@ import { GlobalService } from './global';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass', './app.component-layout.sass']
+  styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
   constructor(

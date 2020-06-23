@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'explore',
     loadChildren: () => import('./routers/explore/explore.module').then(m => m.ExploreModule),
     data: { title: '随便看看' }
+  },
+  {
+    path: 'pages',
+    loadChildren: () => import('./routers/pages/pages.module').then(m => m.PagesModule)
   }
 ];
 
