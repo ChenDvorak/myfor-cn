@@ -34,9 +34,11 @@ $primary: mat-color($myfor-primary);
 $accent: mat-color($myfor-accent);
 $warn: mat-color($myfor-warn);
 
-html, body { height: 100%; }
-html { font-size: 20px; }
-body { margin: 0; font-family: 'Noto Sans SC', sans-serif; }
+html, body { height: 100%; margin: 0; }
+
+.mat-body, .mat-body-1, .mat-typography {
+  font: 400 20px Noto Sans SC;
+}
 
 .txt-primary { color: $primary }
 .txt-accent { color: $accent }

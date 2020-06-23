@@ -1,0 +1,53 @@
+//  these is a layout style file
+//  it define a layout of three columns of responsive
+
+//  layout
+@media screen and ( max-width:  706px)
+    .left-large,.left-sub,.right-container
+        display: none
+    .left-small
+        display: block
+@media screen and ( max-width: 1007px) and (min-width: 707px)
+    .left-large,.left-small,.right-container
+        display: none
+    .left-sub
+        display: block
+@media screen and ( max-width: 1174px) and (min-width: 1008px)
+    .left-large,.left-small
+        display: none
+    .right-container,.left-sub
+        display: block
+@media screen and ( min-width:  1175px)
+    .left-sub,.left-small
+        display: none
+    .right-container,.left-large
+        display: block
+
+.container
+    display: flex
+    max-width: 1300px
+    margin: 0 auto
+
+.left-container
+    display: flex
+    flex-direction: row-reverse
+    width: 275px
+.main
+    min-width: 600px
+    width: 100%
+.right-container
+    width: 100%
+    max-width: 300px
+    .right-box
+        position: fixed
+
+.left-large
+    width: inherit
+    margin-left: auto
+.left-sub
+    width: 90px
+    margin-left: auto
+.left-small
+    width: 60px
+.left-large,.left-sub,.left-small
+    position: fixed
