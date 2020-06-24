@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from './material.module';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 const EXPORTS_MODULE = [
   CommonModule,
@@ -14,6 +15,7 @@ const EXPORTS_MODULE = [
 ];
 
 const EXPORTS_COMPONENT = [
+  SearchBoxComponent
 ];
 
 const EXPORTS_PIPE = [

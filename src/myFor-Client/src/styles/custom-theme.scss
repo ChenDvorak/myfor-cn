@@ -1,7 +1,7 @@
-
+@import './color.sass';
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+// @import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
 $myfor-typography: mat-typography-config(
@@ -13,15 +13,6 @@ $myfor-typography: mat-typography-config(
 // Be sure that you only ever include this mixin once!
 @include mat-core($myfor-typography);
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$myfor-primary: mat-palette($mat-indigo);
-$myfor-accent: mat-palette($mat-pink, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$myfor-warn: mat-palette($mat-red);
-
 // Create the theme object (a Sass map containing all of the palettes).
 $myfor-theme: mat-light-theme($myfor-primary, $myfor-accent, $myfor-warn);
 
@@ -30,19 +21,8 @@ $myfor-theme: mat-light-theme($myfor-primary, $myfor-accent, $myfor-warn);
 // that you are using.
 @include angular-material-theme($myfor-theme);
 
-$primary: mat-color($myfor-primary);
-$accent: mat-color($myfor-accent);
-$warn: mat-color($myfor-warn);
-
 html, body { height: 100%; margin: 0; }
 
 .mat-body, .mat-body-1, .mat-typography {
   font: 400 20px Noto Sans SC;
 }
-
-.txt-primary { color: $primary }
-.txt-accent { color: $accent }
-.txt-warn { color: $warn; }
-.bg-primary { background-color: $primary }
-.bg-accent { background-color: $accent }
-.bg-warn { background-color: $warn; }

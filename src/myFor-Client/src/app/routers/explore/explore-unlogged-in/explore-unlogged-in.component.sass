@@ -4,12 +4,18 @@
 header
     height: 3rem
     width: 100%
+    padding: 7px 0
     .banner
         @extend %flex-row
         max-width: $double-layout-container-width
         margin: auto
         @media screen and ( max-width: $double-layout-container-width )
             max-width: $double-layout-left-width
+        $w-logo: 50px
+        .logo
+            width: $w-logo
+        app-search-box
+            width: $double-layout-left-width - $w-logo
 
 .explore-info
     @extend %flex-column
