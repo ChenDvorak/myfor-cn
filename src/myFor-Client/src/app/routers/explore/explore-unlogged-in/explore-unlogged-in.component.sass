@@ -1,15 +1,22 @@
+@import ../../../../styles/variable
 @import ../../../../styles/layout-double
     
 header
     height: 3rem
     width: 100%
     .banner
-        display: flex
-        flex-direction: row
-        max-width: 950px
+        @extend %flex-row
+        max-width: $double-layout-container-width
         margin: auto
+        @media screen and ( max-width: $double-layout-container-width )
+            max-width: $double-layout-left-width
 
 .explore-info
-    display: flex
-    flex-direction: column
-    
+    @extend %flex-column
+
+.login-box-bottom
+    display: none
+    @media screen and ( max-width: $double-layout-container-width )    
+        display: flex
+        max-width: $double-layout-left-width
+        margin: auto

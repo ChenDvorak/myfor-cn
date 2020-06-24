@@ -1,19 +1,18 @@
-$container-width: 950px
-$left-width: 600px
-$right-width: $container-width - $left-width
-    
-@media screen and ( max-width: $container-width )
+@import ./variable
+
+@media screen and ( max-width: $double-layout-container-width )
     .right-side
         display: none
-@media screen and ( min-width: $container-width )
+@media screen and ( min-width: $double-layout-container-width )
     .right-side
         display: block
     
 .double-side-container
     display: flex
-    max-width: $container-width
+    max-width: $double-layout-container-width
     margin: auto
     .left-side
-        width: $left-width
+        width: $double-layout-left-width
+        margin: auto
     .right-side
-        width: $right-width
+        width: $double-layout-right-width
