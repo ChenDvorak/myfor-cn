@@ -1,0 +1,4 @@
+<div [ngSwitch]="isLoggedIn">
+  <app-explore-list *ngSwitchCase="true"></app-explore-list>
+  <app-explore-unlogged-in *ngSwitchCase="false"></app-explore-unlogged-in>
+</div>

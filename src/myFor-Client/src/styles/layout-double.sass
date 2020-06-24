@@ -1,0 +1,19 @@
+$container-width: 950px
+$left-width: 600px
+$right-width: $container-width - $left-width
+    
+@media screen and ( max-width: $container-width )
+    .right-side
+        display: none
+@media screen and ( min-width: $container-width )
+    .right-side
+        display: block
+    
+.double-side-container
+    display: flex
+    max-width: $container-width
+    margin: auto
+    .left-side
+        width: $left-width
+    .right-side
+        width: $right-width

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { MustLoggedInGuard } from './guards/must-logged-in.guard';
 
 const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./routers/home/home.module').then(m => m.HomeModule),
     pathMatch: 'full',
-    data: { preload: true, title: 'myFor' }
+    data: { preload: true, title: 'myFor' },
+    canActivate: [MustLoggedInGuard]
   },
   {
     path: 'explore',
