@@ -1,8 +1,9 @@
 <div class="search-container">
-  <div class="box">
+  <div class="box" [ngClass]="focusing ? 'box-focus' : ''">
     <span class="search-icon">
       <mat-icon color="primary">search</mat-icon>
     </span>
-    <input class="border-primary" #txt_search placeholder="搜索..." (keyup.enter)="search(txt_search.value)">
+    <input class="border-primary" type="search" #txt_search placeholder="搜索..." 
+    (keyup.enter)="search(txt_search.value)" (blur)="restore()" (click)="focus()">
   </div>
 </div>

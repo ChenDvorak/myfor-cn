@@ -12,4 +12,7 @@ export class ExploreUnloggedInComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  search(value: string) {
+
+  }
 }
