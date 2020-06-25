@@ -31,7 +31,10 @@
               "src/styles/custom-theme.scss",
               "src/styles.sass"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "crypto-js"
+           ]
           },
           "configurations": {
             "production": {
