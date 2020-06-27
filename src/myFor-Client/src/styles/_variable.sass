@@ -1,4 +1,9 @@
 @import ./color
+
+//  color
+$primary: $primary-color
+$accent: $accent-color
+$warn: $warn-color
     
 //  double-layout
 $double-layout-container-width: 950px
@@ -16,9 +21,7 @@ $double-layout-right-width: $double-layout-container-width - $double-layout-left
     flex-direction: column
 
 //  border
-$border-radius: 5px
-
-//  color
-$primary: $primary-color
-$accent: $accent-color
-$warn: $warn-color
+%border-primary
+    border: 1px solid $primary
+%border-radius
+    border-radius: 10px

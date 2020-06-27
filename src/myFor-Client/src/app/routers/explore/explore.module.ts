@@ -6,12 +6,14 @@ import { ExploreUnloggedInComponent } from './explore-unlogged-in/explore-unlogg
 import { IndexComponent } from './index/index.component';
 import { ExploreListComponent } from './explore-list/explore-list.component';
 
+import { LoginOutModule } from '../../components/login-out/login-out.module';
 
 @NgModule({
   declarations: [ExploreUnloggedInComponent, IndexComponent, ExploreListComponent],
   imports: [
     SharedModule,
-    ExploreRoutingModule
+    ExploreRoutingModule,
+    LoginOutModule
   ]
 })
 export class ExploreModule { }
