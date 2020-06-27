@@ -18,12 +18,19 @@ header
             width: $double-layout-left-width - $w-logo
             margin-right: 20px
 
+.left-side
+    margin-right: 15px !important
+
 .explore-info
     @extend %flex-column
 
 .login-box-bottom
     display: none
+    padding: 0 15px
     @media screen and ( max-width: $double-layout-container-width )    
         display: flex
         max-width: $double-layout-left-width
         margin: auto
+    a
+        margin: .5rem
+        width: 100%

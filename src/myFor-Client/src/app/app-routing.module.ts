@@ -16,6 +16,11 @@ const routes: Routes = [
     data: { title: '随便看看' }
   },
   {
+    path: 'account',
+    loadChildren: () => import('./routers/login-out/login-out.module').then(m => m.LoginOutModule),
+    data: { title: '登录/注册' }
+  },
+  {
     path: 'pages',
     loadChildren: () => import('./routers/pages/pages.module').then(m => m.PagesModule)
   }
