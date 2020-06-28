@@ -1,10 +1,9 @@
-<form>
-    <mat-form-field appearance="outline">
-        <mat-label>请输入邮箱</mat-label>
-        <input matInput type="email" required>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>请输入账号</mat-label>
-        <input matInput type="text" required>
-    </mat-form-field>
-</form>
+<div class="sign-up-container">
+  <span>
+    <a [routerLink]="['/']">
+      <app-logo></app-logo>
+    </a>
+  </span>
+  <div class="title">注册新账号</div>
+  <app-sign-up-box></app-sign-up-box>
+</div>

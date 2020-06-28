@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { LoginBoxComponent } from './login-box/login-box.component';
 
 import { SharedModule } from '../../shared/shared.module';
+import { SignUpBoxComponent } from './sign-up-box/sign-up-box.component';
 
 const EXPORT_COMPONENTS = [
-  LoginBoxComponent
+  LoginBoxComponent,
+  SignUpBoxComponent
 ];
 
 @NgModule({

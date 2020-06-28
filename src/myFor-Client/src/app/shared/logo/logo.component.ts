@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 @Component({
     selector: 'app-logo',
     template: `
-<div>
 <svg [ngClass]="logoClass" [style.width]="size" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
         viewBox="0 0 400 400" style="enable-background:new 0 0 400 400;"
         xml:space="preserve">
@@ -18,7 +17,6 @@ import { Component, Input } from '@angular/core';
        S356.28,62.56,356.28,62.25z" />
         </g>
       </svg>
-</div>
     `,
     styleUrls: ['./logo.component.sass']
 })
