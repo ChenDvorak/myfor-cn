@@ -20,6 +20,6 @@
   </div>
 </div>
 <div class="login-box-bottom">
-  <a mat-raised-button color="primary">登录</a>
-  <a mat-stroked-button color="primary">注册</a>
+  <a [routerLink]="['/account', 'login']" mat-raised-button color="primary">登录</a>
+  <a [routerLink]="['/account', 'register']" mat-stroked-button color="primary">注册</a>
 </div>
