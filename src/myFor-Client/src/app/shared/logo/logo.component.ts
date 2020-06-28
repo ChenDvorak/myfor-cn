@@ -1,0 +1,45 @@
+import { Component, Input } from '@angular/core';
+
+@Component({
+    selector: 'app-logo',
+    template: `
+<div>
+<svg [ngClass]="logoClass" [style.width]="size" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="0 0 400 400" style="enable-background:new 0 0 400 400;"
+        xml:space="preserve">
+        <g>
+          <path d="M282.65,207.13c0,0-3.36-82.85-52.89-98.14c0,0-3.36-37.3-35.77-57.78c0,0-4.28-3.67-9.17,0
+       c-4.89,3.67-17.12,4.59-20.79,53.81c0,0-37.3,8.87-44.64,19.26c0,0-27.21-47.69-55.95-50.75c0,0-5.5-1.22-6.73,5.2
+       c-1.22,6.42-22.93,24.15,0,90.19c0,0-24.76,29.04-18.04,66.34c5.37,29.78,27.88,62.46,47.64,77.24
+       c-5.71,8.7-25.11,41.39-27.46,87.51h172.13c0,0-5.81-59.26,3.97-87.39l-0.57-0.01c9.02-3.79,19.79-8.33,32.67-13.76
+       c0,0,30.52-14.39,32.1-68.18C299.16,230.67,301.61,220.58,282.65,207.13z" />
+          <path d="M356.28,62.25c0-0.13-2.46-0.68-3.96,1.04c-1.95,2.23-3.07,6.57-3.07,6.57
+       c-9.11,49.59-59.54,61.64-61.84,64.94c-0.45,1.59-1.12,5.99,4.75,3.73c52.8-20.25,64.66-71.64,65.2-73.61
+       S356.28,62.56,356.28,62.25z" />
+        </g>
+      </svg>
+</div>
+    `,
+    styleUrls: ['./logo.component.sass']
+})
+export class LogoComponent {
+    @Input() size = '100px';
+    @Input() set color(value: string) {
+        switch (value) {
+            case 'primary':
+                this.logoClass = 'primary';
+                break;
+            case 'accent':
+                this.logoClass = 'accent';
+                break;
+            case 'warn':
+                this.logoClass = 'warn';
+                break;
+            default:
+                this.logoClass = 'primary';
+                break;
+        }
+    }
+    logoClass = 'primary';
+    constructor() {}
+}

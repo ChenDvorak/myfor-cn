@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material.module';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FooterComponent } from './footer/footer.component';
+import { LogoComponent } from './logo/logo.component';
 
 const EXPORTS_MODULE = [
   CommonModule,
@@ -17,7 +18,8 @@ const EXPORTS_MODULE = [
 
 const EXPORTS_COMPONENT = [
   SearchBoxComponent,
-  FooterComponent
+  FooterComponent,
+  LogoComponent
 ];
 
 const EXPORTS_PIPE = [

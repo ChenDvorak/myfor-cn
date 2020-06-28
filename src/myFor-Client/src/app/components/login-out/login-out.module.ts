@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { LoginComponent } from './login/login.component';
+import { LoginBoxComponent } from './login-box/login-box.component';
 
 import { SharedModule } from '../../shared/shared.module';
 
 const EXPORT_COMPONENTS = [
-  LoginComponent
+  LoginBoxComponent
 ];
 
 @NgModule({
