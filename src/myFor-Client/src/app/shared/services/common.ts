@@ -117,7 +117,7 @@ export class CommonService {
     });
   }
 
-  setTitleFromRoute(title: string) {
+  setTitle(title: string) {
     this.doc.title = title;
   }
 }

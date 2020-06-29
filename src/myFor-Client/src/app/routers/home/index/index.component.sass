@@ -7,14 +7,23 @@ $border: solid transparentize(black, .9)
     align-items: flex-end
     padding-bottom: 2px
 
+.left-container
+    margin-right: 1rem
+.right-container
+    margin-left: 1rem
+
 .main
-    margin: 0 1rem
     border-left: 1px $border
     border-right: 1px $border
 
 .banner-home
+    @extend %flex-row
+    align-items: center
     padding: 1rem 1rem .5rem 1rem
     border-bottom: 10px solid transparentize($primary, .9)
+
+.avatar
+    border-radius: 50px
 
 .list
     @extend %flex-column
@@ -22,10 +31,6 @@ $border: solid transparentize(black, .9)
         @extend %flex-row
         border-bottom: 1px $border
         padding: 1rem
-        .author-avatar
-            width: 50px
-            img
-                border-radius: 50px
         .blog-content
             @extend %flex-column
             flex-grow: 1
@@ -49,6 +54,11 @@ $border: solid transparentize(black, .9)
             .content
                 font-size: 1rem
                 margin-top: .5rem
+            .more
+                text-align: center
+                a
+                    font-size: 1rem
+                    color: $primary
             .actions
                 @extend %flex-row
                 margin-top: 1rem

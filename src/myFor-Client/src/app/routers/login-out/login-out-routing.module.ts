@@ -4,8 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignUpComponent },
+  { path: 'login', component: LoginComponent, data: { title: '登录 / myFor' } },
+  { path: 'signup', component: SignUpComponent, data: { title: '注册 / myFor' } },
   { path: '', redirectTo: '/account/login', pathMatch: 'full' },
 ];
 

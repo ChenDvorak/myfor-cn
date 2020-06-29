@@ -15,7 +15,7 @@ export class IndexComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.common.setTitleFromRoute(this.route.snapshot.data.title);
+    this.common.setTitle(this.route.snapshot.data.title);
   }
 
 }

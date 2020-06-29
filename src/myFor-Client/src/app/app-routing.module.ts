@@ -13,12 +13,11 @@ const routes: Routes = [
   {
     path: 'explore',
     loadChildren: () => import('./routers/explore/explore.module').then(m => m.ExploreModule),
-    data: { title: '随便看看' }
+    data: { title: '随便看看 / myFor' }
   },
   {
     path: 'account',
-    loadChildren: () => import('./routers/login-out/login-out.module').then(m => m.LoginOutModule),
-    data: { title: '登录/注册' }
+    loadChildren: () => import('./routers/login-out/login-out.module').then(m => m.LoginOutModule)
   },
   {
     path: 'pages',
