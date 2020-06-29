@@ -3,10 +3,26 @@
 .current-nav-container
     @extend %flex-column
     width: 150px
-    padding: 1rem
 
 .avatar-row
+    margin-left: 1rem
     margin-bottom: 1rem
+    padding-left: 1rem
 .avatar
     width: 50px
     border-radius: 50px
+
+.actions
+    margin-left: 1rem
+    a
+        display: block
+        margin: .3rem 0
+        padding: .3rem 0 .3rem 1rem
+        border-radius: 50px
+        color: $primary
+        text-decoration: none
+        &:hover
+            background-color: transparentize($primary, .9)
+    .apply-new-blog
+        margin-top: 1rem
+        padding-left: 1rem
