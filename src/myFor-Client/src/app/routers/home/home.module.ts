@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 
 import { LoginOutModule } from '../../components/login-out/login-out.module';
+import { BlogsModule } from '../../components/blogs/blogs.module';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { IndexComponent } from './index/index.component';
@@ -14,7 +15,8 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
   imports: [
     SharedModule,
     HomeRoutingModule,
-    LoginOutModule
+    LoginOutModule,
+    BlogsModule
   ]
 })
 export class HomeModule { }

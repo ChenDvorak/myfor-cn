@@ -1,0 +1,62 @@
+<div class="list">
+
+  <div class="blog">
+    <span>
+      <a routerLink="/myfor">
+        <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
+      </a>
+    </span>
+    <div class="blog-content">
+      <div class="post-infor">
+        <a class="author" [routerLink]="['/']">
+          <span>
+            author name
+          </span>
+          <span class="author-account">
+            @account
+          </span>
+        </a>
+        <span class="posted-time">9分钟前</span>
+      </div>
+      <div class="title">
+        <a routerLink="/b/1t29as">
+          论啥啥啥
+        </a>
+      </div>
+      <div class="content">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        哈哈哈哈哈哈哈
+        content content content content content
+        content content content content content
+        content content content content content
+      </div>
+      <div class="more">
+        <a routerLink="b/bo1e">查看全部</a>
+      </div>
+      <div class="actions">
+        <span matTooltip="评论" matTooltipPosition="above">
+          <button mat-icon-button>
+            <mat-icon>sms</mat-icon>
+          </button><span class="icon-label">10k</span></span>
+        <span matTooltip="同意" matTooltipPosition="above">
+          <button mat-icon-button>
+            <mat-icon>thumb_up</mat-icon>
+          </button><span class="icon-label">11k</span></span>
+        <span matTooltip="引用" matTooltipPosition="above">
+          <button mat-icon-button>
+            <mat-icon>repeat</mat-icon>
+          </button><span class="icon-label">30</span></span>
+        <span matTooltip="见解" matTooltipPosition="above">
+          <button mat-icon-button>
+            <mat-icon>library_books</mat-icon>
+          </button><span class="icon-label">10</span></span>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="more-list">
+    <button mat-button color="primary">展开更多</button>
+  </div>
+
+</div>

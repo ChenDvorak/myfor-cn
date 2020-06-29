@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../../../shared/services/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-detail',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BlogDetailComponent implements OnInit {
 
-  constructor() { }
+  number = '';
+  constructor(
+    private common: CommonService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.number = this.route.snapshot.paramMap.get('number');
+    this.common.setTitle(this.number + ' / myFor');
   }
 
 }
