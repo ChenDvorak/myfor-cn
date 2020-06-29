@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class IndexComponent implements OnInit {
 
+  isLoggedIn = false;
   constructor(
     private common: CommonService,
     private route: ActivatedRoute

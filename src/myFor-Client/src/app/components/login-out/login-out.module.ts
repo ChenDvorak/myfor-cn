@@ -3,10 +3,12 @@ import { LoginBoxComponent } from './login-box/login-box.component';
 
 import { SharedModule } from '../../shared/shared.module';
 import { SignUpBoxComponent } from './sign-up-box/sign-up-box.component';
+import { CurrentUserNavComponent } from './current-user-nav/current-user-nav.component';
 
 const EXPORT_COMPONENTS = [
   LoginBoxComponent,
-  SignUpBoxComponent
+  SignUpBoxComponent,
+  CurrentUserNavComponent
 ];
 
 @NgModule({
