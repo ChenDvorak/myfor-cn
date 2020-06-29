@@ -10,7 +10,7 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       { path: '', component: HomeListComponent, pathMatch: 'full' },
-      { path: ':number', component: BlogDetailComponent }
+      { path: ':code', component: BlogDetailComponent }
     ]
   }
 ];

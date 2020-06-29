@@ -19,4 +19,7 @@ export class IndexComponent implements OnInit {
     this.common.setTitle(this.route.snapshot.data.title);
   }
 
+  goback() {
+    history.back();
+  }
 }
