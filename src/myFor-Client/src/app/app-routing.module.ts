@@ -7,8 +7,12 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./routers/home/home.module').then(m => m.HomeModule),
     pathMatch: 'full',
-    data: { preload: true, title: 'myFor' },
-    //  canActivate: [MustLoggedInGuard]
+    data: { preload: true, title: 'myFor' }
+  },
+  {
+    path: 'b',
+    loadChildren: () => import('./routers/home/home.module').then(m => m.HomeModule),
+    data: { preload: true },
   },
   {
     path: 'explore',
