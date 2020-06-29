@@ -7,18 +7,21 @@
 
 .avatar
     width: 50px
-    border-radius: 50px
+    height: 50px
+    border-radius: 50%
+
+.blog-box
+    border-bottom: 1px $border
+    padding: 1rem
 
 .list
     @extend %flex-column
     .blog
         @extend %flex-row
-        border-bottom: 1px $border
-        padding: 1rem
         .blog-content
             @extend %flex-column
             flex-grow: 1
-            padding: 0 1rem
+            padding-left: 1rem
             .post-infor
                 @extend %flex-row
                 .author
@@ -27,6 +30,8 @@
                     text-decoration: none
                     span
                         padding-right: .5rem
+                    .author-name
+                        font-size: 1.2rem
                     .author-account
                         @extend %align-end
                         font-size: .9rem
@@ -35,26 +40,30 @@
                     @extend %align-end
                     font-size: .9rem
                     color: transparentize(black, .7)
-            .title
-                margin-top: 1rem
-                a
-                    //text-decoration: none
-                    color: black
-            .content
-                font-size: 1rem
-            .more
-                text-align: center
-                a
-                    font-size: 1rem
-                    color: $primary
-            .actions
-                @extend %flex-row
-                margin-top: 1rem
-                span
-                    flex-grow: 1
-                    color: $primary
-                    .icon-label
-                        font-size: .9rem
+
+.clickable-to-detail
+    cursor: pointer
+    margin-top: 1rem
+
+.content
+    font-size: 1rem
+    margin-top: .5rem
+.more
+    text-align: center
+    margin-top: .3rem
+    a
+        font-size: 1rem
+        color: $primary
+        text-decoration: none
+        
+.actions
+    @extend %flex-row
+    margin-top: 1rem
+    span
+        flex-grow: 1
+        color: $primary
+        .icon-label
+            font-size: .9rem
 
 .more-list
     text-align: center

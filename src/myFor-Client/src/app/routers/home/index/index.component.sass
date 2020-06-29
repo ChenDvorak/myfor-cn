@@ -11,16 +11,19 @@
     padding-top: 1rem
 .right-container
     margin-left: 1rem
+    margin-right: .5rem
 
 .main
     border-left: 1px $border
     border-right: 1px $border
+    margin-left: 0
+    margin-right: 0
 
 .banner-home
     @extend %flex-row
     align-items: center
     padding: 1rem 1rem .5rem 1rem
-    border-bottom: 10px solid transparentize($primary, .9)
+    border-bottom: 1rem solid transparentize($primary, .9)
 
 .avatar
     border-radius: 50px
@@ -29,3 +32,9 @@
     @extend %flex-column
     margin-top: 2rem
     width: 300px
+
+.apply-small
+    position: fixed
+    bottom: 5rem
+    right: 2rem
+    z-index: 100
