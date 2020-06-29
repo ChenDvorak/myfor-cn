@@ -1,0 +1,59 @@
+@import ../../../../styles/layout-three
+@import ../../../../styles/_variable
+
+$border: solid transparentize(black, .9)
+%align-end
+    @extend %flex-row
+    align-items: flex-end
+    padding-bottom: 2px
+
+.main
+    margin: 0 1rem
+    border-left: 1px $border
+    border-right: 1px $border
+
+.banner-home
+    padding: 1rem 1rem .5rem 1rem
+    border-bottom: 10px solid transparentize($primary, .9)
+
+.list
+    @extend %flex-column
+    .blog
+        @extend %flex-row
+        border-bottom: 1px $border
+        padding: 1rem
+        .author-avatar
+            width: 50px
+            img
+                border-radius: 50px
+        .blog-content
+            @extend %flex-column
+            flex-grow: 1
+            padding: 0 1rem
+            .post-infor
+                @extend %flex-row
+                .author
+                    @extend %flex-row
+                    color: black
+                    text-decoration: none
+                    span
+                        padding-right: .5rem
+                    .author-account
+                        @extend %align-end
+                        font-size: .9rem
+                        color: transparentize(black, .7)
+                .posted-time
+                    @extend %align-end
+                    font-size: .9rem
+                    color: transparentize(black, .7)
+            .content
+                font-size: 1rem
+                margin-top: .5rem
+            .actions
+                @extend %flex-row
+                margin-top: 1rem
+                span
+                    flex-grow: 1
+                    .icon-label
+                        font-size: .9rem
+                        color: $primary

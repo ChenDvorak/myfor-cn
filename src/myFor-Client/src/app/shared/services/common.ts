@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { DOCUMENT } from '@angular/common';
 import { of, Observable, fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 export const CLIENT_SIDE = '/api/clients/';
 export const ADMINISTRATOR_SIDE = '/api/administrators/';
@@ -84,7 +86,9 @@ export class ServicesBase {
 export class CommonService {
 
   constructor(
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private route: ActivatedRoute,
+    @Inject(DOCUMENT) private doc: any
   ) { }
 
   snackOpen(message: string, duration: number = 2000) {
@@ -111,5 +115,9 @@ export class CommonService {
       ele.value = ele.value.substring(0, INDEX) + INSERT_CHARS + ele.value.substring(INDEX);
       ele.setSelectionRange(INDEX + INSERT_CHARS.length, INDEX + INSERT_CHARS.length);
     });
+  }
+
+  setTitleFromRoute(title: string) {
+    this.doc.title = title;
   }
 }
