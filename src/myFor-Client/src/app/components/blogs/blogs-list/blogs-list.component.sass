@@ -13,6 +13,8 @@
 .blog-box
     border-bottom: 1px $border
     padding: 1rem
+    &:hover
+        background-color: transparentize($primary, .95)
 
 .list
     @extend %flex-column
@@ -43,6 +45,7 @@
 
 .clickable-to-detail
     cursor: pointer
+    min-height: 2rem
     margin-top: 1rem
 
 .content
@@ -62,6 +65,7 @@
     span
         flex-grow: 1
         color: $primary
+        text-align: center
         .icon-label
             font-size: .9rem
 

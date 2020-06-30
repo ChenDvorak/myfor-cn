@@ -2,7 +2,7 @@
     
 .current-nav-container
     @extend %flex-column
-    width: 150px
+    width: 100%
 
 .avatar-row
     margin-left: 1rem
@@ -15,15 +15,24 @@
 .actions
     margin-left: 1rem
     a
-        display: block
+        @extend %flex-row
+        align-items: center
         margin: .3rem 0
         padding: .3rem 0 .3rem 1rem
         border-radius: 50px
+        font-size: 1.3rem
         color: black
         text-decoration: none
         &:hover
             color: $primary
             background-color: transparentize($primary, .9)
+        span
+            margin-left: 1rem
+
     .apply-new-blog
-        margin-top: 1rem
-        padding-left: 1rem
+        margin-top: 1.5rem
+        button
+            font-size: 1rem
+            width: 100%
+            padding-top: .2rem
+            padding-bottom: .2rem
