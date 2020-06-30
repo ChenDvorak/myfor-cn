@@ -1,0 +1,40 @@
+@import ../../../../styles/_variable
+
+.blog-detail-box-container
+    @extend %flex-column
+.author-infor
+    @extend %flex-row
+.name
+    @extend %flex-column
+    margin-left: .5rem
+    a
+        text-decoration: none
+    .author-name
+        color: black
+    .author-account
+        font-size: .9rem
+        color: transparentize(black, .5)
+        margin-top: -5px
+.posted-time
+    flex-grow: 1
+    display: flex
+    flex-direction: row-reverse
+    align-items: flex-start
+    font-size: .9rem
+    color: transparentize(black, .5)
+
+.detail
+    margin-top: 1rem
+.actions
+    @extend %flex-row
+    margin: .5rem 0
+    padding: .5rem 0
+    span
+        color: $primary
+        flex-grow: 1
+        text-align: center
+
+.avatar
+    width: 50px
+    height: 50px
+    border-radius: 50%

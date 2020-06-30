@@ -1,0 +1,34 @@
+<div class="blog-detail-box-container">
+  <div class="author-infor">
+    <a [routerLink]="['/', blogDetail.authorAccount]">
+      <img class="avatar" [src]="blogDetail.avatar" alt="avatar">
+    </a>
+    <div class="name">
+      <a [routerLink]="['/', blogDetail.authorAccount]" class="author-name">{{blogDetail.authorName}}</a>
+      <a [routerLink]="['/', blogDetail.authorAccount]" class="author-account">@{{blogDetail.authorAccount}}</a>
+    </div>
+    <span class="posted-time">{{blogDetail.postedTime}}</span>
+  </div>
+  <div class="detail">
+    <div>{{blogDetail.title}}</div>
+    <app-content-box [data]="blogDetail.content" [code]="blogDetail.code"></app-content-box>
+  </div>
+  <div class="actions">
+    <span matTooltip="评论" matTooltipPosition="above">
+      <button mat-icon-button>
+        <mat-icon>sms</mat-icon>
+      </button><span class="icon-label">{{blogDetail.commentCount}}</span></span>
+    <span matTooltip="同意" matTooltipPosition="above">
+      <button mat-icon-button [color]="blogDetail.agreed ? 'warn' : 'primary'">
+        <mat-icon>favorite</mat-icon>
+      </button><span class="icon-label">{{blogDetail.agreeCount}}</span></span>
+    <span matTooltip="引用" matTooltipPosition="above">
+      <button mat-icon-button>
+        <mat-icon>repeat</mat-icon>
+      </button><span class="icon-label">{{blogDetail.referenceCount}}</span></span>
+    <span matTooltip="见解" matTooltipPosition="above">
+      <button mat-icon-button>
+        <mat-icon>library_books</mat-icon>
+      </button><span class="icon-label">{{blogDetail.thinkCount}}</span></span>
+  </div>
+</div>

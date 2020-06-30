@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,9 +7,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.sass']
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, AfterContentChecked {
 
   isLoggedIn = false;
+  isHomePage = true;
   constructor(
     private common: CommonService,
     private route: ActivatedRoute
@@ -17,6 +18,10 @@ export class IndexComponent implements OnInit {
 
   ngOnInit(): void {
     this.common.setTitle(this.route.snapshot.data.title);
+  }
+
+  ngAfterContentChecked(): void {
+      this.isHomePage = location.pathname === '/';
   }
 
   goback() {

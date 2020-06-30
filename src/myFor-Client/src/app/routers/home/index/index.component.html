@@ -6,7 +6,8 @@
   </div>
   <div class="main">
     <div class="banner-home">
-      <button mat-icon-button color="primary" class="layout-small" (click)="goback()">
+      <button *ngIf="!isHomePage" mat-icon-button color="primary" class="layout-small" (click)="goback()"
+        style="margin-left: -10px;">
         <mat-icon>arrow_back</mat-icon>
       </button>
       <a routerLink="/">
