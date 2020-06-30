@@ -14,8 +14,8 @@ export class CommentBoxComponent implements OnInit {
     authorAccount: 'myfor_chen',
     avatar: 'assets/images/no-avatar.jpg',
     dateTime: '2020-01-01',
-    content: 'eotuhoentuhoenuth',
-    agreeCount: '1k'
+    content: 'eotuhoentuhoenuth\n<a href="/b/1231.">hhh</a>',
+    agreeCount: 1000
   };
   constructor() { }
 

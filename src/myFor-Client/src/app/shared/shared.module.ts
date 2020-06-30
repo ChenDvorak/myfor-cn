@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { KiloPipe } from './pipe/kilo.pipe';
+
 import { MaterialModule } from './material.module';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FooterComponent } from './footer/footer.component';
@@ -25,6 +27,7 @@ const EXPORTS_COMPONENT = [
 ];
 
 const EXPORTS_PIPE = [
+  KiloPipe
 ];
 
 const EXPORTS_DIRECTIVE = [
@@ -33,7 +36,10 @@ const EXPORTS_DIRECTIVE = [
 @NgModule({
   declarations: [...EXPORTS_COMPONENT, ...EXPORTS_PIPE, ...EXPORTS_DIRECTIVE],
   imports: [...EXPORTS_MODULE],
-  exports: [...EXPORTS_MODULE, ...EXPORTS_COMPONENT, ...EXPORTS_DIRECTIVE],
-  providers: [...EXPORTS_PIPE]
+  exports: [...EXPORTS_MODULE,
+            ...EXPORTS_COMPONENT,
+            ...EXPORTS_DIRECTIVE,
+            ...EXPORTS_PIPE],
+  providers: []
 })
 export class SharedModule { }

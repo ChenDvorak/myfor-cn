@@ -18,11 +18,11 @@ export class BlogDetailBoxComponent implements OnInit {
     title: '标题',
     postedTime: '2020-20-20',
     content: '内容',
-    commentCount: '0',
-    agreeCount: '0',
+    commentCount: 0,
+    agreeCount: 0,
     agreed: false,
-    referenceCount: '0',
-    thinkCount: '0'
+    referenceCount: 0,
+    thinkCount: 0
   };
 
   constructor(

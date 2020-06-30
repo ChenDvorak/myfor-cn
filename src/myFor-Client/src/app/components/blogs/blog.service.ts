@@ -37,19 +37,19 @@ export interface BlogItem {
   /**
    * 评论数
    */
-  commentCount: string;
+  commentCount: number;
   /**
    * 同意数
    */
-  agreeCount: string;
+  agreeCount: number;
   /**
    * 引用数
    */
-  referenceCount: string;
+  referenceCount: number;
   /**
    * 见解数
    */
-  thinkCount: string;
+  thinkCount: number;
 }
 
 export interface BlogDetail {
@@ -84,11 +84,11 @@ export interface BlogDetail {
   /**
    * 评论数
    */
-  commentCount: string;
+  commentCount: number;
   /**
    * 同意数
    */
-  agreeCount: string;
+  agreeCount: number;
   /**
    * 是否已同意
    */
@@ -96,11 +96,11 @@ export interface BlogDetail {
   /**
    * 引用数
    */
-  referenceCount: string;
+  referenceCount: number;
   /**
    * 见解数
    */
-  thinkCount: string;
+  thinkCount: number;
 }
 
 export interface Comment {
@@ -110,7 +110,7 @@ export interface Comment {
   avatar: string;
   dateTime: string;
   content: string;
-  agreeCount: string;
+  agreeCount: number;
 }
 
 @Injectable({
