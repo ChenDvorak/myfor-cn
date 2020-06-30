@@ -1,23 +1,23 @@
-<div class="comment-container">
+<div class="comment-container" *ngIf="model">
   <div class="avatar-box">
-    <a [routerLink]="['/']">
-      <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
+    <a [routerLink]="['/', model.authorAccount]">
+      <img class="avatar" [src]="model.avatar" alt="avatar">
     </a>
   </div>
   <div class="name">
-    <a [routerLink]="['/']">
-      <span class="user-name">username</span>
-      <span class="account">@account</span>
+    <a [routerLink]="['/', model.authorAccount]">
+      <span class="user-name">{{model.authorName}}</span>
+      <span class="account">@{{model.authorAccount}}</span>
     </a>
-    <span class="comment-date">2020-01-01</span>
+    <span class="comment-date">{{model.dateTime}}</span>
   </div>
   <div class="content">
-    <app-content-box [data]="'....,,,.,oeojkoq'" [code]="'comment-id'"></app-content-box>
+    <app-content-box [data]="model.content" [code]="'comment-' + model.id"></app-content-box>
   </div>
   <div class="actions">
     <button mat-icon-button color="primary">
       <mat-icon>favorite</mat-icon>
     </button>
-    <span>11k</span>
+    <span>{{model.agreeCount}}</span>
   </div>
 </div>

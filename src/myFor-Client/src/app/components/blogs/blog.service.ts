@@ -103,6 +103,16 @@ export interface BlogDetail {
   thinkCount: string;
 }
 
+export interface Comment {
+  id: number;
+  authorName: string;
+  authorAccount: string;
+  avatar: string;
+  dateTime: string;
+  content: string;
+  agreeCount: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })

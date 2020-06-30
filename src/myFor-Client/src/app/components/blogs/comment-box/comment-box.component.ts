@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Comment } from '../blog.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -7,6 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentBoxComponent implements OnInit {
 
+  @Input() model: Comment = {
+    id: 0,
+    authorName: 'myfor',
+    authorAccount: 'myfor_chen',
+    avatar: 'assets/images/no-avatar.jpg',
+    dateTime: '2020-01-01',
+    content: 'eotuhoentuhoenuth',
+    agreeCount: '1k'
+  };
   constructor() { }
 
   ngOnInit(): void {
