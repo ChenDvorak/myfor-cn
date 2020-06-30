@@ -11,7 +11,13 @@ import { DOCUMENT } from '@angular/common';
 export class ContentBoxComponent implements AfterViewInit {
 
     @ViewChild('dataBox', {static: true}) dataBox: ElementRef;
+    /**
+     * 博文的编码
+     */
     @Input() code = '';
+    /**
+     * 是否使 a 标签不能点击
+     */
     @Input() disabledATarget = false;
     @Input() set data(value: string) {
         value = value.replace('\r\n', '<br>')
@@ -27,7 +33,6 @@ export class ContentBoxComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         const aTargets = this.doc.getElementsByName(`a-${this.code}`);
-        console.log(this.code);
         if (this.disabledATarget) {
             aTargets.forEach((e: any) => {
                 e.href = 'javascript:;';

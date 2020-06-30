@@ -1,1 +1,23 @@
-<p>comment-box works!</p>
+<div class="comment-container">
+  <div class="avatar-box">
+    <a [routerLink]="['/']">
+      <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
+    </a>
+  </div>
+  <div class="name">
+    <a [routerLink]="['/']">
+      <span class="user-name">username</span>
+      <span class="account">@account</span>
+    </a>
+    <span class="comment-date">2020-01-01</span>
+  </div>
+  <div class="content">
+    <app-content-box [data]="'....,,,.,oeojkoq'" [code]="'comment-id'"></app-content-box>
+  </div>
+  <div class="actions">
+    <button mat-icon-button color="primary">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <span>11k</span>
+  </div>
+</div>
