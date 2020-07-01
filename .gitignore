@@ -13,6 +13,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# angular
+environment.prod.ts
+
 # Mono auto generated files
 mono_crash.*
 
