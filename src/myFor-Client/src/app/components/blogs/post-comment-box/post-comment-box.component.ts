@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BlogService, NewBlog, ReferenceFrom } from '../blog.service';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-post-comment-box',
@@ -9,6 +9,8 @@ import { BlogService, NewBlog, ReferenceFrom } from '../blog.service';
 })
 export class PostCommentBoxComponent implements OnInit {
 
+  content = '';
+  posting = false;
   constructor(
     private dialogRef: MatDialogRef<PostCommentBoxComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any,
@@ -18,4 +20,7 @@ export class PostCommentBoxComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  post() {
+
+  }
 }
