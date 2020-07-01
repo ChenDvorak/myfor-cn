@@ -23,9 +23,14 @@ const routes: Routes = [
     path: 'account',
     loadChildren: () => import('./routers/login-out/login-out.module').then(m => m.LoginOutModule)
   },
+  { path: 'login', redirectTo: '/account/login' },
   {
     path: 'pages',
     loadChildren: () => import('./routers/pages/pages.module').then(m => m.PagesModule)
+  },
+  {
+    path: ':account',
+    loadChildren: () => import('./routers/users/users.module').then(m => m.UsersModule)
   }
 ];
 

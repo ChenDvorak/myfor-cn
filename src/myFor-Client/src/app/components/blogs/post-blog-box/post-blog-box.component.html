@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>发布新博文</h2>
+<mat-dialog-content>
+  <form #postBlog="ngForm">
+    <mat-form-field>
+      <input type="text" matInput placeholder="标题" required
+      [(ngModel)]="newBlog.title" name="title">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="您想说的话" cdkTextareaAutosize required
+      [(ngModel)]="newBlog.content" name="content"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>取消</button>
+  <button mat-raised-button color="primary" [disabled]="postBlog.invalid" (click)="post()">发布</button>
+</mat-dialog-actions>

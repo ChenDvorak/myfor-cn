@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { PostBlogBoxComponent } from '../../../components/blogs/post-blog-box/post-blog-box.component';
 
 @Component({
   selector: 'app-index',
@@ -13,7 +15,8 @@ export class IndexComponent implements OnInit, AfterContentChecked {
   isHomePage = true;
   constructor(
     private common: CommonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dia: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +25,12 @@ export class IndexComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked(): void {
       this.isHomePage = location.pathname === '/';
+  }
+
+  postBlog() {
+    this.dia.open(PostBlogBoxComponent, {
+      panelClass: 'diaclass'
+    });
   }
 
   goback() {

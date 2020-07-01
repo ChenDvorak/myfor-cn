@@ -1,6 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ServicesBase } from '../../shared/services/common';
 
+export interface NewBlog {
+  title: string;
+  content: string;
+}
+/**
+ * 引用或见解
+ */
+export interface ReferenceFrom {
+  code: string;
+  title: string;
+}
+
 export interface BlogItem {
   /**
    * 编码
