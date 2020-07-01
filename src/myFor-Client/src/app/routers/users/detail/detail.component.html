@@ -28,8 +28,8 @@
       </div>
     </div>
     <nav mat-tab-nav-bar>
-      <a mat-tab-link [routerLink]="['/', account]"
-        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+      <a class="nav-link" mat-tab-link [routerLink]="['/', account]" routerLinkActive="nav-active"
+        #rla="routerLinkActive" [active]="rla.isActive">
         博文
       </a>
     </nav>
