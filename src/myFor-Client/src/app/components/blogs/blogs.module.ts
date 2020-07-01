@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
-import { BlogsListComponent } from './blogs-list/blogs-list.component';
 import { BlogDetailBoxComponent } from './blog-detail-box/blog-detail-box.component';
 import { CommentBoxComponent } from './comment-box/comment-box.component';
+import { BlogsItemBoxComponent } from './blogs-item-box/blogs-item-box.component';
 
 const EXPORT_COMPONENTS = [
-  BlogsListComponent,
   BlogDetailBoxComponent,
-  CommentBoxComponent
+  CommentBoxComponent,
+  BlogsItemBoxComponent
 ];
 
 @NgModule({

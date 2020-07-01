@@ -14,5 +14,6 @@ export class KiloPipe implements PipeTransform {
         const source = value.toString();
         return source.substring(0, source.length - 3) + 'k';
     }
+    return value.toString();
   }
 }

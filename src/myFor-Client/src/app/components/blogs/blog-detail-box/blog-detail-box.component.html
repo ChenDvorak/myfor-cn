@@ -17,18 +17,18 @@
     <span matTooltip="评论" matTooltipPosition="above">
       <button mat-icon-button>
         <mat-icon>sms</mat-icon>
-      </button><span class="icon-label">{{blogDetail.commentCount}}</span></span>
+      </button><span class="icon-label">{{blogDetail.commentCount | kilo }}</span></span>
     <span matTooltip="同意" matTooltipPosition="above">
       <button mat-icon-button [color]="blogDetail.agreed ? 'warn' : 'primary'">
         <mat-icon>favorite</mat-icon>
-      </button><span class="icon-label">{{blogDetail.agreeCount}}</span></span>
+      </button><span class="icon-label">{{blogDetail.agreeCount | kilo }}</span></span>
     <span matTooltip="引用" matTooltipPosition="above">
       <button mat-icon-button>
         <mat-icon>repeat</mat-icon>
-      </button><span class="icon-label">{{blogDetail.referenceCount}}</span></span>
+      </button><span class="icon-label">{{blogDetail.referenceCount | kilo }}</span></span>
     <span matTooltip="见解" matTooltipPosition="above">
       <button mat-icon-button>
         <mat-icon>library_books</mat-icon>
-      </button><span class="icon-label">{{blogDetail.thinkCount}}</span></span>
+      </button><span class="icon-label">{{blogDetail.thinkCount | kilo }}</span></span>
   </div>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BlogService, BlogItem } from '../../../components/blogs/blog.service';
 
 @Component({
   selector: 'app-home-list',
@@ -7,6 +8,80 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeListComponent implements OnInit {
 
+  blogList: BlogItem[] = [
+    {
+      code: '1231e',
+      authorName: 'myfor',
+      authorAccount: 'myfor_chen',
+      avatar: 'assets/images/no-avatar.jpg',
+      title: '论啥啥啥 ',
+      postedTime: '2020-01-01',
+      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
+      isFull: false,
+      commentCount: 10_000,
+      agreeCount: 11_000,
+      referenceCount: 30_000,
+      thinkCount: 10
+    },
+    {
+      code: '1231e',
+      authorName: 'myfor',
+      authorAccount: 'myfor_chen',
+      avatar: 'assets/images/no-avatar.jpg',
+      title: '论啥啥啥 ',
+      postedTime: '2020-01-01',
+      content: `<a href="/b/1231e" name="a-1231e">对《论哈哈哈》的见解</a>
+      哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 <a href="/b/1231e" name="a-1231e">引《论哈哈哈》</a>
+      哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content `,
+      isFull: true,
+      commentCount: 10_000,
+      agreeCount: 11_000,
+      referenceCount: 30_000,
+      thinkCount: 10
+    },
+    {
+      code: '1231e',
+      authorName: 'myfor',
+      authorAccount: 'myfor_chen',
+      avatar: 'assets/images/no-avatar.jpg',
+      title: '论啥啥啥 ',
+      postedTime: '2020-01-01',
+      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
+      isFull: false,
+      commentCount: 10_000,
+      agreeCount: 11000,
+      referenceCount: 30000,
+      thinkCount: 10
+    },
+    {
+      code: '1231e',
+      authorName: 'myfor',
+      authorAccount: 'myfor_chen',
+      avatar: 'assets/images/no-avatar.jpg',
+      title: '论啥啥啥 ',
+      postedTime: '2020-01-01',
+      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
+      isFull: false,
+      commentCount: 10_000,
+      agreeCount: 11000,
+      referenceCount: 30000,
+      thinkCount: 10
+    },
+    {
+      code: '1231e',
+      authorName: 'myfor',
+      authorAccount: 'myfor_chen',
+      avatar: 'assets/images/no-avatar.jpg',
+      title: '论啥啥啥 ',
+      postedTime: '2020-01-01',
+      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
+      isFull: false,
+      commentCount: 10_000,
+      agreeCount: 11000,
+      referenceCount: 30000,
+      thinkCount: 10
+    }
+  ];
   constructor() { }
 
   ngOnInit(): void {

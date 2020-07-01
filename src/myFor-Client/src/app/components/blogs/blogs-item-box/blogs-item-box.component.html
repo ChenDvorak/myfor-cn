@@ -1,0 +1,51 @@
+<div class="blog-box" >
+  <div class="blog">
+    <span>
+      <a [routerLink]="['/', blog.authorAccount]">
+        <img class="avatar" src="{{blog.avatar}}" alt="avatar">
+      </a>
+    </span>
+    <div class="blog-content">
+      <div class="post-infor">
+        <a class="author" [routerLink]="['/', blog.authorAccount]">
+          <span class="author-name">
+            {{blog.authorName}}
+          </span>
+          <span class="author-account">
+            @{{blog.authorAccount}}
+          </span>
+        </a>
+        <span class="posted-time">{{blog.postedTime}}</span>
+      </div>
+
+      <div class="clickable-to-detail" (click)="toDetail(blog.code)">
+        {{blog.title}}
+        <app-content-box class="content" [data]="blog.content" [code]="blog.code" [disabledATarget]="true">
+        </app-content-box>
+      </div>
+    </div>
+  </div>
+
+  <div class="more" *ngIf="!blog.isFull">
+    <a [routerLink]="['/b', blog.code]">查看全部</a>
+  </div>
+
+  <div class="actions">
+    <span matTooltip="评论" matTooltipPosition="above">
+      <button mat-icon-button>
+        <mat-icon>sms</mat-icon>
+      </button><span class="icon-label">{{blog.commentCount | kilo}}</span></span>
+    <span matTooltip="同意" matTooltipPosition="above">
+      <button mat-icon-button>
+        <mat-icon>favorite</mat-icon>
+      </button><span class="icon-label">{{blog.agreeCount | kilo}}</span></span>
+    <span matTooltip="引用" matTooltipPosition="above">
+      <button mat-icon-button>
+        <mat-icon>repeat</mat-icon>
+      </button><span class="icon-label">{{blog.referenceCount | kilo}}</span></span>
+    <span matTooltip="见解" matTooltipPosition="above">
+      <button mat-icon-button>
+        <mat-icon>library_books</mat-icon>
+      </button><span class="icon-label">{{blog.thinkCount | kilo}}</span></span>
+  </div>
+</div>
