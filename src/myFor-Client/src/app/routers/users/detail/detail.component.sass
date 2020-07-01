@@ -43,7 +43,29 @@
         border-radius: 50%
 
 .account-information
-    
+    display: grid
+    grid-template-columns: min-content
+    grid-column-gap: .5rem
+    align-items: end
+    margin-top: 50px
+    padding: .5rem 1rem
+    .name
+        font-size: 2rem
+        font-weight: 600
+    .account
+        font-size: .9rem
+        color: transparentize($foreground, .5)
+    .introdution
+        grid-column-start: 1
+        grid-column-end: 3
+        margin: 1rem 0
+    .join-date
+        @extend %flex-row
+        grid-column-start: 1
+        grid-column-end: 3
+        align-items: center
+        font-size: .9rem
+        color: transparentize($foreground, .5)
 
 .rigth-box-list
     @extend %flex-column

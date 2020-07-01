@@ -17,11 +17,22 @@
       <span>{{account}}</span>
     </div>
     <div class="background">
-        <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
+      <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
     </div>
     <div class="account-information">
-
+      <span class="name">myFor</span>
+      <div class="account">@myFor_chen</div>
+      <div class="introdution">introdution introdution introdution introdution introdution introdution </div>
+      <div class="join-date">
+        <mat-icon>date_range</mat-icon>于 2020-01-01 创建
+      </div>
     </div>
+    <nav mat-tab-nav-bar>
+      <a mat-tab-link [routerLink]="['/', account]"
+        routerLinkActive #rla="routerLinkActive" [active]="rla.isActive">
+        博文
+      </a>
+    </nav>
 
     <router-outlet></router-outlet>
 
