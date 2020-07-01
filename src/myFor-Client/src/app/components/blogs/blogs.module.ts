@@ -4,6 +4,7 @@ import { BlogDetailBoxComponent } from './blog-detail-box/blog-detail-box.compon
 import { CommentBoxComponent } from './comment-box/comment-box.component';
 import { BlogsItemBoxComponent } from './blogs-item-box/blogs-item-box.component';
 import { PostBlogBoxComponent } from './post-blog-box/post-blog-box.component';
+import { PostCommentBoxComponent } from './post-comment-box/post-comment-box.component';
 
 const EXPORT_COMPONENTS = [
   BlogDetailBoxComponent,
@@ -13,7 +14,7 @@ const EXPORT_COMPONENTS = [
 ];
 
 @NgModule({
-  declarations: [...EXPORT_COMPONENTS],
+  declarations: [...EXPORT_COMPONENTS, PostCommentBoxComponent],
   imports: [
     SharedModule
   ],

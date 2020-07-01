@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostBlogBoxComponent } from '../../blogs/post-blog-box/post-blog-box.component';
 import { MatDialog } from '@angular/material/dialog';
 
+import { Identity, IdentityInfo } from '../../../global';
+
 @Component({
   selector: 'app-current-user-nav',
   templateUrl: './current-user-nav.component.html',
@@ -9,11 +11,15 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CurrentUserNavComponent implements OnInit {
 
+  identityInfo: IdentityInfo;
+
   constructor(
-    private dia: MatDialog
+    private dia: MatDialog,
+    private identity: Identity
   ) { }
 
   ngOnInit(): void {
+    this.identityInfo = this.identity.getIdentityInfo();
   }
 
   postBlog() {

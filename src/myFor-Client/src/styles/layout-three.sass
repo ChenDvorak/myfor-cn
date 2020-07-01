@@ -34,9 +34,7 @@
 .left-container
     display: flex
     flex-direction: row-reverse
-    min-width: 90px
     width: 100%
-    max-width: 150px
     .left-box
         position: fixed
 .main
@@ -57,5 +55,10 @@
 .left-large,.left-sub
     position: fixed
 
+.layout-medium
+    display: none
+    @media screen and ( max-width: 1007px )
+        display: block !important
+        
 .layout-small
     max-width: 60px

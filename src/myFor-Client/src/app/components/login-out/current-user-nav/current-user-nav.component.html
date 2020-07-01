@@ -1,7 +1,7 @@
 <div class="current-nav-container">
   <div class="avatar-row">
-    <a routerLink="/">
-      <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
+    <a [routerLink]="['/', identityInfo.account]">
+      <img class="avatar" src="identityInfo.avatar" alt="avatar">
     </a>
   </div>
   <div class="actions">

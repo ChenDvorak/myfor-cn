@@ -1,7 +1,7 @@
 <div class="three-layout-container">
   <div class="left-container">
     <div class="left-box">
-      <app-current-user-nav></app-current-user-nav>
+      <app-current-user-nav *ngIf="isLoggedIn"></app-current-user-nav>
     </div>
   </div>
   <div class="main">
@@ -19,13 +19,20 @@
 
     <router-outlet></router-outlet>
 
+    <div class="layout-medium">
+      <div class="login-bottom-box" *ngIf="!isLoggedIn">
+        <a [routerLink]="['/account', 'login']" mat-raised-button color="primary">登录</a>
+        <a [routerLink]="['/account', 'signup']" mat-stroked-button color="primary">注册</a>
+      </div>
+    </div>
+
   </div>
 
   <div class="right-container">
     <div class="right-box">
       <div class="rigth-box-list">
         <app-search-box></app-search-box>
-        <app-login-box *ngIf="isLoggedIn"></app-login-box>
+        <app-login-box *ngIf="!isLoggedIn"></app-login-box>
         <app-footer></app-footer>
       </div>
     </div>
