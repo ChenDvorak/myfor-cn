@@ -1,0 +1,47 @@
+<div class="three-layout-container">
+  <div class="left-container">
+    <div class="left-box">
+      <app-current-user-nav></app-current-user-nav>
+    </div>
+  </div>
+  <div class="main">
+    <div class="banner-home">
+      <button *ngIf="!isHomePage" mat-icon-button color="primary" class="layout-small" (click)="goback()"
+        style="margin-left: -10px;">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <a routerLink="/">
+        <app-logo size="40px"></app-logo>
+      </a>
+      &nbsp;&nbsp;
+      <span>{{account}}</span>
+    </div>
+    <div class="background">
+        <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
+    </div>
+    <div class="account-information">
+
+    </div>
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+  <div class="right-container">
+    <div class="right-box">
+      <div class="rigth-box-list">
+        <app-search-box></app-search-box>
+        <app-login-box *ngIf="isLoggedIn"></app-login-box>
+        <app-footer></app-footer>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout-small">
+    <span class="apply-small">
+      <button mat-fab color="primary" (click)="postBlog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </span>
+  </div>
+</div>

@@ -13,5 +13,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>取消</button>
-  <button mat-raised-button color="primary" [disabled]="postBlog.invalid" (click)="post()">发布</button>
+  <button mat-raised-button color="primary" [disabled]="postBlog.invalid || posting" (click)="post()">发布</button>
 </mat-dialog-actions>

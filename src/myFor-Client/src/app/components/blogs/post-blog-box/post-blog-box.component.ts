@@ -9,6 +9,7 @@ import { BlogService, NewBlog, ReferenceFrom } from '../blog.service';
 })
 export class PostBlogBoxComponent implements OnInit {
 
+  posting = false;
   newBlog: NewBlog = {
     title: '',
     content: ''
@@ -44,10 +45,11 @@ export class PostBlogBoxComponent implements OnInit {
   }
 
   post() {
-
+    this.posting = true;
+    this.close(true);
   }
 
-  close() {
-    this.dialogRef.close();
+  close(success?: boolean) {
+    this.dialogRef.close(success);
   }
 }
