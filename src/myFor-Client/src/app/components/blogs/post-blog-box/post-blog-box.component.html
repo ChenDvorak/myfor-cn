@@ -7,11 +7,12 @@
     </mat-form-field>
     <mat-form-field>
       <textarea matInput placeholder="您想说的话" cdkTextareaAutosize required
-      [(ngModel)]="newBlog.content" name="content"></textarea>
+      [(ngModel)]="newBlog.content" name="content" maxlength="1000"></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+  <app-number-limit [maxLength]="1000" [currentLength]="newBlog.content.length"></app-number-limit>
   <button mat-button mat-dialog-close>取消</button>
   <button mat-raised-button color="primary" [disabled]="postBlog.invalid || posting" (click)="post()">发布</button>
 </mat-dialog-actions>

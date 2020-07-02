@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="layout-small">
+  <div class="layout-small" *ngIf="isLoggedIn">
     <span class="apply-small">
       <button mat-fab color="primary" (click)="postBlog()">
         <mat-icon>edit</mat-icon>

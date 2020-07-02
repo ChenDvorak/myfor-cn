@@ -32,7 +32,7 @@
 
   <div class="actions">
     <span matTooltip="评论" matTooltipPosition="above">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="potsComment()">
         <mat-icon>sms</mat-icon>
       </button><span class="icon-label">{{blog.commentCount | kilo}}</span></span>
     <span matTooltip="同意" matTooltipPosition="above">

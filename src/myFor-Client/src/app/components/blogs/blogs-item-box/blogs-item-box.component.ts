@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { BlogService, BlogItem } from '../blog.service';
+import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
 
 @Component({
   selector: 'app-blogs-item-box',
@@ -27,7 +29,8 @@ export class BlogsItemBoxComponent implements OnInit {
   };
 
   constructor(
-    private router: Router
+    private router: Router,
+    private dia: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -35,5 +38,12 @@ export class BlogsItemBoxComponent implements OnInit {
 
   toDetail(code: string) {
     this.router.navigate(['/b', code]);
+  }
+
+  potsComment() {
+    this.dia.open(PostCommentBoxComponent, {
+      panelClass: 'diaclass',
+      data: this.blog.code
+    });
   }
 }

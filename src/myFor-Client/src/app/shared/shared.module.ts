@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { LogoComponent } from './logo/logo.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
 import { SloganComponent } from './slogan/slogan.component';
+import { NumberLimitComponent } from './number-limit/number-limit.component';
 
 const EXPORTS_MODULE = [
   CommonModule,
@@ -25,7 +26,8 @@ const EXPORTS_COMPONENT = [
   FooterComponent,
   LogoComponent,
   ContentBoxComponent,
-  SloganComponent
+  SloganComponent,
+  NumberLimitComponent
 ];
 
 const EXPORTS_PIPE = [
