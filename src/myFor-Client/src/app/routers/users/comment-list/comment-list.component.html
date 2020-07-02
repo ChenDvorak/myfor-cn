@@ -1,14 +1,14 @@
-<div class="blog-item">
+<div class="comment-item">
   <button class="more-actions" mat-icon-button [matMenuTriggerFor]="appMenu">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #appMenu="matMenu">
-    <button class="delete-btn" mat-menu-item color="warn" (click)="deletePost(0)">
+    <button class="delete-btn" mat-menu-item color="warn" (click)="deleteComment(0)">
       <mat-icon color="warn">delete_forever</mat-icon>
       <span>删除</span>
     </button>
   </mat-menu>
-  <app-blogs-item-box></app-blogs-item-box>
+  <app-comment-box></app-comment-box>
 </div>
 <div class="more-list">
   <button mat-button color="primary" (click)="getMore()">展开更多</button>

@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <form #postComment="ngForm">
     <mat-form-field>
-      <textarea matInput placeholder="您想说的话" cdkTextareaAutosize required
+      <textarea matInput placeholder="评论内容，最多 200 字" cdkTextareaAutosize required
       [(ngModel)]="content" name="content" maxlength="200"></textarea>
     </mat-form-field>
   </form>

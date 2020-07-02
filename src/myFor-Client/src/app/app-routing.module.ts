@@ -15,6 +15,11 @@ const routes: Routes = [
     data: { preload: true },
   },
   {
+    path: 'search',
+    loadChildren: () => import('./routers/search/search.module').then(m => m.SearchModule),
+    data: { preload: true }
+  },
+  {
     path: 'explore',
     loadChildren: () => import('./routers/explore/explore.module').then(m => m.ExploreModule),
     data: { title: '随便看看 / myFor' }

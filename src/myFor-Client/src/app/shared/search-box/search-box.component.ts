@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-search-box',
@@ -8,9 +9,15 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class SearchBoxComponent {
     @Output() enter = new EventEmitter<string>();
 
-    constructor() {}
+    constructor(
+        private router: Router
+    ) {}
 
     search(value: string) {
-        this.enter.emit(value);
+        if (value && value.trim) {
+            value = value.trim();
+            this.router.navigate(['/search', { s: value }]);
+            this.enter.emit(value);
+        }
     }
 }

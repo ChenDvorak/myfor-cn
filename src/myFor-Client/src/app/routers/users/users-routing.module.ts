@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DetailComponent } from './detail/detail.component';
 import { BlogListComponent } from './blog-list/blog-list.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
 const routes: Routes = [
   {
     path: '',
     component: DetailComponent,
     children: [
-      { path: '', component: BlogListComponent, pathMatch: 'full' }
+      { path: '', component: BlogListComponent, pathMatch: 'full' },
+      { path: 'comments', component: CommentListComponent }
     ]
   },
   { path: '**', redirectTo: '/pages/404' }

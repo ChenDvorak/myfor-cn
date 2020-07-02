@@ -7,10 +7,11 @@ import { BlogsModule } from '../../components/blogs/blogs.module';
 import { UsersRoutingModule } from './users-routing.module';
 import { DetailComponent } from './detail/detail.component';
 import { BlogListComponent } from './blog-list/blog-list.component';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
 
 @NgModule({
-  declarations: [DetailComponent, BlogListComponent],
+  declarations: [DetailComponent, BlogListComponent, CommentListComponent],
   imports: [
     SharedModule,
     UsersRoutingModule,

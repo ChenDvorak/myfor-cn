@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService, BlogItem } from '../../../components/blogs/blog.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmDialogComponent } from '../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-blog-list',
@@ -12,10 +14,20 @@ export class BlogListComponent implements OnInit {
   blogList: BlogItem[] = [];
 
   constructor(
-    private blog: BlogService
+    private blog: BlogService,
+    private dia: MatDialog
   ) { }
 
   ngOnInit(): void {
+  }
+
+  deletePost(blogId: number) {
+    const D = this.dia.open(DeleteConfirmDialogComponent, {
+      data: 'title'
+    });
+    D.afterClosed().subscribe(isDelete => {
+      console.log(isDelete);
+    });
   }
 
   getMore() {
