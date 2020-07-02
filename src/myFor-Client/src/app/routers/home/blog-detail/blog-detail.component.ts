@@ -17,7 +17,7 @@ export class BlogDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.number = this.route.snapshot.paramMap.get('code');
-    this.common.setTitle(this.number + ' / myFor');
+    this.common.setTitle(this.number);
   }
 
 }

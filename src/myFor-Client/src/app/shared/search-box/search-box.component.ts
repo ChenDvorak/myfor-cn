@@ -1,23 +1,29 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-search-box',
     templateUrl: './search-box.component.html',
     styleUrls: ['./search-box.component.sass']
 })
-export class SearchBoxComponent {
+export class SearchBoxComponent implements OnInit {
     @Output() enter = new EventEmitter<string>();
 
+    value = '';
     constructor(
-        private router: Router
+        private router: Router,
+        private route: ActivatedRoute
     ) {}
 
-    search(value: string) {
-        if (value && value.trim) {
-            value = value.trim();
-            this.router.navigate(['/search', { s: value }]);
-            this.enter.emit(value);
+    ngOnInit(): void {
+        this.value = this.route.snapshot.paramMap.get('s');
+    }
+
+    search() {
+        this.value = this.value.trim();
+        if (this.value) {
+            this.router.navigate(['/search', { s: this.value }]);
+            this.enter.emit(this.value);
         }
     }
 }

@@ -3,7 +3,7 @@
     <span class="search-icon">
       <mat-icon color="primary">search</mat-icon>
     </span>
-    <input class="border-primary" type="search" #txt_search placeholder="搜索..." 
-    (keyup.enter)="search(txt_search.value)">
+    <input class="border-primary" type="search" [(ngModel)]="value" placeholder="搜索..." 
+    (keyup.enter)="search()">
   </div>
 </div>

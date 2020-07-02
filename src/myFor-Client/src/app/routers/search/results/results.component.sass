@@ -1,0 +1,59 @@
+@import ../../../../styles/layout-three
+@import ../../../../styles/_variable
+
+%align-end
+    @extend %flex-row
+    align-items: flex-end
+    padding-bottom: 2px
+
+.left-container
+    margin-right: 1rem
+    padding-top: 1rem
+    max-width: 200px !important
+    .left-box
+        width: 200px
+    
+.right-container
+    margin-left: 1rem
+    margin-right: .5rem
+
+.main
+    border-left: 1px $border
+    border-right: 1px $border
+    margin-left: 0
+    margin-right: 0
+
+.banner-home
+    @extend %flex-row
+    align-items: center
+    padding: 1rem 1rem .5rem 1rem
+    border-bottom: 1rem solid transparentize($primary, .9)
+
+.avatar
+    border-radius: 50px
+
+.rigth-box-list
+    @extend %flex-column
+    margin-top: 2rem
+    width: 300px
+
+.apply-small
+    position: fixed
+    bottom: 5rem
+    right: 2rem
+    z-index: 100
+
+.login-bottom-box
+    @extend %flex-row
+    margin: 1rem 0
+    a
+        width: 100%
+        margin: 0 .5rem
+
+app-search-box
+    width: 100%
+
+
+.result-list
+    @extend %flex-column
+    padding: 1rem
