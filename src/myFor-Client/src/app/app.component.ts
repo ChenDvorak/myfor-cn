@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { GlobalService } from './global';
+import { GlobalService, Identity, IdentityInfo } from './global';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,20 @@ import { GlobalService } from './global';
 export class AppComponent implements OnInit {
   constructor(
     private global: GlobalService,
-    @Inject(DOCUMENT) private doc: any
+    @Inject(DOCUMENT) private doc: any,
+    private identity: Identity
   ) {}
 
   ngOnInit(): void {
     this.global.title.subscribe(title => {
       this.doc.title = title;
     });
+
+    // const info: IdentityInfo = {
+    //   nickName: 'myfor',
+    //   account: 'myFor_chen',
+    //   avatar: 'assets/images/no-avatar.jpg'
+    // };
+    // this.identity.setIdentityInfo(info);
   }
 }

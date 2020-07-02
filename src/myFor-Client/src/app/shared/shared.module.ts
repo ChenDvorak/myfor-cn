@@ -10,6 +10,7 @@ import { SearchBoxComponent } from './search-box/search-box.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoComponent } from './logo/logo.component';
 import { ContentBoxComponent } from './content-box/content-box.component';
+import { SloganComponent } from './slogan/slogan.component';
 
 const EXPORTS_MODULE = [
   CommonModule,
@@ -23,7 +24,8 @@ const EXPORTS_COMPONENT = [
   SearchBoxComponent,
   FooterComponent,
   LogoComponent,
-  ContentBoxComponent
+  ContentBoxComponent,
+  SloganComponent
 ];
 
 const EXPORTS_PIPE = [

@@ -1,7 +1,9 @@
 <header>
   <div class="banner">
     <span class="logo">
-      <app-logo size="40px"></app-logo>
+      <a routerLink="/">
+        <app-logo size="40px"></app-logo>
+      </a>
     </span>
     <app-search-box (enter)="search($event)"></app-search-box>
   </div>
@@ -23,3 +25,4 @@
   <a [routerLink]="['/account', 'login']" mat-raised-button color="primary">登录</a>
   <a [routerLink]="['/account', 'signup']" mat-stroked-button color="primary">注册</a>
 </div>
+<app-slogan></app-slogan>

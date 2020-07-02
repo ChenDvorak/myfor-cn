@@ -1,7 +1,9 @@
 <div class="current-nav-container">
   <div class="avatar-row">
-    <a [routerLink]="['/', identityInfo.account]">
-      <img class="avatar" src="identityInfo.avatar" alt="avatar">
+    <a class="account-box" [routerLink]="['/', identityInfo.account]">
+      <img class="avatar" [src]="identityInfo.avatar" alt="avatar">
+      <span class="name">{{identityInfo.nickName}}</span>
+      <span class="account">@{{identityInfo.account}}</span>
     </a>
   </div>
   <div class="actions">

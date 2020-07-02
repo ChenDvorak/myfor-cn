@@ -2,6 +2,7 @@ import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { Identity } from '../../../global';
 import { PostBlogBoxComponent } from '../../../components/blogs/post-blog-box/post-blog-box.component';
 
 @Component({
@@ -16,11 +17,13 @@ export class IndexComponent implements OnInit, AfterContentChecked {
   constructor(
     private common: CommonService,
     private route: ActivatedRoute,
-    private dia: MatDialog
+    private dia: MatDialog,
+    private identity: Identity
   ) { }
 
   ngOnInit(): void {
     this.common.setTitle(this.route.snapshot.data.title);
+    this.isLoggedIn = this.identity.isLoggedIn;
   }
 
   ngAfterContentChecked(): void {

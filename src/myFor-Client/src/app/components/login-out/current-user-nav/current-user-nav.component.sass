@@ -7,10 +7,21 @@
 .avatar-row
     margin-left: 1rem
     margin-bottom: 1rem
-    // padding-left: 1rem
-.avatar
-    width: 50px
-    border-radius: 50px
+
+.account-box
+    display: grid
+    grid-template-columns: 50px auto
+    grid-column-gap: .5rem
+    .avatar
+        grid-row-start: 1
+        grid-row-end: 3
+        width: 50px
+        border-radius: 50px
+    .name
+        color: $foreground
+    .account
+        font-size: .9rem
+        color: transparentize($foreground, .5)
 
 .actions
     margin-left: 1rem
