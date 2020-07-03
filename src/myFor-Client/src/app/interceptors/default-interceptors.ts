@@ -6,7 +6,8 @@ import {
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { CommonService, Result, CreatedResult } from '../services/common';
+import { CommonService, Result } from '../shared/services/common';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
@@ -20,9 +21,19 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const cookieString = this.doc.cookie || '';
-    const jwt = parseCookieValue(cookieString, 'noko72a');
+    const jwt = parseCookieValue(cookieString, 'no0ko72a');
+    const sourceUrl = req.url;
+    let newUrl = environment.host;
+    if (newUrl.endsWith('/') && sourceUrl.startsWith('/')) {
+      newUrl = newUrl.substring(0, newUrl.length - 1) + sourceUrl;
+    } else if (!newUrl.endsWith('/') && !sourceUrl.startsWith('/')) {
+      newUrl += `/${sourceUrl}`;
+    } else {
+      newUrl += sourceUrl;
+    }
 
     const SERVER_REQ = req.clone({
+      url: newUrl,
       setHeaders: {
         Authorization: `Bearer ${jwt}`
       }
@@ -32,29 +43,17 @@ export class DefaultInterceptor implements HttpInterceptor {
       .pipe(
         mergeMap((resp) => {
           if (resp instanceof HttpResponse) {
-            let data = resp.body;
+            const R: Result = {
+              status: resp.status,
+              data: resp.body,
+              location: null
+            };
             switch (resp.status) {
-              case 201: {
-                //  201 是包装 CreatedResult
-                return of(resp.clone<CreatedResult>({
-                  body: {
-                    status: resp.status,
-                    data,
-                    location: resp.headers.get('Location')
-                  }
-                }));
-              }
-              default:
-                break;
-            }
-            if (data === null || data === undefined) {
-              data = {};
+              case 201:
+                R.location = resp.headers.get('Location');
             }
             const DATA = resp.clone<Result>({
-              body: {
-                status: resp.status,
-                data
-              }
+              body: R
             });
             return of(DATA);
           }
@@ -70,19 +69,15 @@ export class DefaultInterceptor implements HttpInterceptor {
           //  case 400: { } break;
           case 401: {
             this.common.snackOpen('请先登录');
-            this.router.navigate(['/login', { redirect: this.loc.path(true) }]);
+            this.router.navigate(['/account', 'login', { redirect: this.loc.path(true) }]);
           }         break;
           case 403: {
             this.common.snackOpen('您没有权限访问');
             this.router.navigate(['/']);
           }         break;
-          case 410: {
+          case 404: {
             this.router.navigate(['/pages', '404']);
           }         break;
-          // case 429: {
-          //   //  熔断页面
-          //   this.router.navigate(['/pages', '429']);
-          // }         break;
           default: break;
         }
         return throwError(err);

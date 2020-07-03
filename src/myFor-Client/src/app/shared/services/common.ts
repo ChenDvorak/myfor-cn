@@ -22,13 +22,6 @@ export interface Result {
    * 响应 body 里的数据
    */
   data: any;
-}
-/**
- * 201 的响应包装
- */
-export class CreatedResult implements Result {
-  status: number;
-  data: any;
   location: string;
 }
 
@@ -60,10 +53,11 @@ export class ServicesBase {
    * 在这个错误处理中，只负责返回一个合法的值，
    * 如果需要打印，跳转等其他操作，在拦截器中定义
    */
-  handleError(error: HttpErrorResponse): Observable<Result | CreatedResult> {
+  handleError(error: HttpErrorResponse): Observable<Result> {
     const R: Result = {
       status: error.status,
-      data: ''
+      data: '',
+      location: error.headers.get('Location')
     };
     switch (error.status) {
       case 400: {
