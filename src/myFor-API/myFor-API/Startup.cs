@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Common;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace myFor_API
 {
@@ -18,6 +22,8 @@ namespace myFor_API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Config.SetConfiguration(configuration);
+            IdentityModelEventSource.ShowPII = true;
         }
 
         public IConfiguration Configuration { get; }
@@ -38,8 +44,16 @@ namespace myFor_API
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory() + "/files/"),
+                RequestPath = "/files"
+            });
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
