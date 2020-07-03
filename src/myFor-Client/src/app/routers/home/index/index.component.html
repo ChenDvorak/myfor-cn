@@ -1,62 +1,67 @@
 <mat-drawer-container>
-  <mat-drawer #drawer>I'm a drawer</mat-drawer>
-  <mat-drawer-content>
-
-<div class="three-layout-container">
-  <div class="left-container">
-    <div class="left-box">
+  <mat-drawer #drawer>
+    <div class="side">
       <app-current-user-nav *ngIf="isLoggedIn"></app-current-user-nav>
     </div>
-  </div>
-  <div class="main">
-    <div class="layout-small top-search-box">
-      <app-search-box></app-search-box>
-    </div>
-    <div class="banner-home">
-      <button *ngIf="!isHomePage" mat-icon-button color="primary" class="layout-small" (click)="goback()"
-        style="margin-left: -10px;">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <a routerLink="/">
-        <app-logo size="40px"></app-logo>
-      </a>
-      &nbsp;&nbsp;
-      <span class="home-title">首页</span>
-        <img class="avatar layout-small" *ngIf="isLoggedIn" [src]="loggedInInfo?.avatar" alt="avatar" (click)="drawer.toggle()">
+  </mat-drawer>
+  <mat-drawer-content>
 
-    </div>
+    <div class="three-layout-container">
+      <div class="left-container">
+        <div class="left-box">
+          <app-current-user-nav *ngIf="isLoggedIn"></app-current-user-nav>
+        </div>
+      </div>
+      <div class="main">
+        <div class="layout-small top-search-box">
+          <app-search-box></app-search-box>
+        </div>
+        <div class="banner-home">
+          <button *ngIf="!isHomePage" mat-icon-button color="primary" class="layout-small" (click)="goback()"
+            style="margin-left: -10px;">
+            <mat-icon>arrow_back</mat-icon>
+          </button>
+          <a routerLink="/">
+            <app-logo size="40px"></app-logo>
+          </a>
+          &nbsp;&nbsp;
+          <span class="home-title">首页</span>
+          <img class="avatar layout-small" *ngIf="isLoggedIn" [src]="loggedInInfo?.avatar" alt="avatar"
+            (click)="drawer.toggle()">
 
-    <router-outlet></router-outlet>
+        </div>
 
-    <div class="layout-medium">
-      <div class="login-bottom-box" *ngIf="!isLoggedIn">
-        <a [routerLink]="['/account', 'login']" mat-raised-button color="primary">登录</a>
-        <a [routerLink]="['/account', 'signup']" mat-stroked-button color="primary">注册</a>
+        <router-outlet></router-outlet>
+
+        <div class="layout-medium">
+          <div class="login-bottom-box" *ngIf="!isLoggedIn">
+            <a [routerLink]="['/account', 'login']" mat-raised-button color="primary">登录</a>
+            <a [routerLink]="['/account', 'signup']" mat-stroked-button color="primary">注册</a>
+          </div>
+        </div>
+
+        <app-slogan></app-slogan>
+      </div>
+
+      <div class="right-container">
+        <div class="right-box">
+          <div class="rigth-box-list">
+            <app-search-box></app-search-box>
+            <br>
+            <app-login-box *ngIf="!isLoggedIn"></app-login-box>
+            <app-footer></app-footer>
+          </div>
+        </div>
+      </div>
+
+      <div class="layout-small" *ngIf="isLoggedIn">
+        <span class="apply-small">
+          <button mat-fab color="primary" (click)="postBlog()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </span>
       </div>
     </div>
-
-    <app-slogan></app-slogan>
-  </div>
-
-  <div class="right-container">
-    <div class="right-box">
-      <div class="rigth-box-list">
-        <app-search-box></app-search-box>
-        <br>
-        <app-login-box *ngIf="!isLoggedIn"></app-login-box>
-        <app-footer></app-footer>
-      </div>
-    </div>
-  </div>
-
-  <div class="layout-small" *ngIf="isLoggedIn">
-    <span class="apply-small">
-      <button mat-fab color="primary" (click)="postBlog()">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </span>
-  </div>
-</div>
 
   </mat-drawer-content>
 </mat-drawer-container>
