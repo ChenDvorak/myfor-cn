@@ -45,7 +45,7 @@ export class DefaultInterceptor implements HttpInterceptor {
           if (resp instanceof HttpResponse) {
             const R: Result = {
               status: resp.status,
-              data: resp.body,
+              data: resp.body ? resp.body : {},
               location: null
             };
             switch (resp.status) {

@@ -14,6 +14,9 @@ using Common;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace myFor_API
 {
@@ -31,6 +34,22 @@ namespace myFor_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //  JWT 验证规则
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(JWTOption =>
+            {
+                JWTOption.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = Configuration.GetSection("JwtSettings:Issuer").Value,
+                    ValidAudience = Configuration.GetSection("JwtSettings:Audience").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("JwtSettings:Secret").Value))
+                };
+            });
+
             services.AddControllers();
         }
 
