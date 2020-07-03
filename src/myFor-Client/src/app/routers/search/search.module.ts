@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 
 import { LoginOutModule } from '../../components/login-out/login-out.module';
+import { BlogsModule } from '../../components/blogs/blogs.module';
 
 import { SearchRoutingModule } from './search-routing.module';
 import { ResultsComponent } from './results/results.component';
@@ -12,7 +13,8 @@ import { ResultsComponent } from './results/results.component';
   imports: [
     SharedModule,
     SearchRoutingModule,
-    LoginOutModule
+    LoginOutModule,
+    BlogsModule
   ]
 })
 export class SearchModule { }

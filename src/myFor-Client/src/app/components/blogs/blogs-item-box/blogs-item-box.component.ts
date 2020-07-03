@@ -43,7 +43,10 @@ export class BlogsItemBoxComponent implements OnInit {
   potsComment() {
     this.dia.open(PostCommentBoxComponent, {
       panelClass: 'diaclass',
-      data: this.blog.code
+      data: {
+        code: this.blog.code,
+        title: this.blog.title
+      }
     });
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
+import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
 
 @Component({
   selector: 'app-blog-detail-box',
@@ -27,11 +29,21 @@ export class BlogDetailBoxComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private blog: BlogService
+    private blog: BlogService,
+    private dia: MatDialog
   ) { }
 
   ngOnInit(): void {
     this.code = this.route.snapshot.paramMap.get('code');
   }
 
+  potsComment() {
+    this.dia.open(PostCommentBoxComponent, {
+      panelClass: 'diaclass',
+      data: {
+        code: this.blogDetail.code,
+        title: this.blogDetail.title
+      }
+    });
+  }
 }

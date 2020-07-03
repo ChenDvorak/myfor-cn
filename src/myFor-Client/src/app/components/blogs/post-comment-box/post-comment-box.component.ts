@@ -9,6 +9,8 @@ import { BlogService } from '../blog.service';
 })
 export class PostCommentBoxComponent implements OnInit {
 
+  code = '';
+  title = '';
   content = '';
   posting = false;
   constructor(
@@ -18,6 +20,8 @@ export class PostCommentBoxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.code = this.data?.code;
+    this.title = this.data?.title;
   }
 
   post() {
