@@ -1,3 +1,7 @@
+<mat-drawer-container>
+  <mat-drawer #drawer>I'm a drawer</mat-drawer>
+  <mat-drawer-content>
+
 <div class="three-layout-container">
   <div class="left-container">
     <div class="left-box">
@@ -5,6 +9,9 @@
     </div>
   </div>
   <div class="main">
+    <div class="layout-small top-search-box">
+      <app-search-box></app-search-box>
+    </div>
     <div class="banner-home">
       <button *ngIf="!isHomePage" mat-icon-button color="primary" class="layout-small" (click)="goback()"
         style="margin-left: -10px;">
@@ -14,7 +21,9 @@
         <app-logo size="40px"></app-logo>
       </a>
       &nbsp;&nbsp;
-      <span>首页</span>
+      <span class="home-title">首页</span>
+        <img class="avatar layout-small" *ngIf="isLoggedIn" [src]="loggedInInfo?.avatar" alt="avatar" (click)="drawer.toggle()">
+
     </div>
 
     <router-outlet></router-outlet>
@@ -48,3 +57,6 @@
     </span>
   </div>
 </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>

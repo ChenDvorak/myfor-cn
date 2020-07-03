@@ -27,6 +27,7 @@ export class ResultsComponent implements OnInit {
   ngOnInit(): void {
     this.s = this.route.snapshot.paramMap.get('s');
     this.global.setTitle(this.s + ' 的搜索结果');
+    this.isLoggedIn = this.identity.isLoggedIn;
   }
 
   postBlog() {

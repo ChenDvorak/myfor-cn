@@ -2,7 +2,7 @@ import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { Identity } from '../../../global';
+import { Identity, IdentityInfo } from '../../../global';
 import { PostBlogBoxComponent } from '../../../components/blogs/post-blog-box/post-blog-box.component';
 
 @Component({
@@ -13,6 +13,8 @@ import { PostBlogBoxComponent } from '../../../components/blogs/post-blog-box/po
 export class IndexComponent implements OnInit, AfterContentChecked {
 
   isLoggedIn = false;
+  loggedInInfo: IdentityInfo;
+
   isHomePage = true;
   constructor(
     private common: CommonService,
@@ -24,6 +26,9 @@ export class IndexComponent implements OnInit, AfterContentChecked {
   ngOnInit(): void {
     this.common.setTitle(this.route.snapshot.data.title);
     this.isLoggedIn = this.identity.isLoggedIn;
+    if (this.isLoggedIn) {
+      this.loggedInInfo = this.identity.getIdentityInfo();
+    }
   }
 
   ngAfterContentChecked(): void {
