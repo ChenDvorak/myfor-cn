@@ -40,11 +40,11 @@
         <mat-icon>favorite</mat-icon>
       </button><span class="icon-label">{{blog.agreeCount | kilo}}</span></span>
     <span matTooltip="引用" matTooltipPosition="above">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="reference()">
         <mat-icon>repeat</mat-icon>
       </button><span class="icon-label">{{blog.referenceCount | kilo}}</span></span>
     <span matTooltip="见解" matTooltipPosition="above">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="think()">
         <mat-icon>library_books</mat-icon>
       </button><span class="icon-label">{{blog.thinkCount | kilo}}</span></span>
   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlogService, NewBlog, ReferenceFrom } from '../blog.service';
 
@@ -9,6 +9,9 @@ import { BlogService, NewBlog, ReferenceFrom } from '../blog.service';
 })
 export class PostBlogBoxComponent implements OnInit {
 
+  @ViewChild('reference', {static: true}) reference: ElementRef;
+  @ViewChild('think', {static: true}) think: ElementRef;
+
   posting = false;
   newBlog: NewBlog = {
     title: '',
@@ -17,11 +20,11 @@ export class PostBlogBoxComponent implements OnInit {
   /**
    * 对谁的见解
    */
-  thinkFrom: ReferenceFrom;
+  private thinkFrom: ReferenceFrom;
   /**
    * 对谁的引用
    */
-  referenceFrom: ReferenceFrom;
+  private referenceFrom: ReferenceFrom;
 
   constructor(
     private dialogRef: MatDialogRef<PostBlogBoxComponent>,
@@ -34,13 +37,13 @@ export class PostBlogBoxComponent implements OnInit {
     this.referenceFrom = this.data?.referenceFrom;
     //  引用
     if (this.referenceFrom && this.referenceFrom.code && this.referenceFrom.title) {
-      const referenceTarget = `<a href="/b/${this.referenceFrom.code}">${this.referenceFrom.title}</a><br>`;
-      this.newBlog.content = referenceTarget + this.newBlog.content;
+      const referenceTarget = `引用<a target="_blank" href="/b/${this.referenceFrom.code}">@${this.referenceFrom.title}</a><br>`;
+      this.reference.nativeElement.innerHTML = referenceTarget;
     }
     //  见解
     if (this.thinkFrom && this.thinkFrom.code && this.thinkFrom.title) {
-      const thinkTarget = `<a href="/b/${this.thinkFrom.code}">${this.thinkFrom.title}</a><br>`;
-      this.newBlog.content = thinkTarget + this.newBlog.content;
+      const thinkTarget = `对<a target="_blank" href="/b/${this.thinkFrom.code}">《${this.thinkFrom.title}》</a>的见解<br>`;
+      this.think.nativeElement.innerHTML = thinkTarget;
     }
   }
 

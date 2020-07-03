@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogService, BlogItem } from '../blog.service';
 import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
+import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
 
 @Component({
   selector: 'app-blogs-item-box',
@@ -46,6 +47,28 @@ export class BlogsItemBoxComponent implements OnInit {
       data: {
         code: this.blog.code,
         title: this.blog.title
+      }
+    });
+  }
+
+  agree() {
+
+  }
+
+  reference() {
+    this.dia.open(PostBlogBoxComponent, {
+      panelClass: 'diaclass',
+      data: {
+        referenceFrom: { code: this.blog.code, title: this.blog.title }
+      }
+    });
+  }
+
+  think() {
+    this.dia.open(PostBlogBoxComponent, {
+      panelClass: 'diaclass',
+      data: {
+        thinkFrom: { code: this.blog.code, title: this.blog.title }
       }
     });
   }

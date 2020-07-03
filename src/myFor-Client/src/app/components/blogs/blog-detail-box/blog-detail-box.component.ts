@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
 import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
+import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
 
 @Component({
   selector: 'app-blog-detail-box',
@@ -43,6 +44,24 @@ export class BlogDetailBoxComponent implements OnInit {
       data: {
         code: this.blogDetail.code,
         title: this.blogDetail.title
+      }
+    });
+  }
+
+  reference() {
+    this.dia.open(PostBlogBoxComponent, {
+      panelClass: 'diaclass',
+      data: {
+        referenceFrom: { code: this.blogDetail.code, title: this.blogDetail.title }
+      }
+    });
+  }
+
+  think() {
+    this.dia.open(PostBlogBoxComponent, {
+      panelClass: 'diaclass',
+      data: {
+        thinkFrom: { code: this.blogDetail.code, title: this.blogDetail.title }
       }
     });
   }
