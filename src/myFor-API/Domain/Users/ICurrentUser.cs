@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 
 namespace Domain.Users
 {
@@ -9,6 +7,15 @@ namespace Domain.Users
     /// </summary>
     public interface ICurrentUser
     {
-
+        /// <summary>
+        /// 获取用户
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public async Task<User> GetUserAsync(string account)
+        {
+            var userHub = new UsersHub();
+            return await userHub.GetUserAsync(account);
+        }
     }
 }

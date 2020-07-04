@@ -49,6 +49,8 @@ namespace myFor_API
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("JwtSettings:Secret").Value))
                 };
             });
+            //  DI
+            services.AddScoped<Domain.Users.ICurrentUser, Domain.Users.CurrentUser>();
 
             services.AddControllers();
         }

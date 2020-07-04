@@ -37,7 +37,7 @@ namespace Domain.Users
         /// 获取登录信息
         /// </summary>
         /// <returns></returns>
-        public async Task<Results.LoginInfo> GetLoginInfo()
+        public async Task<Results.LoginInfo> GetLoginInfoAsync()
         {
             var result = new Results.LoginInfo
             { 

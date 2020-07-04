@@ -18,6 +18,21 @@ namespace Domain.Users
     public class UsersHub
     {
         /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<(User, string)> LoginAsync(Models.Login model)
+        {
+            await using var db = new DB.MyForDbContext();
+            var userModel = await db.Users.AsNoTracking().FirstOrDefaultAsync(user => (user.Account.Equals(model.Account, StringComparison.OrdinalIgnoreCase)
+                                                                    || user.Email.Equals(model.Account, StringComparison.OrdinalIgnoreCase)) 
+                                                                    && user.Password.Equals(model.Password, StringComparison.OrdinalIgnoreCase));
+            if (userModel == null) return (null, "账号不存在或密码错误");
+            return (User.Parse(userModel), null);
+        }
+
+        /// <summary>
         /// 注册
         /// </summary>
         /// <returns>注册后的用户, 注册失败的说明信息</returns>
@@ -29,7 +44,7 @@ namespace Domain.Users
                 return (null, $"密码长度不能小于{User.Password_Min_length}");
             if (!model.Password.Equals(model.ConfirmPassword)) return (null, "两次密码不一致");
 
-            var userModel = await GetUserModel(model.Account);
+            var userModel = await GetUserModelAsync(model.Account);
             if (userModel != null)
                 return (null, "该账号已被使用");
             await using DB.MyForDbContext db = new DB.MyForDbContext();
@@ -53,9 +68,9 @@ namespace Domain.Users
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        public async Task<User> GetUser(string account)
+        public async Task<User> GetUserAsync(string account)
         {
-            var userModel = await GetUserModel(account);
+            var userModel = await GetUserModelAsync(account);
             return User.Parse(userModel);
         }
 
@@ -64,15 +79,17 @@ namespace Domain.Users
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        private async Task<DB.Tables.User> GetUserModel(string account)
+        private async Task<DB.Tables.User> GetUserModelAsync(string account)
         {
-            var value = RedisCache.GetRedis().HashGet(User.REDIS_HASH_KEY, account);
+            var value = await RedisCache.GetRedis().HashGetAsync(User.REDIS_HASH_KEY, account);
             if (value.HasValue)
                 return JsonConvert.DeserializeObject<DB.Tables.User>(value);
 
             await using DB.MyForDbContext db = new DB.MyForDbContext();
             var userModel = await db.Users.AsNoTracking()
                                           .FirstOrDefaultAsync(user => user.Account.Equals(account, StringComparison.OrdinalIgnoreCase));
+            if (userModel != null)
+                await RedisCache.GetRedis().HashSetAsync(User.REDIS_HASH_KEY, account, JsonConvert.SerializeObject(userModel));
             return userModel;
         }
     }
