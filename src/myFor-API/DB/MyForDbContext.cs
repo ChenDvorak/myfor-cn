@@ -25,5 +25,6 @@ namespace DB
         /// 评论数
         /// </summary>
         public DbSet<Tables.Comment> Comments { get; set; }
+        public DbSet<Tables.AgreesRecord> AgreesRecords { get; set; }
     }
 }
