@@ -43,8 +43,8 @@ namespace myFor_API
                 options.AddPolicy(name: ALLOW_CLIENT_ORIGINS,
                                   builder =>
                                   {
-                                      builder.WithOrigins(Configuration.GetValue<string>("AllowedHosts"))
-                                             .AllowAnyMethod();
+                                      builder.WithOrigins(Configuration.GetValue<string>("AllowedHosts"));
+                                      //builder.AllowAnyOrigin();
                                   });
             });
 
@@ -89,14 +89,14 @@ namespace myFor_API
             app.UseRouting();
 
             app.UseCors(ALLOW_CLIENT_ORIGINS);
-            app.UseResponseCaching();
+            //app.UseResponseCaching();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireCors(ALLOW_CLIENT_ORIGINS);
             });
         }
     }
