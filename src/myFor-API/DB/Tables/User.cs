@@ -11,12 +11,12 @@ namespace DB.Tables
         /// <summary>
         /// 登录账号
         /// </summary>
-        [Required, StringLength(18)]
+        [Required, StringLength(20)]
         public string Account { get; set; } = "";
         /// <summary>
         /// 用户名字
         /// </summary>
-        [Required, StringLength(18)]
+        [Required, StringLength(20)]
         public string Name { get; set; } = "";
         [Required, StringLength(64)]
         public string Password { get; set; } = "";
