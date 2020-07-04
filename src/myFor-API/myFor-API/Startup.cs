@@ -31,10 +31,22 @@ namespace myFor_API
 
         public IConfiguration Configuration { get; }
 
+        private const string ALLOW_CLIENT_ORIGINS = "http://localhost:4200";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DB.MyForDbContext>();
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: ALLOW_CLIENT_ORIGINS,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins(Configuration.GetValue<string>("AllowedHosts"))
+                                             .AllowAnyMethod();
+                                  });
+            });
 
             //  JWT 验证规则
             services.AddAuthentication(options =>
@@ -75,6 +87,9 @@ namespace myFor_API
             });
 
             app.UseRouting();
+
+            app.UseCors(ALLOW_CLIENT_ORIGINS);
+            app.UseResponseCaching();
 
             app.UseAuthentication();
             app.UseAuthorization();

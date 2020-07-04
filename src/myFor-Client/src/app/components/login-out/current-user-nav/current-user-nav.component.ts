@@ -29,7 +29,6 @@ export class CurrentUserNavComponent implements OnInit {
     });
   }
 
-  signUp() {
-
+  logout() {
   }
 }

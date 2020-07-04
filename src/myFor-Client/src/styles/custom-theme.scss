@@ -21,7 +21,7 @@ $myfor-theme: mat-light-theme($myfor-primary, $myfor-accent, $myfor-warn);
 // that you are using.
 @include angular-material-theme($myfor-theme);
 
-html, body { height: 100%; margin: 0; }
+html, body { margin: 0; }
 
 .mat-body, .mat-body-1, .mat-typography {
   font: 400 20px Noto Sans SC;
