@@ -34,6 +34,8 @@ namespace myFor_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DB.MyForDbContext>();
+
             //  JWT 验证规则
             services.AddAuthentication(options =>
             {

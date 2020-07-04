@@ -1,19 +1,21 @@
-<form>
+<form #signUpForm="ngForm">
   <mat-form-field>
     <mat-label>请输入邮箱</mat-label>
-    <input matInput type="email" required>
+    <input matInput type="email" required [(ngModel)]="signUp.email" name="email">
   </mat-form-field>
   <mat-form-field>
     <mat-label>请输入账号</mat-label>
-    <input matInput type="text" required>
+    <input matInput type="text" required minlength="2" maxlength="20"
+    name="account" [(ngModel)]="signUp.account">
   </mat-form-field>
   <mat-form-field>
     <mat-label>请输入密码</mat-label>
-    <input type="password" matInput required>
+    <input type="password" matInput required minlength="6"
+    [(ngModel)]="signUp.password" name="password">
   </mat-form-field>
   <mat-form-field>
     <mat-label>请再次输入密码</mat-label>
-    <input type="password" matInput required>
+    <input type="password" matInput required [(ngModel)]="signUp.confirmPassword" name="confirmPassword">
   </mat-form-field>
   <button mat-raised-button color="primary">注册</button>
   <a [routerLink]="['/account', 'login']" mat-stroked-button color="primary">已有账号，登录</a>

@@ -33,6 +33,7 @@ namespace Domain.Users
 
         private DB.Tables.User _model;
         private User() { }
+        public string Account => _model.Account;
         /// <summary>
         /// 获取登录信息
         /// </summary>

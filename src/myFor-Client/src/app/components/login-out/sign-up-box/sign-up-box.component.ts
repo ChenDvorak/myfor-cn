@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginOutService, SignUpModel } from '../login-out.service';
 
 @Component({
   selector: 'app-sign-up-box',
@@ -7,7 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpBoxComponent implements OnInit {
 
-  constructor() { }
+  signUp: SignUpModel = {
+    account: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  };
+  constructor(
+    private loginOut: LoginOutService
+  ) { }
 
   ngOnInit(): void {
   }
