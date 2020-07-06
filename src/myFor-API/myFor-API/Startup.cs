@@ -43,12 +43,12 @@ namespace myFor_API
                 options.AddPolicy(name: ALLOW_CLIENT_ORIGINS,
                                   builder =>
                                   {
-                                      //builder.WithOrigins(Configuration.GetValue<string>("AllowedHosts"));
+                                      builder.WithOrigins(Configuration.GetValue<string>("AllowedHosts"));
                                       //builder.WithOrigins("https://myfor.cn", 
                                       //    "https://www.myfor.cn",
                                       //    "https://api.myfor.cn",
                                       //    "http://api.myfor.cn");
-                                      builder.AllowAnyOrigin();
+                                      //builder.AllowAnyOrigin();
                                       builder.AllowAnyHeader();
                                       builder.WithMethods("PATCH");
                                   });
