@@ -27,6 +27,7 @@ export class SignUpBoxComponent implements OnInit {
   }
 
   postSignUp() {
+    this.signUping = true;
     this.loginOut.signUp(this.signUp).subscribe(r => {
       if (r.status === 200) {
         this.common.snackOpen('注册成功');
@@ -34,6 +35,7 @@ export class SignUpBoxComponent implements OnInit {
       } else if (r.data) {
         this.common.snackOpen(r.data);
       }
+      this.signUping = false;
     });
   }
 }

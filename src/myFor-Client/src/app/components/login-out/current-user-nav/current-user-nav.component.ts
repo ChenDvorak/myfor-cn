@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostBlogBoxComponent } from '../../blogs/post-blog-box/post-blog-box.component';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginOutService } from '../login-out.service';
 import { Identity, IdentityInfo } from '../../../global';
 
 @Component({
@@ -15,8 +14,7 @@ export class CurrentUserNavComponent implements OnInit {
 
   constructor(
     private dia: MatDialog,
-    private identity: Identity,
-    private loginOut: LoginOutService
+    private identity: Identity
   ) { }
 
   ngOnInit(): void {
@@ -30,5 +28,7 @@ export class CurrentUserNavComponent implements OnInit {
   }
 
   logout() {
+    this.identity.clean();
+    location.href = '/';
   }
 }

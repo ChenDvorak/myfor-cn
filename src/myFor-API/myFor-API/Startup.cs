@@ -31,7 +31,7 @@ namespace myFor_API
 
         public IConfiguration Configuration { get; }
 
-        private const string ALLOW_CLIENT_ORIGINS = "http://localhost:4200";
+        private const string ALLOW_CLIENT_ORIGINS = "CLIENT_AND_ADMIN";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -44,6 +44,8 @@ namespace myFor_API
                                   builder =>
                                   {
                                       builder.WithOrigins(Configuration.GetValue<string>("AllowedHosts"));
+                                      builder.AllowAnyHeader();
+                                      builder.WithMethods("PATCH");
                                       //builder.AllowAnyOrigin();
                                   });
             });
@@ -83,7 +85,7 @@ namespace myFor_API
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory() + "/files/"),
-                RequestPath = "/files"
+                RequestPath = "/api/files"
             });
 
             app.UseRouting();

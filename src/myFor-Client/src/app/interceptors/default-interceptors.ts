@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { CommonService, Result } from '../shared/services/common';
 import { environment } from '../../environments/environment';
 
+const JWT_KEY = 'no0ko72a';
+
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
 
@@ -21,7 +23,7 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const cookieString = this.doc.cookie || '';
-    const jwt = parseCookieValue(cookieString, 'no0ko72a');
+    const jwt = parseCookieValue(cookieString, JWT_KEY);
     const sourceUrl = req.url;
     let newUrl = environment.host;
     if (newUrl.endsWith('/') && sourceUrl.startsWith('/')) {

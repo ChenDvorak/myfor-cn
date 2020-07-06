@@ -39,9 +39,9 @@ namespace Domain.Users
         public async Task<(bool, string)> SignUpAsync(Models.SignUp model)
         {
             if (string.IsNullOrWhiteSpace(model.Account) || model.Account.Length < User.Account_Min_length || model.Account.Length > User.Account_Max_length)
-                return (false, $"注册账号长度不能小于{User.Account_Min_length}");
+                return (false, $"注册账号长度不能小于{User.Account_Min_length}大于{User.Account_Max_length}");
             if (string.IsNullOrWhiteSpace(model.Password) || model.Password.Length < User.Password_Min_length || model.Account.Length > User.Password_Max_length)
-                return (false, $"密码长度不能小于{User.Password_Min_length}");
+                return (false, $"密码长度不能小于{User.Password_Min_length}大于{User.Password_Max_length}");
             if (!model.Password.Equals(model.ConfirmPassword)) return (false, "两次密码不一致");
 
             var userModel = await GetUserModelAsync(model.Account);

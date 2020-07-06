@@ -13,7 +13,7 @@ export const ADMINISTRATOR_SIDE = '/api/administrators/';
  * 响应数据会在拦截器中包装成这个 Result
  * 如果是 201，则会用 CreatedResult 包装
  */
-export interface Result {
+export interface Result<T = any> {
   /**
    * 状态码，对应原生 HTTP 状态码
    */
@@ -21,7 +21,7 @@ export interface Result {
   /**
    * 响应 body 里的数据
    */
-  data: any;
+  data: T | string;
   location: string;
 }
 
@@ -40,6 +40,7 @@ export interface Paginator<T = any> {
  * 重定向标识
  */
 export const REDIRECT = 'redirect';
+export const ROUTE_PREFIX = 'api/clients/';
 
 //  基本服务
 @Injectable({

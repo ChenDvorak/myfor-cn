@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -47,9 +48,10 @@ namespace Domain.Users
             };
             if (_model.Avatar == null)
             {
+                string path = Files.File.SaveWebPath;
                 await using var db = new DB.MyForDbContext();
-                await db.Entry(_model).Reference(user => user.Avatar).LoadAsync();
-                result.Avatar = _model.Avatar.SaveName;
+                _model.Avatar = await db.Files.AsNoTracking().FirstOrDefaultAsync(file => file.Id == _model.AvatarId);
+                result.Avatar = (path.EndsWith("/") ? path : path + "/") + _model.Avatar?.SaveName ?? "";
             }
             return result;
         }

@@ -30,8 +30,15 @@ namespace myFor_API.Controllers.Clients
          */
         //  patch: /api/clients/login
         [HttpPatch("login")]
-        public async Task<IActionResult> LoginAsync([FromBody]Models.Login model)
+        public async Task<IActionResult> LoginAsync([FromBody]string base64)
         {
+            if (string.IsNullOrWhiteSpace(base64))
+                return BadRequest("请输入要账号/邮箱、密码");
+
+            string decoding = Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+
+            var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.Login>(decoding);
+
             var userHub = new UsersHub();
             (var user, string msg) = await userHub.LoginAsync(model);
             if (user is null)
@@ -83,8 +90,15 @@ namespace myFor_API.Controllers.Clients
          *  -   400:    default
          */
         [HttpPost("signup")]
-        public async Task<IActionResult> SignUpAsync([FromBody]Models.SignUp model)
+        public async Task<IActionResult> SignUpAsync([FromBody]string base64)
         {
+            if (string.IsNullOrWhiteSpace(base64))
+                return BadRequest("请输入要注册的账号、密码、邮箱");
+
+            string decoding = Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+
+            var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.SignUp>(decoding);
+
             UsersHub usersHub = new UsersHub();
             (var isSuccess, string msg) = await usersHub.SignUpAsync(model);
             if (isSuccess)

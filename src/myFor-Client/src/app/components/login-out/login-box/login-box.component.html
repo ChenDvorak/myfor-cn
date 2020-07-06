@@ -1,12 +1,12 @@
-<form>
+<form #loginForm="ngForm">
     <mat-form-field appearance="fill">
         <mat-label>账号</mat-label>
-        <input matInput required>
+        <input matInput required [(ngModel)]="loginModel.account" name="account">
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>密码</mat-label>
-        <input type="password" matInput required>
+        <input type="password" matInput required [(ngModel)]="loginModel.password" name="password">
     </mat-form-field>
-    <button mat-raised-button color="primary">登录</button>
+    <button mat-raised-button color="primary" [disabled]="loginForm.invalid || logining" (click)="login()">登录</button>
     <a [routerLink]="['/account', 'signup']" mat-stroked-button color="primary">注册</a>
 </form>

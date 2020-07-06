@@ -25,7 +25,7 @@ namespace DB.Tables
         public int AvatarId { get; set; } = 1;
         public File Avatar { get; set; }
         [Required, StringLength(512)]
-        public string Introduction { get; set; }
+        public string Introduction { get; set; } = "";
         public List<Blog> Blogs { get; set; }
         public List<Comment> Comments { get; set; }
     }
