@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "http://localhost:49709",
+        "target": "https://api.myfor.cn",
         "secure": false,
         "changeOrigin": true
     }
