@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace myFor_API.Controllers._Base
+namespace myForAPI.Controllers._Base
 {
     /// <summary>
     /// 所有控制器的基类

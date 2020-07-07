@@ -4,4 +4,4 @@ EXPOSE 8100
 
 COPY . .
 
-ENTRYPOINT ["dotnet", "myFor-API.dll"]
+ENTRYPOINT ["dotnet", "MyForAPI.dll"]

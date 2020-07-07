@@ -1,24 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Common;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Common;
 using Microsoft.IdentityModel.Logging;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
-namespace myForAPI
+namespace MyForAPI
 {
     public class Startup
     {
@@ -36,8 +36,6 @@ namespace myForAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DB.MyForDbContext>();
-
             services.AddCors(options =>
             {
                 options.AddPolicy(name: ALLOW_CLIENT_ORIGINS,
@@ -97,7 +95,7 @@ namespace myForAPI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireCors(ALLOW_CLIENT_ORIGINS);
+                endpoints.MapControllers();
             });
         }
     }

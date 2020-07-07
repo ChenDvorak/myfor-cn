@@ -3,4 +3,4 @@ insert into files
 values
 (1, '2020/01/01', 'default.png', '.png', 'default.png', 4000);
 
-docker run --name myfor-api -d -p 8091:8091 -v /data/myFor/myfor-api/appsettings.json:/app/appsettings.json -v /data/myFor/myfor-api/files:/app/files/ --link mysql:mysql --link redis:redis myfor-api
+docker run --name myfor-api -p 8100:8100 -v /data/myFor/myfor-api/appsettings.json:/app/appsettings.json -v /data/myFor/myfor-api/files:/app/files -d --link mysql:mysql --link redis:redis myfor-api

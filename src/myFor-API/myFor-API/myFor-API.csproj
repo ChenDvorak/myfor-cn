@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>myFor_API</RootNamespace>
+    <RootNamespace>myForAPI</RootNamespace>
     <UserSecretsId>d6deb294-b530-46c5-9b4e-1fbd0ef007ac</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <AssemblyName>myForAPI</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,13 +15,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Logging" Version="6.7.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.8" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="files\thumbnail\" />
     <Folder Include="files\temp\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
