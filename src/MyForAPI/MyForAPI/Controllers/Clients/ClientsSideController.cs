@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace myForAPI.Controllers.Clients
+namespace MyForAPI.Controllers.Clients
 {
     [Route("api/clients/[controller]")]
-    public class ClientsSideController : _Base.MyForController
+    [ApiController]
+    public class ClientsSideController : _base.MyForController
     {
         protected const string CLIENT_JWT_KEY = "no0ko72a";
 
@@ -12,7 +13,7 @@ namespace myForAPI.Controllers.Clients
          */
         public string Index()
         {
-            return "success";
+            return "CLIENTS SUCCESS";
         }
     }
 }

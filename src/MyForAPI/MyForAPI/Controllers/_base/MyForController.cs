@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace myForAPI.Controllers._Base
+namespace MyForAPI.Controllers._base
 {
     /// <summary>
     /// 所有控制器的基类
     /// </summary>
     [ApiController]
     [Route("api")]
-    public abstract class MyForController : ControllerBase
+    public class MyForController : ControllerBase
     {
         /// <summary>
         /// 返回一个 410 状态码
