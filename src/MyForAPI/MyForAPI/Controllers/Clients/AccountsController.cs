@@ -62,24 +62,25 @@ namespace MyForAPI.Controllers.Clients
                     credentials
             );
             var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            Response.Cookies.Append(CLIENT_JWT_KEY, token);
+            //Response.Cookies.Append(CLIENT_JWT_KEY, token);
             //  返回登录账号，用户名，角色
             Results.LoginInfo result = await user.GetLoginInfoAsync();
+            result.Jwt = token;
             return Ok(result);
         }
 
-        /*
-         * client logout
-         * return: 
-         *  -   200: logout successfully
-         */
-        //  patch: /api/clients/login
-        [HttpPatch("logout"), Authorize]
-        public IActionResult Logout()
-        {
-            Response.Cookies.Delete(CLIENT_JWT_KEY);
-            return Ok();
-        }
+        ///*
+        // * client logout
+        // * return: 
+        // *  -   200: logout successfully
+        // */
+        ////  patch: /api/clients/login
+        //[HttpPatch("logout"), Authorize]
+        //public IActionResult Logout()
+        //{
+        //    Response.Cookies.Delete(CLIENT_JWT_KEY);
+        //    return Ok();
+        //}
 
         /*
          * sign up

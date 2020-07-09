@@ -32,6 +32,7 @@ export interface IdentityInfo {
     nickName: string;
     account: string;
     avatar: string;
+    jwt: string;
 }
 /**
  * 当前登录用户

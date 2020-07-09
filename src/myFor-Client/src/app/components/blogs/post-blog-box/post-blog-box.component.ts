@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlogService, NewBlog, ReferenceFrom } from '../blog.service';
+import { CommonService } from '../../../shared/services/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-blog-box',
@@ -29,7 +31,9 @@ export class PostBlogBoxComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<PostBlogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private blog: BlogService
+    private blog: BlogService,
+    private common: CommonService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +53,15 @@ export class PostBlogBoxComponent implements OnInit {
 
   post() {
     this.posting = true;
-    this.close(true);
+    this.blog.postBlog(this.newBlog).subscribe(r => {
+      if (r.status === 201) {
+        this.common.snackOpen('发布成功');
+        this.router.navigateByUrl(r.location);
+      } else {
+        this.common.snackOpen(r.data);
+      }
+      this.close(true);
+    });
   }
 
   close(success?: boolean) {

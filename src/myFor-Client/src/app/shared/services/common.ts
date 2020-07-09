@@ -25,6 +25,12 @@ export interface Result<T = any> {
   location: string;
 }
 
+export const DEFAULT_RESULT: Result = {
+  status: 400,
+  data: {},
+  location: ''
+};
+
 /**
  * 分页模型
  */

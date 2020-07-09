@@ -55,7 +55,8 @@ namespace Domain.Users
             { 
                 Account = model.Account,
                 Password = model.Password,
-                Name = model.Account
+                Name = model.Account,
+                Email = model.Email
             };
             await db.Users.AddAsync(userModel);
             if (await db.SaveChangesAsync() == 1)

@@ -8,6 +8,7 @@ import { catchError, mergeMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CommonService, Result } from '../shared/services/common';
 import { environment } from '../../environments/environment';
+import { Identity } from '../global';
 
 const JWT_KEY = 'no0ko72a';
 
@@ -18,12 +19,15 @@ export class DefaultInterceptor implements HttpInterceptor {
     private router: Router,
     private loc: Location,
     private common: CommonService,
-    @Inject(DOCUMENT) private doc: any
+    @Inject(DOCUMENT) private doc: any,
+    private identity: Identity
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const cookieString = this.doc.cookie || '';
-    const jwt = parseCookieValue(cookieString, JWT_KEY);
+    // const cookieString = this.doc.cookie || '';
+    // const jwt = parseCookieValue(cookieString, JWT_KEY);
+    const identityInfo = this.identity.getIdentityInfo();
+    const jwt = identityInfo?.jwt;
     const sourceUrl = req.url;
     let newUrl = environment.host;
     if (newUrl.endsWith('/') && sourceUrl.startsWith('/')) {

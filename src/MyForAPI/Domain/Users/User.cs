@@ -69,5 +69,17 @@ namespace Domain.Users
                 _model = userModel
             };
         }
+
+        /// <summary>
+        /// 发布新博文
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public async Task<(bool, string)> PostBlogAsync(Blogs.Models.NewBlog model)
+        {
+            model.AuthorAccount = Account;
+            Blogs.BlogsHub blogsHub = new Blogs.BlogsHub();
+            return await blogsHub.PostBlogAsync(model);
+        }
     }
 }

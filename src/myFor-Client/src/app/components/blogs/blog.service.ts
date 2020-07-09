@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ServicesBase } from '../../shared/services/common';
+import { ServicesBase, Result, DEFAULT_RESULT, ROUTE_PREFIX, Paginator } from '../../shared/services/common';
+import { Identity } from '../../global';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
 
 export interface NewBlog {
   title: string;
@@ -131,6 +135,41 @@ export interface Comment {
 export class BlogService {
 
   constructor(
-    private base: ServicesBase
+    private base: ServicesBase,
+    private identity: Identity,
+    private http: HttpClient
   ) { }
+
+  /**
+   * 发表博文
+   */
+  postBlog(model: NewBlog): Observable<Result> {
+    const R = DEFAULT_RESULT;
+    if (!this.identity.isLoggedIn) {
+      R.data = '请先登录';
+      R.status = 401;
+      return of(R);
+    }
+
+    model.title = model.title.trim();
+    model.content = model.content.trim();
+    if (!model.title) {
+      R.data = '标题不能为空';
+      return of(R);
+    }
+    if (!model.content) {
+      R.data = '内容不能为空';
+      return of(R);
+    }
+    return this.http.post<Result>(`${ROUTE_PREFIX}blogs`, model)
+    .pipe(
+      catchError(this.base.handleError)
+    );
+  }
+
+  // getBlogsByHomePage(index: number, size: number): Observable<Result<Paginator<BlogItem>>> {
+  //   const p = new HttpParams().set('index', index.toString())
+  //   .set('size', size.toString());
+
+  // }
 }
