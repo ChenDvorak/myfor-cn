@@ -14,7 +14,7 @@ namespace MyForAPI.Controllers.Clients
     public class AccountsController : ClientsSideController
     {
         private readonly IConfiguration _configuration;
-        public AccountsController(ICurrentUser currentUser, IConfiguration _configuration)
+        public AccountsController(IConfiguration _configuration)
         {
             this._configuration = _configuration;
         }

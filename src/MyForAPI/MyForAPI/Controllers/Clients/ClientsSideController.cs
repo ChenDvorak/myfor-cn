@@ -11,7 +11,8 @@ namespace MyForAPI.Controllers.Clients
         /*
          *  /api/clients/ClientsSide
          */
-        public string Index()
+        [Route("/api/clients/success")]
+        public string TestSuccess()
         {
             return "CLIENTS SUCCESS";
         }

@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { KiloPipe } from './pipe/kilo.pipe';
+import { HostPipe } from './pipe/host.pipe';
 
 import { MaterialModule } from './material.module';
 import { SearchBoxComponent } from './search-box/search-box.component';
@@ -33,7 +34,8 @@ const EXPORTS_COMPONENT = [
 ];
 
 const EXPORTS_PIPE = [
-  KiloPipe
+  KiloPipe,
+  HostPipe
 ];
 
 const EXPORTS_DIRECTIVE = [
