@@ -17,9 +17,12 @@ namespace MyForAPI.Controllers.Clients
             this._currentUser = _currentUser;
         }
 
-        /// <summary>
-        /// 发布新博文
-        /// </summary>
+        /*
+         *  发布新博文
+         *  return:
+         *      201:    success
+         *      400:    
+         */
         [HttpPost, Authorize]
         public async Task<IActionResult> PostBlogAsync(Models.NewBlog model)
         {
@@ -33,6 +36,17 @@ namespace MyForAPI.Controllers.Clients
                 return Created($"/blogs/{encodeId}", encodeId);
             }
             return BadRequest(msg);
+        }
+
+        /*
+         *  获取首页的博文列表
+         *  return:
+         *      200:    success
+         */ 
+        [HttpGet("home")]
+        public async Task<IActionResult> GetBlogsByHomePageAsync(int index, int size)
+        {
+            throw new NotImplementedException();
         }
     }
 }

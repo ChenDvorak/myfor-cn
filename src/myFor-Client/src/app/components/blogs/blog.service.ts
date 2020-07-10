@@ -3,7 +3,7 @@ import { ServicesBase, Result, DEFAULT_RESULT, ROUTE_PREFIX, Paginator } from '.
 import { Identity } from '../../global';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 
 export interface NewBlog {
   title: string;
@@ -167,9 +167,16 @@ export class BlogService {
     );
   }
 
-  // getBlogsByHomePage(index: number, size: number): Observable<Result<Paginator<BlogItem>>> {
-  //   const p = new HttpParams().set('index', index.toString())
-  //   .set('size', size.toString());
-
-  // }
+  /**
+   * 首页的博文列表
+   */
+  getBlogsByHomePage(index: number, size: number): Observable<Result<Paginator<BlogItem>>> {
+    const p = new HttpParams().set('index', index.toString())
+    .set('size', size.toString());
+    return this.http.get<Result>(`${ROUTE_PREFIX}blogs?${p.toString()}`)
+    .pipe(
+      retry(1),
+      catchError(this.base.handleError)
+    );
+  }
 }

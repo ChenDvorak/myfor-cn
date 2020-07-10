@@ -12,6 +12,15 @@ namespace Domain.Blogs
     public class BlogsHub
     {
         /// <summary>
+        /// 列表类型
+        /// </summary>
+        [Flags]
+        public enum ListType
+        {
+            HomePage = 0
+        }
+
+        /// <summary>
         /// 发布新博文
         /// </summary>
         /// <param name="model"></param>
