@@ -1,5 +1,6 @@
 ﻿using Common;
 using DB;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -94,6 +95,16 @@ namespace Files
                 _ => fileCompress.MakeThumbnail(filePath)
             };
             return thumbnailName;
+        }
+
+        /// <summary>
+        /// 拼接成可访问路径
+        /// </summary>
+        /// <param name="saveName"></param>
+        /// <returns></returns>
+        public static string GetVisitablePath(string saveName)
+        {
+            return (SaveWebPath.EndsWith("/") ? SaveWebPath : SaveWebPath + "/") + saveName ?? throw new ArgumentNullException("路径不能为null");
         }
     }
 }

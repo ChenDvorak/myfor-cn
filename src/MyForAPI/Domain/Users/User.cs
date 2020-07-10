@@ -51,7 +51,7 @@ namespace Domain.Users
                 string path = Files.File.SaveWebPath;
                 await using var db = new DB.MyForDbContext();
                 _model.Avatar = await db.Files.AsNoTracking().FirstOrDefaultAsync(file => file.Id == _model.AvatarId);
-                result.Avatar = (path.EndsWith("/") ? path : path + "/") + _model.Avatar?.SaveName ?? "";
+                result.Avatar = Files.File.GetVisitablePath(_model.Avatar?.SaveName);
             }
             return result;
         }

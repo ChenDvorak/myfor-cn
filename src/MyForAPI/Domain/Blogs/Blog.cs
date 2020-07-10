@@ -7,6 +7,11 @@ namespace Domain.Blogs
 {
     public class Blog: BaseEntity
     {
+        public enum BlogState
+        {
+            Enabled = 0
+        }
+
         /// <summary>
         /// Redis Hash Key
         /// </summary>

@@ -10,15 +10,6 @@ namespace MyForAPI.Controllers.Clients
     {
         protected const string CLIENT_JWT_KEY = "no0ko72a";
 
-        ///*
-        // *  /api/clients/ClientsSide
-        // */
-        //[Route("/api/clients/success")]
-        //public string TestSuccess()
-        //{
-        //    return "CLIENTS SUCCESS";
-        //}
-
         //  当前登录用户账号，没有登录则为 null
         protected string CurrentAccount => User.FindFirst(ClaimTypes.NameIdentifier).Value;
     }
