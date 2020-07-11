@@ -1,12 +1,22 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Domain.Blogs.List
 {
     /// <summary>
     /// 博文列表抽象类
     /// </summary>
-    abstract class BlogsList: IListable
+    public abstract class BlogsList: IListable
     {
+        /// <summary>
+        /// 列表类型
+        /// </summary>
+        [Flags]
+        public enum ListType
+        {
+            HomePage = 0
+        }
+
         /// <summary>
         /// 列表内容显示的长度限制
         /// </summary>

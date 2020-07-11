@@ -12,15 +12,6 @@ namespace Domain.Blogs
     public class BlogsHub
     {
         /// <summary>
-        /// 列表类型
-        /// </summary>
-        [Flags]
-        public enum ListType
-        {
-            HomePage = 0
-        }
-
-        /// <summary>
         /// 发布新博文
         /// </summary>
         /// <param name="model"></param>
@@ -39,7 +30,7 @@ namespace Domain.Blogs
 
             await using var db = new DB.MyForDbContext();
             DB.Tables.Blog newBlog = new DB.Tables.Blog
-            { 
+            {
                 AuthorId = user.Id,
                 Title = model.Title,
                 Content = model.Content
@@ -50,6 +41,14 @@ namespace Domain.Blogs
             throw new Exception("发布博文失败");
         }
 
-
+        public async Task<Paginator> GetListAsync(List.BlogsList.ListType type, Paginator pager)
+        {
+            List.IListable list = type switch
+            {
+                List.BlogsList.ListType.HomePage => new List.HomePageList(),
+                _ => throw new ArgumentException()
+            };
+            return await list.GetListAsync(pager);
+        }
     }
 }

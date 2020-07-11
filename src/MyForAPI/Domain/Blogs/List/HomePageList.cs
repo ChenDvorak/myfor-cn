@@ -17,6 +17,7 @@ namespace Domain.Blogs.List
         {
             await using var db = new MyForDbContext();
             pager.List = await db.Blogs.AsNoTracking()
+                                       .OrderByDescending(blog => blog.CreateDate)
                                        .Where(blog => blog.State == (int)Blog.BlogState.Enabled)
                                        .Include(blog => blog.Author)
                                             .ThenInclude(author => author.Avatar)

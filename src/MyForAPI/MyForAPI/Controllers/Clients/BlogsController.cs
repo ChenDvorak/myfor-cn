@@ -46,7 +46,11 @@ namespace MyForAPI.Controllers.Clients
         [HttpGet("home")]
         public async Task<IActionResult> GetBlogsByHomePageAsync(int index, int size)
         {
-            throw new NotImplementedException();
+            var pager = Domain.Paginator.New(index, size);
+
+            BlogsHub blogsHub = new BlogsHub();
+            pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.HomePage, pager);
+            return Ok(pager);
         }
     }
 }
