@@ -173,7 +173,7 @@ export class BlogService {
   getBlogsByHomePage(index: number, size: number): Observable<Result<Paginator<BlogItem>>> {
     const p = new HttpParams().set('index', index.toString())
     .set('size', size.toString());
-    return this.http.get<Result>(`${ROUTE_PREFIX}blogs?${p.toString()}`)
+    return this.http.get<Result>(`${ROUTE_PREFIX}blogs/home?${p.toString()}`)
     .pipe(
       retry(1),
       catchError(this.base.handleError)
