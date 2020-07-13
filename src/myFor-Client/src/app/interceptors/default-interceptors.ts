@@ -1,5 +1,5 @@
 import { Injectable, isDevMode, Inject } from '@angular/core';
-import { Location, DOCUMENT, ɵparseCookieValue as parseCookieValue } from '@angular/common';
+import { Location } from '@angular/common';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpResponse
 } from '@angular/common/http';
@@ -19,13 +19,10 @@ export class DefaultInterceptor implements HttpInterceptor {
     private router: Router,
     private loc: Location,
     private common: CommonService,
-    @Inject(DOCUMENT) private doc: any,
     private identity: Identity
   ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // const cookieString = this.doc.cookie || '';
-    // const jwt = parseCookieValue(cookieString, JWT_KEY);
     const identityInfo = this.identity.getIdentityInfo();
     const jwt = identityInfo?.jwt;
     const sourceUrl = req.url;

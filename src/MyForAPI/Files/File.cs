@@ -104,7 +104,8 @@ namespace Files
         /// <returns></returns>
         public static string GetVisitablePath(string saveName)
         {
-            return "api/" + (SaveWebPath.EndsWith("/") ? SaveWebPath : SaveWebPath + "/") + saveName ?? throw new ArgumentNullException("路径不能为null");
+            return (SaveWebPath.StartsWith("/") ? "" : "/") + 
+                (SaveWebPath.EndsWith("/") ? SaveWebPath : SaveWebPath + "/") + saveName ?? throw new ArgumentNullException("路径不能为null");
         }
     }
 }
