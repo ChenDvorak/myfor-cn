@@ -32,7 +32,7 @@ namespace Domain.Blogs.List
                                            Code = Convert.ToBase64String(Encoding.UTF8.GetBytes(blog.Id.ToString())),
                                            AuthorName = blog.Author.Name,
                                            AuthorAccount = blog.Author.Account,
-                                           Avatar = Files.File.GetVisitablePath(blog.Author.Avatar.SaveName),
+                                           Avatar = Files.File.GetVisitablePath(blog.Author.Avatar.SaveName, true),
                                            Title = blog.Title,
                                            PostedTime = blog.CreateDate.ToString("yyyy-MM-dd"),
                                            Content = blog.Content.Overflow(BLOG_LIST_CONTENT_LENGTH),

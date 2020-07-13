@@ -2,7 +2,7 @@
   <div class="blog">
     <span>
       <a [routerLink]="['/', blog.authorAccount]">
-        <img class="avatar" src="{{blog.avatar}}" alt="avatar">
+        <img class="avatar" [src]="blog.avatar | host" alt="avatar">
       </a>
     </span>
     <div class="blog-content">

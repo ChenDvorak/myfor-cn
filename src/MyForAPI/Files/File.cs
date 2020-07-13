@@ -102,10 +102,13 @@ namespace Files
         /// </summary>
         /// <param name="saveName"></param>
         /// <returns></returns>
-        public static string GetVisitablePath(string saveName)
+        public static string GetVisitablePath(string saveName, bool addPrefex = false)
         {
-            return (SaveWebPath.StartsWith("/") ? "" : "/") + 
+            var path = (SaveWebPath.StartsWith("/") ? "" : "/") + 
                 (SaveWebPath.EndsWith("/") ? SaveWebPath : SaveWebPath + "/") + saveName ?? throw new ArgumentNullException("路径不能为null");
+            if (addPrefex)
+                return "api" + path;
+            return path;
         }
     }
 }
