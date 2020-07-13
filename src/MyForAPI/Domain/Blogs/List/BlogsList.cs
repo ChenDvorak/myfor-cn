@@ -14,7 +14,8 @@ namespace Domain.Blogs.List
         [Flags]
         public enum ListType
         {
-            HomePage = 0
+            HomePage,
+            SearchPage
         }
 
         /// <summary>

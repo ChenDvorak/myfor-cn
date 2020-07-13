@@ -52,5 +52,21 @@ namespace MyForAPI.Controllers.Clients
             pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.HomePage, pager);
             return Ok(pager);
         }
+
+        /*
+         *  获取搜索列表的博文列表
+         *  return:
+         *      200: success
+         */
+        [HttpGet("search")]
+        public async Task<IActionResult> GetBlogsBySearchAsync(int index, int size, string s)
+        {
+            var pager = Domain.Paginator.New(index, size, 1);
+            pager["s"] = s;
+
+            BlogsHub blogsHub = new BlogsHub();
+            pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.SearchPage, pager);
+            return Ok(pager);
+        }
     }
 }

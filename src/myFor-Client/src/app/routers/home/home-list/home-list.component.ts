@@ -12,80 +12,7 @@ export class HomeListComponent implements OnInit {
   unfoldable = true;
   index = 1;
   totalPages = 1;
-  blogList: BlogItem[] = [
-    {
-      code: '1231e',
-      authorName: 'myfor',
-      authorAccount: 'myfor_chen',
-      avatar: 'assets/images/no-avatar.jpg',
-      title: '论啥啥啥 ',
-      postedTime: '2020-01-01',
-      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
-      isFull: false,
-      commentCount: 10_000,
-      agreeCount: 11_000,
-      referenceCount: 30_000,
-      thinkCount: 10
-    },
-    {
-      code: '1231e',
-      authorName: 'myfor',
-      authorAccount: 'myfor_chen',
-      avatar: 'assets/images/no-avatar.jpg',
-      title: '论啥啥啥 ',
-      postedTime: '2020-01-01',
-      content: `<a href="/b/1231e" name="a-1231e">对《论哈哈哈》的见解</a>
-      哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 <a href="/b/1231e" name="a-1231e">引《论哈哈哈》</a>
-      哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content `,
-      isFull: true,
-      commentCount: 10_000,
-      agreeCount: 11_000,
-      referenceCount: 30_000,
-      thinkCount: 10
-    },
-    {
-      code: '1231e',
-      authorName: 'myfor',
-      authorAccount: 'myfor_chen',
-      avatar: 'assets/images/no-avatar.jpg',
-      title: '论啥啥啥 ',
-      postedTime: '2020-01-01',
-      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
-      isFull: false,
-      commentCount: 10_000,
-      agreeCount: 11000,
-      referenceCount: 30000,
-      thinkCount: 10
-    },
-    {
-      code: '1231e',
-      authorName: 'myfor',
-      authorAccount: 'myfor_chen',
-      avatar: 'assets/images/no-avatar.jpg',
-      title: '论啥啥啥 ',
-      postedTime: '2020-01-01',
-      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
-      isFull: false,
-      commentCount: 10_000,
-      agreeCount: 11000,
-      referenceCount: 30000,
-      thinkCount: 10
-    },
-    {
-      code: '1231e',
-      authorName: 'myfor',
-      authorAccount: 'myfor_chen',
-      avatar: 'assets/images/no-avatar.jpg',
-      title: '论啥啥啥 ',
-      postedTime: '2020-01-01',
-      content: '哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content content content content content content content content...',
-      isFull: false,
-      commentCount: 10_000,
-      agreeCount: 11000,
-      referenceCount: 30000,
-      thinkCount: 10
-    }
-  ];
+  blogList: BlogItem[] = [];
   constructor(
     private blog: BlogService,
     private common: CommonService
@@ -103,7 +30,7 @@ export class HomeListComponent implements OnInit {
         this.index = pager.index;
         this.totalPages = pager.totalPages;
         this.unfoldable = this.index < this.totalPages;
-        this.blogList = pager.list;
+        this.blogList.push(...pager.list);
       } else {
         this.common.snackOpen(r.data as unknown as string);
       }
@@ -114,6 +41,7 @@ export class HomeListComponent implements OnInit {
     if (this.index >= this.totalPages) {
       return;
     }
+    this.index++;
     this.getBlogList();
   }
 }

@@ -179,4 +179,18 @@ export class BlogService {
       catchError(this.base.handleError)
     );
   }
+
+  /**
+   * 搜索页的博文列表
+   */
+  getBlogsBySearch(index: number, size: number, s: string): Observable<Result<Paginator<BlogItem>>> {
+    const p = new HttpParams().set('index', index.toString())
+    .set('size', size.toString())
+    .set('s', s ? s : '');
+    return this.http.get<Result>(`${ROUTE_PREFIX}blogs/search?${p.toString()}`)
+    .pipe(
+      retry(1),
+      catchError(this.base.handleError)
+    );
+  }
 }

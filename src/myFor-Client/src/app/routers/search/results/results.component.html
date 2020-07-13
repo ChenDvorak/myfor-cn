@@ -14,7 +14,7 @@
         <app-logo size="40px"></app-logo>
       </a>
       &nbsp;&nbsp;
-      <app-search-box></app-search-box>
+      <app-search-box (enter)="$event"></app-search-box>
     </div>
 
     <div class="result-list">
@@ -22,7 +22,10 @@
             搜索 {{s}} 的结果: 
         </div>
         <div class="blog-search-list">
-            <app-blogs-item-box></app-blogs-item-box>
+            <app-blogs-item-box [blog]="blog" *ngFor="let blog of blogList"></app-blogs-item-box>
+        </div>
+        <div class="more-list">
+          <button mat-button color="primary" [disabled]="!unfoldable" (click)="unfold()">展开更多</button>
         </div>
     </div>
 

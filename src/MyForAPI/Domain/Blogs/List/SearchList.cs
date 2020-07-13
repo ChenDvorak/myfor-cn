@@ -10,13 +10,18 @@ using Microsoft.EntityFrameworkCore;
 namespace Domain.Blogs.List
 {
     /// <summary>
-    /// 首页的博文列表
+    /// 搜索列表的博文列表
     /// </summary>
-    internal class HomePageList : BlogsList
+    class SearchList : BlogsList
     {
         public override async Task<Paginator> GetListAsync(Paginator pager)
         {
+            string s = pager["s"] ?? "";
+
             Expression<Func<DB.Tables.Blog, bool>> whereStatement = blog => blog.State == (int)Blog.BlogState.Enabled;
+            var searchStatement = StatementBuild(s);
+            if (searchStatement != null)
+                whereStatement = whereStatement.And(searchStatement);
 
             await using var db = new MyForDbContext();
             pager.TotalSize = await db.Blogs.CountAsync(whereStatement);
@@ -44,6 +49,27 @@ namespace Domain.Blogs.List
                                        })
                                        .ToListAsync();
             return pager;
+        }
+
+        private Expression<Func<DB.Tables.Blog, bool>> StatementBuild(string search)
+        {
+            string[] searchKeywords = search.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            Expression<Func<DB.Tables.Blog, bool>> where = q => false;
+            if (searchKeywords.Length == 0)
+                where = null;
+            else
+            {
+                for (int i = 0; i < searchKeywords.Length; i++)
+                {
+                    string keyword = searchKeywords[i];
+                    if (i == 0)
+                        where = q => q.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase);
+                    else
+                        where = where.Or(q => q.Title.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+                }
+            }
+            return where;
         }
     }
 }

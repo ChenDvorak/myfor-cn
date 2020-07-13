@@ -46,6 +46,7 @@ namespace Domain.Blogs
             List.IListable list = type switch
             {
                 List.BlogsList.ListType.HomePage => new List.HomePageList(),
+                List.BlogsList.ListType.SearchPage => new List.SearchList(),
                 _ => throw new ArgumentException()
             };
             return await list.GetListAsync(pager);

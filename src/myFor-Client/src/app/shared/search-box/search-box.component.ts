@@ -21,9 +21,7 @@ export class SearchBoxComponent implements OnInit {
 
     search() {
         this.value = this.value.trim();
-        if (this.value) {
-            this.router.navigate(['/search', { s: this.value }]);
-            this.enter.emit(this.value);
-        }
+        this.enter.emit(this.value);
+        this.router.navigate(['/search', { s: this.value }]);
     }
 }
