@@ -68,5 +68,25 @@ namespace MyForAPI.Controllers.Clients
             pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.SearchPage, pager);
             return Ok(pager);
         }
+
+        /*
+         *  获取博文详情
+         *  code:   base64 编码后的博文ID
+         *  return:
+         *      200:    success
+         *      410:    博文不存在
+         */ 
+        public async Task<IActionResult> GetBlogDetailAsync(string code)
+        {
+            code = Encoding.UTF8.GetString(Convert.FromBase64String(code));
+            if (!int.TryParse(code, out int blogId))
+                return Gone();
+            BlogsHub blogsHub = new BlogsHub();
+            var blog = await blogsHub.GetBlogAsync(blogId);
+            var detail = blog.GetDetail();
+            if (CurrentIsLogged)
+                detail.Agreed = await blog.IsAgreedAsync(CurrentAccount);
+            return Ok(detail);
+        }
     }
 }

@@ -10,7 +10,13 @@ namespace MyForAPI.Controllers.Clients
     {
         protected const string CLIENT_JWT_KEY = "no0ko72a";
 
-        //  当前登录用户账号，没有登录则为 null
-        protected string CurrentAccount => User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        /// <summary>
+        /// 当前登录用户账号，没有登录则为 null
+        /// </summary>
+        protected string CurrentAccount => User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        /// <summary>
+        /// 当前是否已登录
+        /// </summary>
+        protected bool CurrentIsLogged => CurrentAccount != null;
     }
 }

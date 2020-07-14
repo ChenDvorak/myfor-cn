@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -41,6 +42,12 @@ namespace Domain.Blogs
             throw new Exception("发布博文失败");
         }
 
+        /// <summary>
+        /// 获取博文列表
+        /// </summary>
+        /// <param name="type">列表类型</param>
+        /// <param name="pager">分页参数</param>
+        /// <returns></returns>
         public async Task<Paginator> GetListAsync(List.BlogsList.ListType type, Paginator pager)
         {
             List.IListable list = type switch
@@ -50,6 +57,38 @@ namespace Domain.Blogs
                 _ => throw new ArgumentException()
             };
             return await list.GetListAsync(pager);
+        }
+
+        /// <summary>
+        /// 获取一个博文
+        /// </summary>
+        /// <param name="blogId"></param>
+        /// <returns></returns>
+        public async Task<Blog> GetBlogAsync(int blogId)
+        {
+            var model = await GetBlogModelAsync(blogId);
+            return Blog.Parse(model);
+        }
+
+        /// <summary>
+        /// 根据账号获取博文模型
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        private async Task<DB.Tables.Blog> GetBlogModelAsync(int blogId)
+        {
+            var value = await RedisCache.GetRedis().HashGetAsync(Blog.REDIS_HASH_KEY, blogId);
+            if (value.HasValue)
+                return JsonConvert.DeserializeObject<DB.Tables.Blog>(value);
+
+            await using DB.MyForDbContext db = new DB.MyForDbContext();
+            var blogModel = await db.Blogs.AsNoTracking()
+                                          .Include(blog => blog.Author)
+                                            .ThenInclude(author => author.Avatar)
+                                          .FirstOrDefaultAsync(blog => blog.Id == blogId);
+            if (blogModel != null)
+                await RedisCache.GetRedis().HashSetAsync(Blog.REDIS_HASH_KEY, blogId, JsonConvert.SerializeObject(blogModel));
+            return blogModel;
         }
     }
 }

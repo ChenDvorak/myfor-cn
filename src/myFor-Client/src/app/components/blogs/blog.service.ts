@@ -69,10 +69,10 @@ export interface BlogItem {
 }
 
 export interface BlogDetail {
-  /**
-   * 编码
-   */
-  code: string;
+  // /**
+  //  * 编码
+  //  */
+  // code: string;
   /**
    * 作者昵称
    */
@@ -188,6 +188,18 @@ export class BlogService {
     .set('size', size.toString())
     .set('s', s ? s : '');
     return this.http.get<Result>(`${ROUTE_PREFIX}blogs/search?${p.toString()}`)
+    .pipe(
+      retry(1),
+      catchError(this.base.handleError)
+    );
+  }
+
+  /**
+   * 获取博文详情
+   * @param code 编码
+   */
+  getBlog(code: string): Observable<Result> {
+    return this.http.get<Result>(`${ROUTE_PREFIX}blogs/${code}`)
     .pipe(
       retry(1),
       catchError(this.base.handleError)
