@@ -76,6 +76,7 @@ namespace MyForAPI.Controllers.Clients
          *      200:    success
          *      410:    博文不存在
          */ 
+        [HttpGet("{code}")]
         public async Task<IActionResult> GetBlogDetailAsync(string code)
         {
             code = Encoding.UTF8.GetString(Convert.FromBase64String(code));
@@ -83,7 +84,7 @@ namespace MyForAPI.Controllers.Clients
                 return Gone();
             BlogsHub blogsHub = new BlogsHub();
             var blog = await blogsHub.GetBlogAsync(blogId);
-            var detail = blog.GetDetail();
+            var detail = await blog.GetDetailAsync();
             if (CurrentIsLogged)
                 detail.Agreed = await blog.IsAgreedAsync(CurrentAccount);
             return Ok(detail);

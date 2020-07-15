@@ -9,7 +9,8 @@ import { Result, Paginator, CommonService } from '../../../shared/services/commo
 })
 export class HomeListComponent implements OnInit {
 
-  unfoldable = true;
+  isLoading = true;
+  unfoldable = false;
   index = 1;
   totalPages = 1;
   blogList: BlogItem[] = [];
@@ -26,6 +27,7 @@ export class HomeListComponent implements OnInit {
   private getBlogList() {
     this.blog.getBlogsByHomePage(this.index, 15).subscribe(r => {
       if (r.status === 200) {
+        this.isLoading = false;
         const pager = r.data as Paginator<BlogItem>;
         this.index = pager.index;
         this.totalPages = pager.totalPages;

@@ -83,11 +83,14 @@ namespace Domain.Blogs
 
             await using DB.MyForDbContext db = new DB.MyForDbContext();
             var blogModel = await db.Blogs.AsNoTracking()
-                                          .Include(blog => blog.Author)
-                                            .ThenInclude(author => author.Avatar)
+                                          //.Include(blog => blog.Author)
+                                          //  .ThenInclude(author => author.Avatar)
                                           .FirstOrDefaultAsync(blog => blog.Id == blogId);
             if (blogModel != null)
-                await RedisCache.GetRedis().HashSetAsync(Blog.REDIS_HASH_KEY, blogId, JsonConvert.SerializeObject(blogModel));
+            {
+                string saveValue = JsonConvert.SerializeObject(blogModel);
+                await RedisCache.GetRedis().HashSetAsync(Blog.REDIS_HASH_KEY, blogId, saveValue);
+            }
             return blogModel;
         }
     }

@@ -14,6 +14,7 @@ import { ContentBoxComponent } from './content-box/content-box.component';
 import { SloganComponent } from './slogan/slogan.component';
 import { NumberLimitComponent } from './number-limit/number-limit.component';
 import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
+import { LoadingComponent } from './loading/loading.component';
 
 const EXPORTS_MODULE = [
   CommonModule,
@@ -30,7 +31,8 @@ const EXPORTS_COMPONENT = [
   ContentBoxComponent,
   SloganComponent,
   NumberLimitComponent,
-  DeleteConfirmDialogComponent
+  DeleteConfirmDialogComponent,
+  LoadingComponent
 ];
 
 const EXPORTS_PIPE = [

@@ -35,9 +35,11 @@ namespace Domain.Blogs
         /// 获取详情
         /// </summary>
         /// <returns></returns>
-        public Results.BlogDetail GetDetail()
+        public async Task<Results.BlogDetail> GetDetailAsync()
         {
             if (_blog == null) throw new NullReferenceException();
+            await GetFullModelAsync();
+
             var detail = new Results.BlogDetail
             { 
                 AuthorName = _blog.Author.Name,
@@ -52,6 +54,16 @@ namespace Domain.Blogs
                 ThinkCount = _blog.ThoughtCount
             };
             return detail;
+        }
+        private async Task GetFullModelAsync()
+        {
+            if (_blog.Author != null) return;
+            await using var db = new MyForDbContext();
+            var userModel = await db.Users.AsNoTracking()
+                                          .Include(user => user.Avatar)
+                                          .FirstOrDefaultAsync(user => user.Id == _blog.AuthorId);
+            if (userModel == null) throw new NullReferenceException("不存在的作者");
+            _blog.Author = userModel;
         }
 
         /// <summary>
