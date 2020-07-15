@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BlogService } from '../blog.service';
+import { CommentService } from '../comment.service';
+import { CommonService } from '../../../shared/services/common';
 
 @Component({
   selector: 'app-post-comment-box',
@@ -16,7 +17,8 @@ export class PostCommentBoxComponent implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<PostCommentBoxComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private blog: BlogService
+    private comment: CommentService,
+    private common: CommonService
   ) { }
 
   ngOnInit(): void {
@@ -25,6 +27,14 @@ export class PostCommentBoxComponent implements OnInit {
   }
 
   post() {
-
+    this.posting = true;
+    this.comment.postComment(this.code, this.content).subscribe(r => {
+      if (r.status == 201) {
+        this.common.snackOpen('评论成功');
+        this.dialogRef.close(true);
+      } else {
+        this.common.snackOpen(r.data);
+      }
+    });
   }
 }

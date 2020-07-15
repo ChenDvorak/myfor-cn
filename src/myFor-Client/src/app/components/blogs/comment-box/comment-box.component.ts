@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Comment } from '../blog.service';
+import { Comment, CommentService } from '../comment.service';
 
 @Component({
   selector: 'app-comment-box',
@@ -17,7 +17,9 @@ export class CommentBoxComponent implements OnInit {
     content: 'eotuhoentuhoenuth\n<a href="/b/1231.">hhh</a>',
     agreeCount: 1000
   };
-  constructor() { }
+  constructor(
+    private comment: CommentService
+  ) { }
 
   ngOnInit(): void {
   }

@@ -10,11 +10,12 @@ const EXPORT_COMPONENTS = [
   BlogDetailBoxComponent,
   CommentBoxComponent,
   BlogsItemBoxComponent,
-  PostBlogBoxComponent
+  PostBlogBoxComponent,
+  PostCommentBoxComponent
 ];
 
 @NgModule({
-  declarations: [...EXPORT_COMPONENTS, PostCommentBoxComponent],
+  declarations: [...EXPORT_COMPONENTS],
   imports: [
     SharedModule
   ],

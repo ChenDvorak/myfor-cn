@@ -4,6 +4,7 @@ import { Identity } from '../../global';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, retry, mergeMap } from 'rxjs/operators';
+import { Comment } from './comment.service';
 
 export interface NewBlog {
   title: string;
@@ -117,16 +118,6 @@ export interface BlogDetail {
    * 见解数
    */
   thinkCount: number;
-}
-
-export interface Comment {
-  id: number;
-  authorName: string;
-  authorAccount: string;
-  avatar: string;
-  dateTime: string;
-  content: string;
-  agreeCount: number;
 }
 
 @Injectable({
