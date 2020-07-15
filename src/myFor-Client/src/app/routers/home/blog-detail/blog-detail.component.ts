@@ -27,6 +27,7 @@ export class BlogDetailComponent implements OnInit {
     referenceCount: 0,
     thinkCount: 0
   };
+  unfoldable = false;
   constructor(
     private route: ActivatedRoute,
     private blog: BlogService,
@@ -36,6 +37,7 @@ export class BlogDetailComponent implements OnInit {
   ngOnInit(): void {
     this.detail.code = this.route.snapshot.paramMap.get('code');
     this.getBlogDetail();
+    this.getComments();
   }
 
   private getBlogDetail() {
@@ -49,4 +51,6 @@ export class BlogDetailComponent implements OnInit {
       this.loading = false;
     });
   }
+
+  private getComments() {}
 }

@@ -62,8 +62,7 @@ namespace Domain.Blogs
             var userModel = await db.Users.AsNoTracking()
                                           .Include(user => user.Avatar)
                                           .FirstOrDefaultAsync(user => user.Id == _blog.AuthorId);
-            if (userModel == null) throw new NullReferenceException("不存在的作者");
-            _blog.Author = userModel;
+            _blog.Author = userModel ?? throw new NullReferenceException("不存在的作者");
         }
 
         /// <summary>
@@ -89,6 +88,27 @@ namespace Domain.Blogs
         private string GetIsAgreedCacheKey(string account)
         {
             return $"{REDIS_HASH_KEY}-{Id}-argeed-{account}";
+        }
+
+        /// <summary>
+        /// 评论
+        /// </summary>
+        /// <param name="content"></param>
+        /// <returns>(bool: 是否成功, string: 失败原因)</returns>
+        public async Task AppendCommentAsync(int commenterId, string content)
+        {
+            if (string.IsNullOrWhiteSpace(content))
+                throw new ArgumentNullException("评论内容不能位空");
+
+            var comment = new Comments.Models.NewComment
+            { 
+                CommenterId = commenterId,
+                BlogId = Id,
+                Content = content
+            };
+
+            Comments.CommentsHub commentsHub = new Comments.CommentsHub();
+            await commentsHub.AddCommentAsync(comment);
         }
 
         public static Blog Parse(DB.Tables.Blog blogModel)

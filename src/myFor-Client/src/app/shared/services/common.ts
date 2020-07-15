@@ -25,6 +25,9 @@ export interface Result<T = any> {
   location: string;
 }
 
+/**
+ * status: 400
+ */
 export const DEFAULT_RESULT: Result = {
   status: 400,
   data: {},

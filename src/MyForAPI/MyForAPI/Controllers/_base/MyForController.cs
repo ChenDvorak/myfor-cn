@@ -16,6 +16,6 @@ namespace MyForAPI.Controllers._base
         /// 在收到410状态码后，用户应停止再次请求资源。
         /// </summary>
         /// <returns>410 status code</returns>
-        protected StatusCodeResult Gone() => new StatusCodeResult(410);
+        protected ObjectResult Gone(string value = "") => StatusCode(410, value);
     }
 }

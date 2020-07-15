@@ -89,5 +89,32 @@ namespace MyForAPI.Controllers.Clients
                 detail.Agreed = await blog.IsAgreedAsync(CurrentAccount);
             return Ok(detail);
         }
+
+        /*
+         *  评论该博文
+         *  return:
+         *      201:    success
+         *      410:    
+         */
+        [HttpPost("{code}/comments"), Authorize]
+        public async Task<IActionResult> CommentAsync(string code, [FromBody]string content)
+        {
+            code = Encoding.UTF8.GetString(Convert.FromBase64String(code));
+            if (!int.TryParse(code, out int blogId))
+                return Gone("该博文不存在，请刷新");
+            if (!CurrentIsLogged) return Unauthorized();
+
+            var user = await _currentUser.GetUserAsync(CurrentAccount);
+            if (user == null)
+                return Gone("请重新登录");
+
+            BlogsHub blogsHub = new BlogsHub();
+            var blog = await blogsHub.GetBlogAsync(blogId);
+            if (blog == null)
+                return Gone("该博文不存在，请刷新");
+            await blog.AppendCommentAsync(user.Id, content);
+
+            return Ok();
+        }
     }
 }
