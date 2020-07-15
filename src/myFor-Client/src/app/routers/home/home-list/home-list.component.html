@@ -1,8 +1,6 @@
 <div class="blog-list">
-  <app-loading *ngIf="isLoading"></app-loading>
-
+  <app-loading [loading]="isLoading"></app-loading>
   <app-blogs-item-box [blog]="blog" *ngFor="let blog of blogList"></app-blogs-item-box>
-
   <div class="more-list">
     <button mat-button color="primary" [disabled]="!unfoldable" (click)="unfold()">展开更多</button>
   </div>

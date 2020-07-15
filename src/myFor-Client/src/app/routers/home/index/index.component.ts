@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
-import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Identity, IdentityInfo } from '../../../global';
 import { PostBlogBoxComponent } from '../../../components/blogs/post-blog-box/post-blog-box.component';
+import { GlobalService } from '../../../global';
 
 @Component({
   selector: 'app-index',
@@ -17,14 +17,14 @@ export class IndexComponent implements OnInit, AfterContentChecked {
 
   isHomePage = true;
   constructor(
-    private common: CommonService,
+    private global: GlobalService,
     private route: ActivatedRoute,
     private dia: MatDialog,
     private identity: Identity
   ) { }
 
   ngOnInit(): void {
-    this.common.setTitle(this.route.snapshot.data.title);
+    this.global.setTitle(this.route.snapshot.data.title);
     this.isLoggedIn = this.identity.isLoggedIn;
     if (this.isLoggedIn) {
       this.loggedInInfo = this.identity.getIdentityInfo();

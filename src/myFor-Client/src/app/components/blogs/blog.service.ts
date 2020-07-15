@@ -69,10 +69,10 @@ export interface BlogItem {
 }
 
 export interface BlogDetail {
-  // /**
-  //  * 编码
-  //  */
-  // code: string;
+  /**
+   * 编码
+   */
+  code: string;
   /**
    * 作者昵称
    */

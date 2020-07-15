@@ -27,7 +27,6 @@ export class HomeListComponent implements OnInit {
   private getBlogList() {
     this.blog.getBlogsByHomePage(this.index, 15).subscribe(r => {
       if (r.status === 200) {
-        this.isLoading = false;
         const pager = r.data as Paginator<BlogItem>;
         this.index = pager.index;
         this.totalPages = pager.totalPages;
@@ -36,6 +35,7 @@ export class HomeListComponent implements OnInit {
       } else {
         this.common.snackOpen(r.data as unknown as string);
       }
+      this.isLoading = false;
     });
   }
 

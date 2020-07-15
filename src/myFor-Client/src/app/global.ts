@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { enc } from 'crypto-js';
 
+const DEFAULT_TITLE = 'myFor';
+
 /**
  * 全局
  */
@@ -11,7 +13,7 @@ import { enc } from 'crypto-js';
 export class GlobalService {
 
     // tslint:disable-next-line: variable-name
-    private static _title: BehaviorSubject<string> = new BehaviorSubject<string>('myFor');
+    private static _title: BehaviorSubject<string> = new BehaviorSubject<string>(DEFAULT_TITLE);
     /**
      * 获取 document title
      */
@@ -23,6 +25,9 @@ export class GlobalService {
      * @param title 新 title
      */
     setTitle(title: string) {
+        if (!title) {
+            title = DEFAULT_TITLE;
+        }
         GlobalService._title.next(title.trim() ? title : '');
     }
 }

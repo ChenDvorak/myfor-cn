@@ -117,8 +117,4 @@ export class CommonService {
       ele.setSelectionRange(INDEX + INSERT_CHARS.length, INDEX + INSERT_CHARS.length);
     });
   }
-
-  setTitle(title: string) {
-    this.doc.title = title;
-  }
 }

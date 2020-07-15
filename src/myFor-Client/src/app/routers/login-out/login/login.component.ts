@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalService } from '../../../global';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +10,14 @@ import { ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private common: CommonService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private global: GlobalService
   ) { }
 
   ngOnInit(): void {
     const TITLE = this.route.snapshot.data.title;
     if (TITLE) {
-      this.common.setTitle(TITLE);
+      this.global.setTitle(TITLE);
     }
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
+import { GlobalService } from '../../../global';
 
 @Component({
   selector: 'app-blog-detail',
@@ -10,9 +11,10 @@ import { BlogService, BlogDetail } from '../../../components/blogs/blog.service'
 })
 export class BlogDetailComponent implements OnInit {
 
+  loading = true;
   defaultMessage = null;
-  code = '';
   detail: BlogDetail = {
+    code: '',
     authorName: '',
     authorAccount: '',
     avatar: '',
@@ -26,24 +28,25 @@ export class BlogDetailComponent implements OnInit {
     thinkCount: 0
   };
   constructor(
-    private common: CommonService,
     private route: ActivatedRoute,
-    private blog: BlogService
+    private blog: BlogService,
+    private global: GlobalService
   ) { }
 
   ngOnInit(): void {
-    this.code = this.route.snapshot.paramMap.get('code');
+    this.detail.code = this.route.snapshot.paramMap.get('code');
     this.getBlogDetail();
   }
 
   private getBlogDetail() {
-    this.blog.getBlog(this.code).subscribe(r => {
+    this.blog.getBlog(this.detail.code).subscribe(r => {
       if (r.status === 200) {
         this.detail = r.data as BlogDetail;
-        this.common.setTitle(this.code);
+        this.global.setTitle(this.detail.title);
       } else {
         this.defaultMessage = '获取失败';
       }
+      this.loading = false;
     });
   }
 }

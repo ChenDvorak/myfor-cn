@@ -11,9 +11,8 @@ import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
   styleUrls: ['./blog-detail-box.component.sass']
 })
 export class BlogDetailBoxComponent implements OnInit {
-
-  code = '';
   @Input() blogDetail: BlogDetail = {
+    code: '',
     authorName: '',
     authorAccount: '',
     avatar: '',
@@ -33,14 +32,14 @@ export class BlogDetailBoxComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.code = this.route.snapshot.paramMap.get('code');
+    this.blogDetail.code = this.route.snapshot.paramMap.get('code');
   }
 
   potsComment() {
     this.dia.open(PostCommentBoxComponent, {
       panelClass: 'diaclass',
       data: {
-        code: this.code,
+        code: this.blogDetail.code,
         title: this.blogDetail.title
       }
     });
@@ -50,7 +49,7 @@ export class BlogDetailBoxComponent implements OnInit {
     this.dia.open(PostBlogBoxComponent, {
       panelClass: 'diaclass',
       data: {
-        referenceFrom: { code: this.code, title: this.blogDetail.title }
+        referenceFrom: { code: this.blogDetail.code, title: this.blogDetail.title }
       }
     });
   }
@@ -59,7 +58,7 @@ export class BlogDetailBoxComponent implements OnInit {
     this.dia.open(PostBlogBoxComponent, {
       panelClass: 'diaclass',
       data: {
-        thinkFrom: { code: this.code, title: this.blogDetail.title }
+        thinkFrom: { code: this.blogDetail.code, title: this.blogDetail.title }
       }
     });
   }

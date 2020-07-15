@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterContentChecked } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { CommonService } from '../../../shared/services/common';
 import { Identity } from '../../../global';
 import { PostBlogBoxComponent } from '../../../components/blogs/post-blog-box/post-blog-box.component';
+import { GlobalService } from '../../../global';
 
 @Component({
   selector: 'app-detail',
@@ -18,15 +18,15 @@ export class DetailComponent implements OnInit, AfterContentChecked {
   account = '';
 
   constructor(
-    private common: CommonService,
     private route: ActivatedRoute,
     private dia: MatDialog,
-    private identity: Identity
+    private identity: Identity,
+    private global: GlobalService
   ) { }
 
   ngOnInit(): void {
     this.account = this.route.snapshot.paramMap.get('account');
-    this.common.setTitle(`@${this.account}`);
+    this.global.setTitle(`@${this.account}`);
     this.isLoggedIn = this.identity.isLoggedIn;
   }
 
