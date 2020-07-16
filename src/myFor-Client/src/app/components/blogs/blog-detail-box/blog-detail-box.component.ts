@@ -51,8 +51,8 @@ export class BlogDetailBoxComponent implements OnInit {
     });
     d.afterClosed().subscribe(r => {
       //  成功评论后，发出事件，发射评论内容
-      r = r as string;
       if (r) {
+        r = r as string;
         this.commented.emit(r);
       }
     });

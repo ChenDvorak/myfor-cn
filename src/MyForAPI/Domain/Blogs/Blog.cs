@@ -109,6 +109,26 @@ namespace Domain.Blogs
 
             Comments.CommentsHub commentsHub = new Comments.CommentsHub();
             await commentsHub.AddCommentAsync(comment);
+            await IncreaseCommentCount();
+        }
+
+        /// <summary>
+        /// 评论数 + 1
+        /// </summary>
+        /// <returns></returns>
+        internal async Task IncreaseCommentCount()
+        {
+            var cacheBlog = await BlogsHub.GetBlogModelAsync(Id);
+            if (cacheBlog != null)
+            {
+                cacheBlog.CommentCount++;
+                await BlogsHub.SaveCacheBlog(cacheBlog);
+            }
+
+            _blog.CommentCount++;
+            await using var db = new MyForDbContext();
+            db.Update(_blog);
+            await db.SaveChangesAsync();
         }
 
         public static Blog Parse(DB.Tables.Blog blogModel)

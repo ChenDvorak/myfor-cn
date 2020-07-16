@@ -4,9 +4,7 @@
 </div>
 <div class="newComment">
   <div class="introComment" *ngFor="let intro of newComments">
-    <span>
-      <img [src]="intro.avatar" class="avatar" alt="avatar">
-    </span>
+    <img [src]="intro.avatar" class="avatar" alt="avatar">
     <mat-form-field class="new-comment">
       <textarea matInput cdkTextareaAutosize readonly>{{intro.content}}</textarea>
     </mat-form-field>

@@ -32,7 +32,7 @@ export class PostCommentBoxComponent implements OnInit {
     this.comment.postComment(this.code, this.content).subscribe(r => {
       if (r.status === 201) {
         this.common.snackOpen('评论成功');
-        this.dialogRef.close();
+        this.dialogRef.close(this.content);
       } else {
         this.common.snackOpen(r.data);
       }

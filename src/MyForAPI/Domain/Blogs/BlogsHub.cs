@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,7 @@ namespace Domain.Blogs
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        private async Task<DB.Tables.Blog> GetBlogModelAsync(int blogId)
+        internal static async Task<DB.Tables.Blog> GetBlogModelAsync(int blogId)
         {
             var value = await RedisCache.GetRedis().HashGetAsync(Blog.REDIS_HASH_KEY, blogId);
             if (value.HasValue)
@@ -83,15 +84,20 @@ namespace Domain.Blogs
 
             await using DB.MyForDbContext db = new DB.MyForDbContext();
             var blogModel = await db.Blogs.AsNoTracking()
-                                          //.Include(blog => blog.Author)
-                                          //  .ThenInclude(author => author.Avatar)
                                           .FirstOrDefaultAsync(blog => blog.Id == blogId);
-            if (blogModel != null)
-            {
-                string saveValue = JsonConvert.SerializeObject(blogModel);
-                await RedisCache.GetRedis().HashSetAsync(Blog.REDIS_HASH_KEY, blogId, saveValue);
-            }
+            await SaveCacheBlog(blogModel);
             return blogModel;
+        }
+        /// <summary>
+        /// 博文模型存进缓存
+        /// </summary>
+        /// <param name="blogModel"></param>
+        /// <returns></returns>
+        internal static async Task SaveCacheBlog(DB.Tables.Blog blogModel)
+        {
+            if (blogModel == null) return;
+            string saveValue = JsonConvert.SerializeObject(blogModel);
+            await RedisCache.GetRedis().HashSetAsync(Blog.REDIS_HASH_KEY, blogModel.Id, saveValue);
         }
     }
 }
