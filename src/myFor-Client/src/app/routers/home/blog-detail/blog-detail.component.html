@@ -1,6 +1,16 @@
 <div class="detail">
   <app-loading [loading]="loading"></app-loading>
-  <app-blog-detail-box [blogDetail]="detail"></app-blog-detail-box>
+  <app-blog-detail-box [blogDetail]="detail" (commented)="commented($event)"></app-blog-detail-box>
+</div>
+<div class="newComment">
+  <div class="introComment" *ngFor="let intro of newComments">
+    <span>
+      <img [src]="intro.avatar" class="avatar" alt="avatar">
+    </span>
+    <mat-form-field class="new-comment">
+      <textarea matInput cdkTextareaAutosize readonly>{{intro.content}}</textarea>
+    </mat-form-field>
+  </div>
 </div>
 <div class="comments">
   <app-comment-box></app-comment-box>

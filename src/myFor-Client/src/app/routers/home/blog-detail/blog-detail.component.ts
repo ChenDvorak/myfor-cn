@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
-import { GlobalService } from '../../../global';
+import { GlobalService, Identity } from '../../../global';
+import { Comment, IntroComment } from '../../../components/blogs/comment.service';
 
 @Component({
   selector: 'app-blog-detail',
@@ -27,11 +28,19 @@ export class BlogDetailComponent implements OnInit {
     referenceCount: 0,
     thinkCount: 0
   };
+  comments: Comment[] = [];
+  /**
+   * 刚添加的评论
+   */
+  newComments: IntroComment[] = [];
   unfoldable = false;
+
   constructor(
     private route: ActivatedRoute,
     private blog: BlogService,
-    private global: GlobalService
+    private global: GlobalService,
+    private identity: Identity,
+    private common: CommonService
   ) { }
 
   ngOnInit(): void {
@@ -53,4 +62,20 @@ export class BlogDetailComponent implements OnInit {
   }
 
   private getComments() {}
+
+  /**
+   * 展示新添加的评论
+   * @param commentContent 评论内容
+   */
+  commented(commentContent: string) {
+    if (!this.identity.isLoggedIn) {
+      this.common.snackOpen('请先登录');
+      return;
+    }
+    const newCommentIntro: IntroComment = {
+      avatar: this.identity.getIdentityInfo().avatar,
+      content: commentContent
+    };
+    this.newComments = [newCommentIntro, ...this.newComments];
+  }
 }

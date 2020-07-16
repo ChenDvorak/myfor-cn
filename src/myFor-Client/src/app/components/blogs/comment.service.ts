@@ -14,6 +14,13 @@ export interface Comment {
   content: string;
   agreeCount: number;
 }
+/**
+ * 用户刚刚添加的评论
+ */
+export interface IntroComment {
+  avatar: string;
+  content: string;
+}
 
 @Injectable({
   providedIn: 'root'

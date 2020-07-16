@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
@@ -11,6 +11,12 @@ import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
   styleUrls: ['./blog-detail-box.component.sass']
 })
 export class BlogDetailBoxComponent implements OnInit {
+
+  /**
+   * 评论后发出评论内容
+   */
+  @Output() commented: EventEmitter<string> = new EventEmitter<string>();
+
   @Input() blogDetail: BlogDetail = {
     code: '',
     authorName: '',
@@ -36,11 +42,18 @@ export class BlogDetailBoxComponent implements OnInit {
   }
 
   potsComment() {
-    this.dia.open(PostCommentBoxComponent, {
+    const d = this.dia.open(PostCommentBoxComponent, {
       panelClass: 'diaclass',
       data: {
         code: this.blogDetail.code,
         title: this.blogDetail.title
+      }
+    });
+    d.afterClosed().subscribe(r => {
+      //  成功评论后，发出事件，发射评论内容
+      r = r as string;
+      if (r) {
+        this.commented.emit(r);
       }
     });
   }
