@@ -24,6 +24,7 @@ namespace Domain.Blogs
 
         public class BlogDetail
         {
+            public string Code { get; set; } = "";
             public string AuthorName { get; set; } = "";
             public string AuthorAccount { get; set; } = "";
             public string Avatar { get; set; } = "";

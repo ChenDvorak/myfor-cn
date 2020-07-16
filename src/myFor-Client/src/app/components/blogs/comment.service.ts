@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ServicesBase, Result, DEFAULT_RESULT, ROUTE_PREFIX, Paginator } from '../../shared/services/common';
 import { Identity } from '../../global';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { catchError, retry, mergeMap } from 'rxjs/operators';
 
 export interface Comment {
@@ -36,8 +36,9 @@ export class CommentService {
       R.data = '评论内容不能位空';
       return of(R);
     }
-
-    return this.http.post<Result>(`${ROUTE_PREFIX}blogs/${code}`, `"${content}"`)
+    content = content.replace(/\n/g, '\\n');
+    const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<Result>(`${ROUTE_PREFIX}blogs/${code}/comments`, `"${content}"`, { headers })
     .pipe(
       catchError(this.base.handleError)
     );

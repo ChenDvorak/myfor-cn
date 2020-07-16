@@ -33,7 +33,7 @@ namespace MyForAPI.Controllers.Clients
             if (isSuccess)
             {
                 string encodeId = Convert.ToBase64String(Encoding.UTF8.GetBytes(msg));
-                return Created($"/blogs/{encodeId}", encodeId);
+                return Created($"/b/{encodeId}", encodeId);
             }
             return BadRequest(msg);
         }
@@ -79,12 +79,13 @@ namespace MyForAPI.Controllers.Clients
         [HttpGet("{code}")]
         public async Task<IActionResult> GetBlogDetailAsync(string code)
         {
-            code = Encoding.UTF8.GetString(Convert.FromBase64String(code));
-            if (!int.TryParse(code, out int blogId))
+            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
+            if (!int.TryParse(debasedCode, out int blogId))
                 return Gone();
             BlogsHub blogsHub = new BlogsHub();
             var blog = await blogsHub.GetBlogAsync(blogId);
             var detail = await blog.GetDetailAsync();
+            detail.Code = code;
             if (CurrentIsLogged)
                 detail.Agreed = await blog.IsAgreedAsync(CurrentAccount);
             return Ok(detail);
@@ -99,8 +100,8 @@ namespace MyForAPI.Controllers.Clients
         [HttpPost("{code}/comments"), Authorize]
         public async Task<IActionResult> CommentAsync(string code, [FromBody]string content)
         {
-            code = Encoding.UTF8.GetString(Convert.FromBase64String(code));
-            if (!int.TryParse(code, out int blogId))
+            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
+            if (!int.TryParse(debasedCode, out int blogId))
                 return Gone("该博文不存在，请刷新");
             if (!CurrentIsLogged) return Unauthorized();
 
@@ -114,7 +115,7 @@ namespace MyForAPI.Controllers.Clients
                 return Gone("该博文不存在，请刷新");
             await blog.AppendCommentAsync(user.Id, content);
 
-            return Ok();
+            return Created($"/b/{code}", null);
         }
     }
 }

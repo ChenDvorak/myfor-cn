@@ -29,12 +29,13 @@ export class PostCommentBoxComponent implements OnInit {
   post() {
     this.posting = true;
     this.comment.postComment(this.code, this.content).subscribe(r => {
-      if (r.status == 201) {
+      if (r.status === 201) {
         this.common.snackOpen('评论成功');
         this.dialogRef.close(true);
       } else {
         this.common.snackOpen(r.data);
       }
+      this.posting = false;
     });
   }
 }
