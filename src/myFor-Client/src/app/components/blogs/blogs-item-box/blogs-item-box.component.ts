@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { CommonService } from '../../../shared/services/common';
+import { Identity } from '../../../global';
 import { BlogService, BlogItem } from '../blog.service';
 import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
 import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
@@ -13,25 +15,25 @@ import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
 export class BlogsItemBoxComponent implements OnInit {
 
   @Input() blog: BlogItem = {
-    code: '1231e',
-    authorName: 'myfor',
-    authorAccount: 'myfor_chen',
+    code: '',
+    authorName: '',
+    authorAccount: '',
     avatar: 'assets/images/no-avatar.jpg',
-    title: '论啥啥啥 ',
-    postedTime: '2020-01-01',
-    content: `<a href="/b/1231e" name="a-1231e">对《论哈哈哈》的见解</a>
-    哈哈哈哈哈哈哈 哈哈哈哈哈哈哈 <a href="/b/1231e" name="a-1231e">引《论哈哈哈》</a>
-    哈哈哈哈哈哈哈 content content content 哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 content `,
+    title: ' ',
+    postedTime: '',
+    content: ``,
     isFull: true,
-    commentCount: 10_000,
-    agreeCount: 11_000,
-    referenceCount: 30_000,
-    thinkCount: 10
+    commentCount: 0,
+    agreeCount: 0,
+    referenceCount: 0,
+    thinkCount: 0
   };
 
   constructor(
     private router: Router,
-    private dia: MatDialog
+    private dia: MatDialog,
+    private identity: Identity,
+    private common: CommonService
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +58,9 @@ export class BlogsItemBoxComponent implements OnInit {
   }
 
   reference() {
+    if (!this.checkLoggedIn()) {
+      return;
+    }
     this.dia.open(PostBlogBoxComponent, {
       panelClass: 'diaclass',
       data: {
@@ -65,11 +70,23 @@ export class BlogsItemBoxComponent implements OnInit {
   }
 
   think() {
+    if (!this.checkLoggedIn()) {
+      return;
+    }
     this.dia.open(PostBlogBoxComponent, {
       panelClass: 'diaclass',
       data: {
         thinkFrom: { code: this.blog.code, title: this.blog.title }
       }
     });
+  }
+
+  private checkLoggedIn(): boolean {
+    if (!this.identity.isLoggedIn) {
+      this.common.snackOpen('请先登录');
+      this.router.navigateByUrl('login');
+      return false;
+    }
+    return true;
   }
 }

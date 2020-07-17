@@ -1,7 +1,7 @@
 <div class="blog-detail-box-container">
   <div class="author-infor">
     <a [routerLink]="['/', blogDetail.authorAccount]">
-      <img class="avatar" [src]="blogDetail.avatar" alt="avatar">
+      <img class="avatar" [src]="blogDetail.avatar | host" alt="avatar">
     </a>
     <div class="name">
       <a [routerLink]="['/', blogDetail.authorAccount]" class="author-name">{{blogDetail.authorName}}</a>

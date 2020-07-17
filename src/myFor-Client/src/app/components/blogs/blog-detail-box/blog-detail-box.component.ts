@@ -1,10 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Identity } from '../../../global';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
 import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
 import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
 import { CommonService } from '../../../shared/services/common';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-blog-detail-box',
@@ -32,9 +34,12 @@ export class BlogDetailBoxComponent implements OnInit {
     referenceCount: 0,
     thinkCount: 0
   };
+  agreeDisable = false;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
+    private identity: Identity,
     private dia: MatDialog,
     private common: CommonService,
     private blog: BlogService
@@ -62,6 +67,18 @@ export class BlogDetailBoxComponent implements OnInit {
   }
 
   agree() {
+    if (this.agreeDisable) {
+      return;
+    }
+
+    const T = timer(0, 1000).subscribe(t => {
+      this.agreeDisable = true;
+      if (t >= 1) {
+        T.unsubscribe();
+        this.agreeDisable = false;
+      }
+    });
+
     this.blog.agrees(this.blogDetail.code).subscribe(r => {
       if (r.status === 200) {
         this.blogDetail.agreed = !this.blogDetail.agreed;
@@ -72,6 +89,10 @@ export class BlogDetailBoxComponent implements OnInit {
   }
 
   reference() {
+    if (!this.checkLoggedIn()) {
+      return;
+    }
+
     this.dia.open(PostBlogBoxComponent, {
       panelClass: 'diaclass',
       data: {
@@ -81,11 +102,24 @@ export class BlogDetailBoxComponent implements OnInit {
   }
 
   think() {
+    if (!this.checkLoggedIn()) {
+      return;
+    }
+
     this.dia.open(PostBlogBoxComponent, {
       panelClass: 'diaclass',
       data: {
         thinkFrom: { code: this.blogDetail.code, title: this.blogDetail.title }
       }
     });
+  }
+
+  private checkLoggedIn(): boolean {
+    if (!this.identity.isLoggedIn) {
+      this.common.snackOpen('请先登录');
+      this.router.navigateByUrl('login');
+      return false;
+    }
+    return true;
   }
 }

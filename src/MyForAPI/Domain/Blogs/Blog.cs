@@ -150,7 +150,6 @@ namespace Domain.Blogs
                     AccepterId = Id
                 };
                 await db.AgreesRecords.AddAsync(record);
-                await db.SaveChangesAsync();
                 int changeCount = await db.SaveChangesAsync();
                 if (changeCount != 1) throw new Exception("同意失败");
 
