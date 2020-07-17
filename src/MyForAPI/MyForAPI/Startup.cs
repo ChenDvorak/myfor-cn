@@ -46,6 +46,7 @@ namespace MyForAPI
                                       builder.WithMethods("PATCH");
                                   });
             });
+            services.AddResponseCaching();
 
             //  JWT 验证规则
             services.AddAuthentication(options =>
