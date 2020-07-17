@@ -82,13 +82,32 @@ namespace MyForAPI.Controllers.Clients
             string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
             if (!int.TryParse(debasedCode, out int blogId))
                 return Gone();
-            BlogsHub blogsHub = new BlogsHub();
-            var blog = await blogsHub.GetBlogAsync(blogId);
+
+            var blog = await BlogsHub.GetBlogAsync(blogId);
             var detail = await blog.GetDetailAsync();
             detail.Code = code;
             if (CurrentIsLogged)
                 detail.Agreed = await blog.IsAgreedAsync(CurrentAccount);
             return Ok(detail);
+        }
+
+        /*
+         *  同意博文
+         */
+        [HttpPost("{code}/agrees"), Authorize]
+        public async Task<IActionResult> IncreaseAgreeAsync(string code)
+        {
+            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
+            if (!int.TryParse(debasedCode, out int blogId))
+                return Gone();
+
+            if (!CurrentIsLogged)
+                return Unauthorized();
+            var user = await _currentUser.GetUserAsync(CurrentAccount);
+
+            var blog = await BlogsHub.GetBlogAsync(blogId);
+            await blog.AgreeOrNotAsync(user.Id);
+            return Ok();
         }
 
         /*
@@ -109,8 +128,7 @@ namespace MyForAPI.Controllers.Clients
             if (user == null)
                 return Gone("请重新登录");
 
-            BlogsHub blogsHub = new BlogsHub();
-            var blog = await blogsHub.GetBlogAsync(blogId);
+            var blog = await BlogsHub.GetBlogAsync(blogId);
             if (blog == null)
                 return Gone("该博文不存在，请刷新");
             await blog.AppendCommentAsync(user.Id, content);
@@ -132,8 +150,7 @@ namespace MyForAPI.Controllers.Clients
 
             Domain.Paginator pager = Domain.Paginator.New(index, size);
 
-            BlogsHub blogsHub = new BlogsHub();
-            var blog = await blogsHub.GetBlogAsync(blogId);
+            var blog = await BlogsHub.GetBlogAsync(blogId);
             if (blog == null) return Gone("该博文不存在，请刷新");
             pager = await blog.GetCommentsListAsync(pager);
             return Ok(pager);

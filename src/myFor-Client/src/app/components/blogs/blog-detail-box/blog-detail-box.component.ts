@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
 import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
 import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
+import { CommonService } from '../../../shared/services/common';
 
 @Component({
   selector: 'app-blog-detail-box',
@@ -34,7 +35,9 @@ export class BlogDetailBoxComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private dia: MatDialog
+    private dia: MatDialog,
+    private common: CommonService,
+    private blog: BlogService
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +57,16 @@ export class BlogDetailBoxComponent implements OnInit {
       if (r) {
         r = r as string;
         this.commented.emit(r);
+      }
+    });
+  }
+
+  agree() {
+    this.blog.agrees(this.blogDetail.code).subscribe(r => {
+      if (r.status === 200) {
+        this.blogDetail.agreed = !this.blogDetail.agreed;
+      } else {
+        this.common.snackOpen(r.data as string);
       }
     });
   }

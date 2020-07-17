@@ -13,6 +13,6 @@
 <div class="comments">
   <app-comment-box *ngFor="let comment of comments" [model]="comment"></app-comment-box>
   <div class="more-comments" *ngIf="unfoldable">
-    <button mat-button color="primary">展开更多</button>
+    <button mat-button color="primary" (click)="getComments()">展开更多</button>
   </div>
 </div>

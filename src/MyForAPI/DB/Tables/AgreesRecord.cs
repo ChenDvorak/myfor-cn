@@ -14,7 +14,7 @@ namespace DB.Tables
         /// </summary>
         public int AgreerId { get; set; }
         /// <summary>
-        /// 被同意方
+        /// 被同意方，即是哪篇博文
         /// </summary>
         public int AccepterId { get; set; }
     }

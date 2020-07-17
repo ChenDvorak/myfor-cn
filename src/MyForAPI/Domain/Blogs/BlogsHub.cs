@@ -65,14 +65,14 @@ namespace Domain.Blogs
         /// </summary>
         /// <param name="blogId"></param>
         /// <returns></returns>
-        public async Task<Blog> GetBlogAsync(int blogId)
+        public static async Task<Blog> GetBlogAsync(int blogId)
         {
             var model = await GetBlogModelAsync(blogId);
             return Blog.Parse(model);
         }
 
         /// <summary>
-        /// 根据账号获取博文模型
+        /// 获取博文模型，存缓存
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
@@ -85,7 +85,7 @@ namespace Domain.Blogs
             await using DB.MyForDbContext db = new DB.MyForDbContext();
             var blogModel = await db.Blogs.AsNoTracking()
                                           .FirstOrDefaultAsync(blog => blog.Id == blogId);
-            await SaveCacheBlog(blogModel);
+            await SaveCacheBlogAsync(blogModel);
             return blogModel;
         }
         /// <summary>
@@ -93,7 +93,7 @@ namespace Domain.Blogs
         /// </summary>
         /// <param name="blogModel"></param>
         /// <returns></returns>
-        internal static async Task SaveCacheBlog(DB.Tables.Blog blogModel)
+        internal static async Task SaveCacheBlogAsync(DB.Tables.Blog blogModel)
         {
             if (blogModel == null) return;
             string saveValue = JsonConvert.SerializeObject(blogModel);

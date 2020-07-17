@@ -66,14 +66,12 @@ export class BlogDetailComponent implements OnInit {
     });
   }
 
-  private getComments() {
+  getComments() {
     this.index++;
-    this.comment.getCommentsList(this.detail.code, this.index, 15).subscribe(r => {
+    this.comment.getCommentsList(this.detail.code, this.index, 10).subscribe(r => {
       if (r.status === 200) {
         r.data = r.data as Paginator<Comment>;
-        if (r.data.index <= r.data.totalPages) {
-          this.unfoldable = false;
-        }
+        this.unfoldable = r.data.index < r.data.totalPages;
         this.comments.push(...r.data.list);
       } else {
         this.common.snackOpen(r.data as string);

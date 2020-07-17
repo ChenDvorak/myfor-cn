@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DB;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Blogs
 {
-    public class Blog: BaseEntity
+    public class Blog : BaseEntity
     {
         public enum BlogState
         {
@@ -41,7 +42,7 @@ namespace Domain.Blogs
             await GetFullModelAsync();
 
             var detail = new Results.BlogDetail
-            { 
+            {
                 AuthorName = _blog.Author.Name,
                 AuthorAccount = _blog.Author.Account,
                 Avatar = Files.File.GetVisitablePath(_blog.Author.Avatar.SaveName, "api"),
@@ -101,7 +102,7 @@ namespace Domain.Blogs
                 throw new ArgumentNullException("评论内容不能位空");
 
             var comment = new Comments.Models.NewComment
-            { 
+            {
                 CommenterId = commenterId,
                 BlogId = Id,
                 Content = content
@@ -109,26 +110,64 @@ namespace Domain.Blogs
 
             Comments.CommentsHub commentsHub = new Comments.CommentsHub();
             await commentsHub.AddCommentAsync(comment);
-            await IncreaseCommentCount();
+            await IncreaseCommentCountAsync();
         }
 
         /// <summary>
         /// 评论数 + 1
         /// </summary>
         /// <returns></returns>
-        internal async Task IncreaseCommentCount()
+        internal async Task IncreaseCommentCountAsync()
         {
             var cacheBlog = await BlogsHub.GetBlogModelAsync(Id);
             if (cacheBlog != null)
             {
                 cacheBlog.CommentCount++;
-                await BlogsHub.SaveCacheBlog(cacheBlog);
+                await BlogsHub.SaveCacheBlogAsync(cacheBlog);
             }
 
             _blog.CommentCount++;
             await using var db = new MyForDbContext();
             db.Update(_blog);
             await db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 同意或取消同意
+        /// </summary>
+        public async Task AgreeOrNotAsync(int agreerId)
+        {
+            if (_blog == null) throw new NullReferenceException("该博文不存在");
+
+            await using var db = new MyForDbContext();
+            var record = await db.AgreesRecords.AsNoTracking().Where(r => r.AgreerId == agreerId && r.AccepterId == Id).FirstOrDefaultAsync();
+            if (record == null)
+            {
+                //  同意
+                record = new DB.Tables.AgreesRecord
+                {
+                    AgreerId = agreerId,
+                    AccepterId = Id
+                };
+                await db.AgreesRecords.AddAsync(record);
+                await db.SaveChangesAsync();
+                int changeCount = await db.SaveChangesAsync();
+                if (changeCount != 1) throw new Exception("同意失败");
+
+                _blog.AgreedCount++;
+            }
+            else
+            {
+                //  取消同意
+                db.AgreesRecords.Remove(record);
+                int changeCount = await db.SaveChangesAsync();
+                if (changeCount != 1) throw new Exception("取消同意失败");
+
+                if (_blog.AgreedCount <= 0)
+                    return;
+                _blog.AgreedCount--;   
+            }
+            await BlogsHub.SaveCacheBlogAsync(_blog);
         }
 
         /// <summary>
@@ -147,7 +186,7 @@ namespace Domain.Blogs
             if (blogModel == null)
                 return null;
             var blog = new Blog
-            { 
+            {
                 Id = blogModel.Id
             };
             blog._blog = blogModel;

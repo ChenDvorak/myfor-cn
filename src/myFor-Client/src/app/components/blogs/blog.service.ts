@@ -213,4 +213,20 @@ export class BlogService {
       catchError(this.base.handleError)
     );
   }
+
+  /**
+   * 同意或取消同意
+   */
+  agrees(code: string): Observable<Result> {
+    return this.http.post<Result>(`${ROUTE_PREFIX}blogs/${code}/agrees`, '')
+    .pipe(
+      catchError(this.base.handleError),
+      mergeMap((r: Result) => {
+        if (r.status === 500) {
+          r.data = '同意失败，请重试';
+        }
+        return of(r);
+      })
+    );
+  }
 }
