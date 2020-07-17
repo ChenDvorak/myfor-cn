@@ -34,6 +34,20 @@ export class CommentService {
   ) { }
 
   /**
+   * 获取博文的评论列表
+   */
+  getCommentsList(blogCode: string, index: number, size: number): Observable<Result<Paginator<Comment> | string>> {
+    const p: HttpParams = new HttpParams()
+    .set('index', index.toString())
+    .set('size', size.toString());
+    return this.http.get<Result>(`${ROUTE_PREFIX}blogs/${blogCode}/comments?${p.toString()}`)
+    .pipe(
+      retry(1),
+      catchError(this.base.handleError)
+    );
+  }
+
+  /**
    * 评论
    * 201
    */

@@ -117,5 +117,26 @@ namespace MyForAPI.Controllers.Clients
 
             return Created($"/b/{code}", null);
         }
+
+        /*
+         *  获取该博文的评论
+         *  return:
+         *      200:    success
+         */
+        [HttpGet("{code}/comments")]
+        public async Task<IActionResult> GetCommentsListAsync(string code, int index, int size)
+        {
+            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
+            if (!int.TryParse(debasedCode, out int blogId))
+                return Gone("该博文不存在，请刷新");
+
+            Domain.Paginator pager = Domain.Paginator.New(index, size);
+
+            BlogsHub blogsHub = new BlogsHub();
+            var blog = await blogsHub.GetBlogAsync(blogId);
+            if (blog == null) return Gone("该博文不存在，请刷新");
+            pager = await blog.GetCommentsListAsync(pager);
+            return Ok(pager);
+        }
     }
 }

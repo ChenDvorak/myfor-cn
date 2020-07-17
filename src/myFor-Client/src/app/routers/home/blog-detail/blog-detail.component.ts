@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from '../../../shared/services/common';
+import { CommonService, Paginator } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
 import { GlobalService, Identity } from '../../../global';
-import { Comment, IntroComment } from '../../../components/blogs/comment.service';
+import { Comment, IntroComment, CommentService } from '../../../components/blogs/comment.service';
 
 @Component({
   selector: 'app-blog-detail',
@@ -33,14 +33,19 @@ export class BlogDetailComponent implements OnInit {
    * 刚添加的评论
    */
   newComments: IntroComment[] = [];
-  unfoldable = false;
+  /**
+   * 是否可以展开更多评论
+   */
+  unfoldable = true;
+  index = 0;
 
   constructor(
     private route: ActivatedRoute,
     private blog: BlogService,
     private global: GlobalService,
     private identity: Identity,
-    private common: CommonService
+    private common: CommonService,
+    private comment: CommentService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +66,20 @@ export class BlogDetailComponent implements OnInit {
     });
   }
 
-  private getComments() {}
+  private getComments() {
+    this.index++;
+    this.comment.getCommentsList(this.detail.code, this.index, 15).subscribe(r => {
+      if (r.status === 200) {
+        r.data = r.data as Paginator<Comment>;
+        if (r.data.index <= r.data.totalPages) {
+          this.unfoldable = false;
+        }
+        this.comments.push(...r.data.list);
+      } else {
+        this.common.snackOpen(r.data as string);
+      }
+    });
+  }
 
   /**
    * 展示新添加的评论

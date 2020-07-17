@@ -131,6 +131,17 @@ namespace Domain.Blogs
             await db.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// 获取评论列表
+        /// </summary>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public async Task<Paginator> GetCommentsListAsync(Paginator pager)
+        {
+            Comments.CommentsHub commentsHub = new Comments.CommentsHub();
+            return await commentsHub.GetCommentsListAsync(Id, pager);
+        }
+
         public static Blog Parse(DB.Tables.Blog blogModel)
         {
             if (blogModel == null)
