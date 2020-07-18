@@ -11,7 +11,8 @@
   </div>
   <div class="detail">
     <div class="title">{{blogDetail.title}}</div>
-    <app-content-box [data]="blogDetail.content" [code]="blogDetail.code"></app-content-box>
+    <app-content-box [data]="blogDetail.content" [referenceFrom]="blogDetail.referenceFrom"
+      [thoughtFrom]="blogDetail.thoughtFrom" [code]="blogDetail.code"></app-content-box>
   </div>
   <div class="actions">
     <span matTooltip="评论" matTooltipPosition="above">

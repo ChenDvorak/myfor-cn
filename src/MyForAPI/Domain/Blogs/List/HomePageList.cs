@@ -40,7 +40,9 @@ namespace Domain.Blogs.List
                                            CommentCount = blog.CommentCount,
                                            AgreeCount = blog.AgreedCount,
                                            ReferenceCount = blog.ReferencedCount,
-                                           ThinkCount = blog.ThoughtCount
+                                           ThinkCount = blog.ThoughtCount,
+                                           ThoughtFrom = blog.Thought,
+                                           ReferenceFrom = blog.Reference
                                        })
                                        .ToListAsync();
             return pager;

@@ -52,7 +52,9 @@ namespace Domain.Blogs
                 CommentCount = _blog.CommentCount,
                 AgreeCount = _blog.AgreedCount,
                 ReferenceCount = _blog.ReferencedCount,
-                ThinkCount = _blog.ThoughtCount
+                ThinkCount = _blog.ThoughtCount,
+                ThoughtFrom = _blog.Thought,
+                ReferenceFrom = _blog.Reference
             };
             return detail;
         }

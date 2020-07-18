@@ -14,6 +14,8 @@ namespace Domain.Blogs
             public string Avatar { get; set; } = "";
             public string Title { get; set; } = "";
             public string PostedTime { get; set; } = "";
+            public string ThoughtFrom { get; set; } = "";
+            public string ReferenceFrom { get; set; } = "";
             public string Content { get; set; } = "";
             public bool IsFull { get; set; } = false;
             public int CommentCount { get; set; } = 0;
@@ -30,6 +32,8 @@ namespace Domain.Blogs
             public string Avatar { get; set; } = "";
             public string Title { get; set; } = "";
             public string PostedTime { get; set; } = "";
+            public string ThoughtFrom { get; set; } = "";
+            public string ReferenceFrom { get; set; } = "";
             public string Content { get; set; } = "";
             public int CommentCount { get; set; } = 0;
             public int AgreeCount { get; set; } = 0;

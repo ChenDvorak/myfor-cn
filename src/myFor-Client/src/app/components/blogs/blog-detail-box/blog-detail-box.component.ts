@@ -32,7 +32,9 @@ export class BlogDetailBoxComponent implements OnInit {
     agreeCount: 0,
     agreed: false,
     referenceCount: 0,
-    thinkCount: 0
+    thinkCount: 0,
+    thoughtFrom: '',
+    referenceFrom: ''
   };
   agreeDisable = false;
 

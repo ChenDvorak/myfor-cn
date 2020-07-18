@@ -20,7 +20,8 @@
 
       <div class="clickable-to-detail" (click)="toDetail(blog.code)">
         {{blog.title}}
-        <app-content-box class="content" [data]="blog.content" [code]="blog.code" [disabledATarget]="true">
+        <app-content-box class="content" [data]="blog.content" [code]="blog.code"
+        [referenceFrom]="blog.referenceFrom" [thoughtFrom]="blog.thoughtFrom" [disabledATarget]="true">
         </app-content-box>
       </div>
     </div>

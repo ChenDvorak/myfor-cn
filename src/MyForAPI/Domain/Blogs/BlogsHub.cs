@@ -35,7 +35,9 @@ namespace Domain.Blogs
             {
                 AuthorId = user.Id,
                 Title = model.Title,
-                Content = model.Content
+                Content = model.Content,
+                Reference = model.ReferenceFrom,
+                Thought = model.ThoughtFrom
             };
             await db.Blogs.AddAsync(newBlog);
             if (await db.SaveChangesAsync() == 1)

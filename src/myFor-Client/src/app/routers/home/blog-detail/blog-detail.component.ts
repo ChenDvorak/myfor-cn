@@ -26,7 +26,9 @@ export class BlogDetailComponent implements OnInit {
     agreeCount: 0,
     agreed: false,
     referenceCount: 0,
-    thinkCount: 0
+    thinkCount: 0,
+    thoughtFrom: '',
+    referenceFrom: ''
   };
   comments: Comment[] = [];
   /**

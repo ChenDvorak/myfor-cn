@@ -9,6 +9,8 @@ import { Comment } from './comment.service';
 export interface NewBlog {
   title: string;
   content: string;
+  referenceFrom: string;
+  thoughtFrom: string;
 }
 /**
  * 引用或见解
@@ -67,6 +69,8 @@ export interface BlogItem {
    * 见解数
    */
   thinkCount: number;
+  thoughtFrom: string;
+  referenceFrom: string;
 }
 
 export interface BlogDetail {
@@ -118,6 +122,8 @@ export interface BlogDetail {
    * 见解数
    */
   thinkCount: number;
+  thoughtFrom: string;
+  referenceFrom: string;
 }
 
 @Injectable({

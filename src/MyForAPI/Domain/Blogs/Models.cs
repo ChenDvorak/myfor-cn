@@ -11,6 +11,8 @@ namespace Domain.Blogs
             public string AuthorAccount { get; set; }
             public string Title { get; set; } = "";
             public string Content { get; set; } = "";
+            public string ReferenceFrom { get; set; } = "";
+            public string ThoughtFrom { get; set; } = "";
         }
     }
 }

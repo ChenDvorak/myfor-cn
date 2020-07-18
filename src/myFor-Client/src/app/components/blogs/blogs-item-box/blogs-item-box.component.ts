@@ -26,7 +26,9 @@ export class BlogsItemBoxComponent implements OnInit {
     commentCount: 0,
     agreeCount: 0,
     referenceCount: 0,
-    thinkCount: 0
+    thinkCount: 0,
+    thoughtFrom: '',
+    referenceFrom: ''
   };
 
   constructor(
