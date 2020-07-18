@@ -45,13 +45,13 @@ export class PostBlogBoxComponent implements OnInit {
     if (this.referenceFrom && this.referenceFrom.code && this.referenceFrom.title) {
       const referenceTarget = `引用<a target="_blank" href="/b/${escape(this.referenceFrom.code)}">@${this.referenceFrom.title}</a><br>`;
       this.reference.nativeElement.innerHTML = referenceTarget;
-      this.newBlog.referenceFrom = referenceTarget;
+      this.newBlog.referenceFrom = this.referenceFrom.code;
     }
     //  见解
     if (this.thinkFrom && this.thinkFrom.code && this.thinkFrom.title) {
       const thinkTarget = `对<a target="_blank" href="/b/${escape(this.thinkFrom.code)}">《${this.thinkFrom.title}》</a>的见解<br>`;
       this.think.nativeElement.innerHTML = thinkTarget;
-      this.newBlog.thoughtFrom = thinkTarget;
+      this.newBlog.thoughtFrom = this.thinkFrom.code;
     }
   }
 

@@ -53,8 +53,8 @@ namespace Domain.Blogs
                 AgreeCount = _blog.AgreedCount,
                 ReferenceCount = _blog.ReferencedCount,
                 ThinkCount = _blog.ThoughtCount,
-                ThoughtFrom = _blog.Thought,
-                ReferenceFrom = _blog.Reference
+                ThoughtFrom = await BlogText.GetThoughtHTML(_blog.ThoughtFromId),
+                ReferenceFrom = await BlogText.GetReferenceHTML(_blog.ReferencedFromId)
             };
             return detail;
         }
@@ -129,6 +129,44 @@ namespace Domain.Blogs
             }
 
             _blog.CommentCount++;
+            await using var db = new MyForDbContext();
+            db.Update(_blog);
+            await db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 被引用数 + 1
+        /// </summary>
+        /// <returns></returns>
+        internal async Task IncreaseReferenceCountAsync()
+        {
+            var cacheBlog = await BlogsHub.GetBlogModelAsync(Id);
+            if (cacheBlog != null)
+            {
+                cacheBlog.ReferencedCount++;
+                await BlogsHub.SaveCacheBlogAsync(cacheBlog);
+            }
+
+            _blog.ReferencedCount++;
+            await using var db = new MyForDbContext();
+            db.Update(_blog);
+            await db.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// 被见解数 + 1
+        /// </summary>
+        /// <returns></returns>
+        internal async Task IncreaseThoughtCountAsync()
+        {
+            var cacheBlog = await BlogsHub.GetBlogModelAsync(Id);
+            if (cacheBlog != null)
+            {
+                cacheBlog.ThoughtCount++;
+                await BlogsHub.SaveCacheBlogAsync(cacheBlog);
+            }
+
+            _blog.ThoughtCount++;
             await using var db = new MyForDbContext();
             db.Update(_blog);
             await db.SaveChangesAsync();

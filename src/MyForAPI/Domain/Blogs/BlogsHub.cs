@@ -35,14 +35,56 @@ namespace Domain.Blogs
             {
                 AuthorId = user.Id,
                 Title = model.Title,
-                Content = model.Content,
-                Reference = model.ReferenceFrom,
-                Thought = model.ThoughtFrom
+                Content = model.Content
             };
+
+            if (!string.IsNullOrWhiteSpace(model.ReferenceFrom))
+            {
+                if (TryGetIdFromBase64String(model.ReferenceFrom, out int fromId))
+                    newBlog.ReferencedFromId = fromId;
+                await IncreaseReferenceAsync(fromId);
+            }
+            if (!string.IsNullOrWhiteSpace(model.ThoughtFrom))
+            {
+                if (TryGetIdFromBase64String(model.ThoughtFrom, out int fromId))
+                    newBlog.ThoughtFromId = fromId;
+                await IncreaseThoughtAsync(fromId);
+            }
+
             await db.Blogs.AddAsync(newBlog);
             if (await db.SaveChangesAsync() == 1)
+            {
                 return (true, newBlog.Id.ToString());
+            }
             throw new Exception("发布博文失败");
+        }
+        private bool TryGetIdFromBase64String(string base64String, out int id)
+        {
+            string idStr = Encoding.UTF8.GetString(Convert.FromBase64String(base64String));
+            return int.TryParse(idStr, out id);
+        }
+
+        /// <summary>
+        /// 被引用数 + 1
+        /// </summary>
+        /// <param name="blogId"></param>
+        /// <returns></returns>
+        private async Task IncreaseReferenceAsync(int blogId)
+        {
+            var blog = await GetBlogAsync(blogId);
+            if (blog == null) throw new NullReferenceException("博文不存在");
+            await blog.IncreaseReferenceCountAsync();
+        }
+        /// <summary>
+        /// 被见解数 + 1
+        /// </summary>
+        /// <param name="blogId"></param>
+        /// <returns></returns>
+        private async Task IncreaseThoughtAsync(int blogId)
+        {
+            var blog = await GetBlogAsync(blogId);
+            if (blog == null) throw new NullReferenceException("博文不存在");
+            await blog.IncreaseThoughtCountAsync();
         }
 
         /// <summary>

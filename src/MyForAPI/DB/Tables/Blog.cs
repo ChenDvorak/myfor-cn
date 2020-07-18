@@ -12,16 +12,6 @@ namespace DB.Tables
     {
         [StringLength(64), Required]
         public string Title { get; set; } = "";
-        /// <summary>
-        /// 引用
-        /// </summary>
-        [StringLength(128) ,Required]
-        public string Reference { get; set; } = "";
-        /// <summary>
-        /// 见解
-        /// </summary>
-        [StringLength(128), Required]
-        public string Thought { get; set; } = "";
         [StringLength(1000), Required]
         public string Content { get; set; } = "";
         [Required]
