@@ -38,7 +38,7 @@ Id,State,CreateDate,Title,
 IF(CHAR_LENGTH(Content) > {BLOG_LIST_CONTENT_LENGTH}, concat(left(content, {BLOG_LIST_CONTENT_LENGTH}), '...'), Content) as Content,
 AuthorId,AgreedCount,CommentCount,ReferencedFromId,ReferencedCount,ThoughtFromId,ThoughtCount 
 FROM 
-Blogs;
+Blogs
 ";
 
         /// <summary>
