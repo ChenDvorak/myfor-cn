@@ -20,7 +20,9 @@ namespace Domain.Blogs.List
 
             await using var db = new MyForDbContext();
             pager.TotalSize = await db.Blogs.CountAsync(whereStatement);
-            List<DB.Tables.Blog> modelList = await db.Blogs.AsNoTracking()
+            List<DB.Tables.Blog> modelList = await db.Blogs
+                                                        .FromSqlRaw(GetBlogsQueryString)
+                                                        .AsNoTracking()
                                                         .OrderByDescending(blog => blog.CreateDate)
                                                         .Where(whereStatement)
                                                         .Include(blog => blog.Author)
@@ -29,28 +31,7 @@ namespace Domain.Blogs.List
                                                         .Take(pager.Size)
                                                         .ToListAsync();
 
-            List<Results.BlogItem> list = new List<Results.BlogItem>(modelList.Count);
-
-            foreach (DB.Tables.Blog blog in modelList)
-            {
-                list.Add(new Results.BlogItem
-                {
-                    Code = Convert.ToBase64String(Encoding.UTF8.GetBytes(blog.Id.ToString())),
-                    AuthorName = blog.Author.Name,
-                    AuthorAccount = blog.Author.Account,
-                    Avatar = Files.File.GetVisitablePath(blog.Author.Avatar.SaveName, "api"),
-                    Title = blog.Title,
-                    PostedTime = blog.CreateDate.ToString("yyyy-MM-dd"),
-                    Content = blog.Content.Overflow(BLOG_LIST_CONTENT_LENGTH),
-                    IsFull = blog.Content.Length <= BLOG_LIST_CONTENT_LENGTH,
-                    CommentCount = blog.CommentCount,
-                    AgreeCount = blog.AgreedCount,
-                    ReferenceCount = blog.ReferencedCount,
-                    ThinkCount = blog.ThoughtCount,
-                    ThoughtFrom = await BlogText.GetThoughtHTML(blog.ThoughtFromId),
-                    ReferenceFrom = await BlogText.GetReferenceHTML(blog.ReferencedFromId)
-                });
-            }
+            List<Results.BlogItem> list = await ConvertToBlogsList(modelList);
             pager.List = list;
 
             return pager;

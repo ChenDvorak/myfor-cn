@@ -18,8 +18,10 @@ namespace Domain.Blogs
             var blogModel = await BlogsHub.GetBlogModelAsync(referenceId.Value);
             if (blogModel == null) return "";
             StringBuilder html = new StringBuilder(50);
-            html.Append("引用<a> target='_blank' href='/b/");
-            html.Append(Convert.ToBase64String(Encoding.UTF8.GetBytes(blogModel.Id.ToString())));
+            html.Append("引用<a target='_blank' href='/b/");
+            html.Append(
+                System.Web.HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(blogModel.Id.ToString())))
+            );
             html.Append("'>@");
             html.Append(blogModel.Title);
             html.Append("</a><br>");
@@ -37,8 +39,10 @@ namespace Domain.Blogs
             var blogModel = await BlogsHub.GetBlogModelAsync(thoughtId.Value);
             if (blogModel == null) return "";
             StringBuilder html = new StringBuilder(50);
-            html.Append("对<a> target='_blank' href='/b/");
-            html.Append(Convert.ToBase64String(Encoding.UTF8.GetBytes(blogModel.Id.ToString())));
+            html.Append("对<a target='_blank' href='/b/");
+            html.Append(
+                System.Web.HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(blogModel.Id.ToString())))
+            );
             html.Append("'>《");
             html.Append(blogModel.Title);
             html.Append("》</a>的见解<br>");
