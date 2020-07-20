@@ -69,7 +69,7 @@ namespace Domain.Users
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        public async Task<User> GetUserAsync(string account)
+        public static async Task<User> GetUserAsync(string account)
         {
             var userModel = await GetUserModelAsync(account);
             return User.Parse(userModel);
@@ -80,7 +80,7 @@ namespace Domain.Users
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        private async Task<DB.Tables.User> GetUserModelAsync(string account)
+        private static async Task<DB.Tables.User> GetUserModelAsync(string account)
         {
             var value = await RedisCache.GetRedis().HashGetAsync(User.REDIS_HASH_KEY, account);
             if (value.HasValue)

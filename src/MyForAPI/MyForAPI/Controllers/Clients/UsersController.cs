@@ -3,13 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Domain.Users;
 
 namespace MyForAPI.Controllers.Clients
 {
+    /// <summary>
+    /// 用户控制器
+    /// </summary>
     public class UsersController : ClientsSideController
     {
-        
+        private readonly ICurrentUser _currentUser;
+        public UsersController(ICurrentUser _currentUser)
+        {
+            this._currentUser = _currentUser;
+        }
+
+        /*
+         *  获取用户页详情
+         */
+        [HttpGet("{account}")]
+        public async Task<IActionResult> GetUserPageDetailAsync(string account)
+        {
+            var user = await UsersHub.GetUserAsync(account);
+            if (user == null) return Gone($"用户 @{account} 不存在");
+            var detail = await user.GetUserDetailAsync();
+            return Ok(detail);
+        }
     }
 }

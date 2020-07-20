@@ -4,7 +4,6 @@ import { Identity } from '../../global';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, retry, mergeMap } from 'rxjs/operators';
-import { Comment } from './comment.service';
 
 export interface NewBlog {
   title: string;

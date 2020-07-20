@@ -94,8 +94,8 @@ namespace Domain.Blogs
             var value = await r.StringGetAsync(key);
             if (value.HasValue && bool.TryParse(value, out bool isArgeed))
                 return isArgeed;
-            Users.UsersHub usersHub = new Users.UsersHub();
-            var user = await usersHub.GetUserAsync(account);
+            
+            var user = await Users.UsersHub.GetUserAsync(account);
             if (user == null) throw new NullReferenceException($"账号 {account} 不存在");
             await using var db = new MyForDbContext();
             bool isAgreed = await db.AgreesRecords.AsNoTracking().AnyAsync(r => r.AgreerId == user.Id && r.AccepterId == Id);

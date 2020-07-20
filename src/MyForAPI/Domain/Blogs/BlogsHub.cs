@@ -20,8 +20,7 @@ namespace Domain.Blogs
         /// <returns>(是否成功，失败原因，成功则返回 ID)</returns>
         public async Task<(bool, string)> PostBlogAsync(Models.NewBlog model)
         {
-            Users.UsersHub usersHub = new Users.UsersHub();
-            var user = await usersHub.GetUserAsync(model.AuthorAccount);
+            var user = await Users.UsersHub.GetUserAsync(model.AuthorAccount);
             if (user == null)
                 return (false, "该用户不存在");
 

@@ -14,8 +14,7 @@ namespace Domain.Users
         /// <returns></returns>
         public async Task<User> GetUserAsync(string account)
         {
-            var userHub = new UsersHub();
-            return await userHub.GetUserAsync(account);
+            return await UsersHub.GetUserAsync(account);
         }
     }
 }

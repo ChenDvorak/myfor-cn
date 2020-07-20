@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DB;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Domain.Users
     /// <summary>
     /// 用户（客户）
     /// </summary>
-    public class User: BaseEntity
+    public class User : BaseEntity
     {
         /// <summary>
         /// Redis Hash Key
@@ -32,9 +33,9 @@ namespace Domain.Users
         /// </summary>
         public static readonly int Password_Min_length = Common.Config.GetValue<int>("User:PasswordMinLength");
 
-        private DB.Tables.User _model;
+        private DB.Tables.User _userModel;
         private User() { }
-        public string Account => _model.Account;
+        public string Account => _userModel.Account;
         /// <summary>
         /// 获取登录信息
         /// </summary>
@@ -42,19 +43,39 @@ namespace Domain.Users
         public async Task<Results.LoginInfo> GetLoginInfoAsync()
         {
             var result = new Results.LoginInfo
-            { 
-                Account = _model.Account,
-                NickName = _model.Name
+            {
+                Account = _userModel.Account,
+                NickName = _userModel.Name
             };
-            if (_model.Avatar == null)
+            if (_userModel.Avatar == null)
             {
                 string path = Files.File.SaveWebPath;
                 await using var db = new DB.MyForDbContext();
-                _model.Avatar = await db.Files.AsNoTracking().FirstOrDefaultAsync(file => file.Id == _model.AvatarId);
-                result.Avatar = Files.File.GetVisitablePath(_model.Avatar?.SaveName);
+                _userModel.Avatar = await db.Files.AsNoTracking().FirstOrDefaultAsync(file => file.Id == _userModel.AvatarId);
+                result.Avatar = Files.File.GetVisitablePath(_userModel.Avatar?.SaveName);
             }
             return result;
         }
+
+        /// <summary>
+        /// 获取用户详情
+        /// </summary>
+        /// <returns></returns>
+        public async Task<Results.UserDetail> GetUserDetailAsync()
+        {
+            await using var db = new MyForDbContext();
+            var avatar = await db.Files.AsNoTracking().FirstOrDefaultAsync(file => file.Id == _userModel.AvatarId);
+            var detail = new Results.UserDetail
+            {
+                Account = _userModel.Account,
+                Name = _userModel.Name,
+                Introdution = _userModel.Introduction,
+                CreateDate = _userModel.CreateDate.ToString("yyyy-MM-dd"),
+                Avatar = Files.File.GetVisitablePath(avatar.SaveName, "api")
+            };
+            return detail;
+        }
+
         /// <summary>
         /// 将用户模型转换成用户(对象)
         /// </summary>
@@ -62,11 +83,10 @@ namespace Domain.Users
         /// <returns></returns>
         public static User Parse(DB.Tables.User userModel)
         {
-            if (userModel == null) throw new NullReferenceException("转换成用户的模型不能为空");
-            return new User 
+            return userModel == null ? null : new User
             {
                 Id = userModel.Id,
-                _model = userModel
+                _userModel = userModel
             };
         }
 

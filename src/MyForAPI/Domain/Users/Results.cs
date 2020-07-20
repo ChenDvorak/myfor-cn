@@ -13,5 +13,14 @@ namespace Domain.Users
             public string Avatar { get; set; } = "";
             public string Jwt { get; set; } = "";
         }
+
+        public class UserDetail
+        {
+            public string Account { get; set; } = "";
+            public string Name { get; set; } = "";
+            public string Avatar { get; set; } = "";
+            public string Introdution { get; set; } = "";
+            public string CreateDate { get; set; } = "";
+        }
     }
 }

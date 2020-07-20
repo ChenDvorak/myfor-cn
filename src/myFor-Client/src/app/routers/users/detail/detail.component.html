@@ -14,25 +14,25 @@
         <app-logo size="40px"></app-logo>
       </a>
       &nbsp;&nbsp;
-      <span>{{account}}</span>
+      <span>{{detail.account}}</span>
     </div>
     <div class="background">
       <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
     </div>
     <div class="account-information">
-      <span class="name">myFor</span>
-      <div class="account">@myFor_chen</div>
-      <div class="introdution">introdution introdution introdution introdution introdution introdution </div>
+      <span class="name">{{detail.name}}</span>
+      <div class="account">@{{detail.account}}</div>
+      <div class="introdution">{{detail.introdution}}</div>
       <div class="join-date">
-        <mat-icon>date_range</mat-icon>于 2020-01-01 创建
+        <mat-icon>date_range</mat-icon>于 {{detail.createDate}} 创建
       </div>
     </div>
     <nav mat-tab-nav-bar>
-      <a class="nav-link" mat-tab-link [routerLink]="['/', account]" routerLinkActive="nav-active"
+      <a class="nav-link" mat-tab-link [routerLink]="['/', detail.account]" routerLinkActive="nav-active"
         #rla="routerLinkActive" [active]="rla.isActive">
         博文
       </a>
-      <a class="nav-link" mat-tab-link [routerLink]="['/', account, 'comments']" routerLinkActive="nav-active"
+      <a class="nav-link" mat-tab-link [routerLink]="['/', detail.account, 'comments']" routerLinkActive="nav-active"
         #rla="routerLinkActive" [active]="rla.isActive">
         你的评论
       </a>
@@ -42,8 +42,8 @@
 
     <div class="layout-medium">
       <div class="login-bottom-box" *ngIf="!isLoggedIn">
-        <a [routerLink]="['/account', 'login']" mat-raised-button color="primary">登录</a>
-        <a [routerLink]="['/account', 'signup']" mat-stroked-button color="primary">注册</a>
+        <a [routerLink]="['/detail.account', 'login']" mat-raised-button color="primary">登录</a>
+        <a [routerLink]="['/detail.account', 'signup']" mat-stroked-button color="primary">注册</a>
       </div>
     </div>
 
