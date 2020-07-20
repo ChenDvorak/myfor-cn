@@ -6,6 +6,7 @@ import { Identity } from '../../../global';
 import { BlogService, BlogItem } from '../blog.service';
 import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
 import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-blogs-item-box',
@@ -28,14 +29,17 @@ export class BlogsItemBoxComponent implements OnInit {
     referenceCount: 0,
     thinkCount: 0,
     thoughtFrom: '',
-    referenceFrom: ''
+    referenceFrom: '',
+    agreed: false
   };
+  agreeDisable = false;
 
   constructor(
     private router: Router,
     private dia: MatDialog,
     private identity: Identity,
-    private common: CommonService
+    private common: CommonService,
+    private blogService: BlogService
   ) { }
 
   ngOnInit(): void {
@@ -56,7 +60,25 @@ export class BlogsItemBoxComponent implements OnInit {
   }
 
   agree() {
+    if (this.agreeDisable) {
+      return;
+    }
 
+    const T = timer(0, 1000).subscribe(t => {
+      this.agreeDisable = true;
+      if (t >= 1) {
+        T.unsubscribe();
+        this.agreeDisable = false;
+      }
+    });
+
+    this.blogService.agrees(this.blog.code).subscribe(r => {
+      if (r.status === 200) {
+        this.blog.agreed = !this.blog.agreed;
+      } else {
+        this.common.snackOpen(r.data as string);
+      }
+    });
   }
 
   reference() {

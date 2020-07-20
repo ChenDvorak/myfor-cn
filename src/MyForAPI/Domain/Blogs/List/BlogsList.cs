@@ -25,6 +25,10 @@ namespace Domain.Blogs.List
         /// 列表内容显示的长度限制
         /// </summary>
         protected const int BLOG_LIST_CONTENT_LENGTH = 50;
+        /// <summary>
+        /// 当列表的博文内容太长，会截断一部分，然后拼接上这个省略字符
+        /// </summary>
+        protected const string BLOG_LIST_CONTENT_OVERFLOW_CHARS = "...";
 
         public abstract Task<Paginator> GetListAsync(Paginator pager);
 
@@ -33,9 +37,9 @@ namespace Domain.Blogs.List
         /// </summary>
         /// <param name="contentMaxLength"></param>
         /// <returns></returns>
-        protected string GetBlogsQueryString => $@"SELECT 
+        protected string BlogsQueryString => $@"SELECT 
 Id,State,CreateDate,Title,
-IF(CHAR_LENGTH(Content) > {BLOG_LIST_CONTENT_LENGTH}, concat(left(content, {BLOG_LIST_CONTENT_LENGTH}), '...'), Content) as Content,
+IF(CHAR_LENGTH(Content) > {BLOG_LIST_CONTENT_LENGTH}, concat(left(content, {BLOG_LIST_CONTENT_LENGTH}), '{BLOG_LIST_CONTENT_OVERFLOW_CHARS}'), Content) as Content,
 AuthorId,AgreedCount,CommentCount,ReferencedFromId,ReferencedCount,ThoughtFromId,ThoughtCount 
 FROM 
 Blogs
@@ -61,7 +65,7 @@ Blogs
                     Title = blog.Title,
                     PostedTime = blog.CreateDate.ToString("yyyy-MM-dd"),
                     Content = blog.Content,
-                    IsFull = blog.Content.EndsWith("..."),
+                    IsFull = blog.Content.EndsWith(BLOG_LIST_CONTENT_OVERFLOW_CHARS),
                     CommentCount = blog.CommentCount,
                     AgreeCount = blog.AgreedCount,
                     ReferenceCount = blog.ReferencedCount,
@@ -70,6 +74,18 @@ Blogs
                     ReferenceFrom = await BlogText.GetReferenceHTML(blog.ReferencedFromId)
                 });
             }
+            return list;
+        }
+
+        protected async Task<List<Results.BlogItem>> CurrentUserIsAgreedAsync(List<Results.BlogItem> list, string currentUserAccount)
+        {
+            if (string.IsNullOrWhiteSpace(currentUserAccount))
+                return list;
+            foreach (var blog in list)
+            {
+                blog.Agreed = await Blog.IsUserAgreedBlogAsync(currentUserAccount, blog.Code);
+            }
+            //list.ForEach(async blog => blog.Agreed = await Blog.IsUserAgreedBlogAsync(currentUserAccount, blog.Code));
             return list;
         }
     }

@@ -22,6 +22,7 @@ namespace Domain.Blogs
             public int AgreeCount { get; set; } = 0;
             public int ReferenceCount { get; set; } = 0;
             public int ThinkCount { get; set; } = 0;
+            public bool Agreed { get; set; } = false;
         }
 
         public class BlogDetail

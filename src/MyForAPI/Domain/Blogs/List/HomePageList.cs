@@ -16,12 +16,13 @@ namespace Domain.Blogs.List
     {
         public override async Task<Paginator> GetListAsync(Paginator pager)
         {
+            var currentUserAccount = pager["CurrentUser"];
             Expression<Func<DB.Tables.Blog, bool>> whereStatement = blog => blog.State == (int)Blog.BlogState.Enabled;
 
             await using var db = new MyForDbContext();
             pager.TotalSize = await db.Blogs.CountAsync(whereStatement);
             List<DB.Tables.Blog> modelList = await db.Blogs
-                                                        .FromSqlRaw(GetBlogsQueryString)
+                                                        .FromSqlRaw(BlogsQueryString)
                                                         .AsNoTracking()
                                                         .OrderByDescending(blog => blog.CreateDate)
                                                         .Where(whereStatement)
@@ -32,6 +33,8 @@ namespace Domain.Blogs.List
                                                         .ToListAsync();
 
             List<Results.BlogItem> list = await ConvertToBlogsList(modelList);
+            if (currentUserAccount != null)
+                list = await CurrentUserIsAgreedAsync(list, currentUserAccount);
             pager.List = list;
 
             return pager;

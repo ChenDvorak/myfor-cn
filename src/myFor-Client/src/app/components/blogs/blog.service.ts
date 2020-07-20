@@ -71,6 +71,7 @@ export interface BlogItem {
   thinkCount: number;
   thoughtFrom: string;
   referenceFrom: string;
+  agreed: boolean;
 }
 
 export interface BlogDetail {

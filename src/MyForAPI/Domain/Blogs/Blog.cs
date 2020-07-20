@@ -69,6 +69,20 @@ namespace Domain.Blogs
         }
 
         /// <summary>
+        /// 用户是否同意了这个博文
+        /// </summary>
+        /// <param name="userAccount"></param>
+        /// <param name="blogCode"></param>
+        /// <returns></returns>
+        public static async Task<bool> IsUserAgreedBlogAsync(string userAccount, string blogCode)
+        {
+            (bool isSuccess, int blogId) = ParseCodeToId(blogCode);
+            if (!isSuccess) return false;
+            var blog = await BlogsHub.GetBlogAsync(blogId);
+            return await blog.IsAgreedAsync(userAccount);
+        }
+
+        /// <summary>
         /// 查询指定账号用户是否在这个博文下点了同意
         /// </summary>
         /// <param name="account"></param>
@@ -88,13 +102,18 @@ namespace Domain.Blogs
             await r.StringSetAsync(key, isAgreed);
             return isAgreed;
         }
+        /// <summary>
+        /// 获取要缓存的 KEY
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
         private string GetIsAgreedCacheKey(string account)
         {
             return $"{REDIS_HASH_KEY}-{Id}-argeed-{account}";
         }
 
         /// <summary>
-        /// 评论
+        /// 评论  
         /// </summary>
         /// <param name="content"></param>
         /// <returns>(bool: 是否成功, string: 失败原因)</returns>
@@ -190,22 +209,22 @@ namespace Domain.Blogs
                     AccepterId = Id
                 };
                 await db.AgreesRecords.AddAsync(record);
-                int changeCount = await db.SaveChangesAsync();
-                if (changeCount != 1) throw new Exception("同意失败");
-
                 _blog.AgreedCount++;
+                db.Blogs.Update(_blog);
+                int changeCount = await db.SaveChangesAsync();
+                if (changeCount != 2) throw new Exception("同意失败");
             }
             else
             {
                 //  取消同意
                 db.AgreesRecords.Remove(record);
+                if (_blog.AgreedCount > 0)
+                    _blog.AgreedCount--;
+                db.Blogs.Update(_blog);
                 int changeCount = await db.SaveChangesAsync();
-                if (changeCount != 1) throw new Exception("取消同意失败");
-
-                if (_blog.AgreedCount <= 0)
-                    return;
-                _blog.AgreedCount--;   
+                if (changeCount != 2) throw new Exception("取消同意失败");
             }
+
             await BlogsHub.SaveCacheBlogAsync(_blog);
         }
 
@@ -218,6 +237,18 @@ namespace Domain.Blogs
         {
             Comments.CommentsHub commentsHub = new Comments.CommentsHub();
             return await commentsHub.GetCommentsListAsync(Id, pager);
+        }
+
+        /// <summary>
+        /// 解码博文编号为 ID
+        /// </summary>
+        /// <param name="blogCode"></param>
+        /// <returns></returns>
+        public static (bool, int) ParseCodeToId(string blogCode)
+        {
+            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(blogCode));
+            return (int.TryParse(debasedCode, out int blogId), blogId);
+
         }
 
         public static Blog Parse(DB.Tables.Blog blogModel)

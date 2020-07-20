@@ -21,7 +21,10 @@ namespace Domain
         /// <returns></returns>
         public string this[string key]
         {
-            get => _params[key];
+            get
+            {
+                return _params.ContainsKey(key) ? _params[key] : null;
+            }
             set => _params[key] = value;
         }
         /// <summary>

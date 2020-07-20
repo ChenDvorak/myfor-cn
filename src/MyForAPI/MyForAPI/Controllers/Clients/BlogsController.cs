@@ -42,11 +42,12 @@ namespace MyForAPI.Controllers.Clients
          *  获取首页的博文列表
          *  return:
          *      200:    success
-         */ 
+         */
         [HttpGet("home")]
         public async Task<IActionResult> GetBlogsByHomePageAsync(int index, int size)
         {
-            var pager = Domain.Paginator.New(index, size);
+            var pager = Domain.Paginator.New(index, size, 1);
+            pager["CurrentUser"] = CurrentAccount;
 
             BlogsHub blogsHub = new BlogsHub();
             pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.HomePage, pager);
@@ -61,8 +62,9 @@ namespace MyForAPI.Controllers.Clients
         [HttpGet("search")]
         public async Task<IActionResult> GetBlogsBySearchAsync(int index, int size, string s)
         {
-            var pager = Domain.Paginator.New(index, size, 1);
+            var pager = Domain.Paginator.New(index, size, 2);
             pager["s"] = s;
+            pager["CurrentUser"] = CurrentAccount;
 
             BlogsHub blogsHub = new BlogsHub();
             pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.SearchPage, pager);
@@ -75,13 +77,12 @@ namespace MyForAPI.Controllers.Clients
          *  return:
          *      200:    success
          *      410:    博文不存在
-         */ 
+         */
         [HttpGet("{code}")]
         public async Task<IActionResult> GetBlogDetailAsync(string code)
         {
-            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
-            if (!int.TryParse(debasedCode, out int blogId))
-                return Gone();
+            (bool isSuccess, int blogId) = Blog.ParseCodeToId(code);
+            if (!isSuccess) return Gone();
 
             var blog = await BlogsHub.GetBlogAsync(blogId);
             var detail = await blog.GetDetailAsync();
@@ -97,9 +98,8 @@ namespace MyForAPI.Controllers.Clients
         [HttpPost("{code}/agrees"), Authorize]
         public async Task<IActionResult> IncreaseAgreeAsync(string code)
         {
-            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
-            if (!int.TryParse(debasedCode, out int blogId))
-                return Gone();
+            (bool isSuccess, int blogId) = Blog.ParseCodeToId(code);
+            if (!isSuccess) return Gone();
 
             if (!CurrentIsLogged)
                 return Unauthorized();
@@ -119,8 +119,8 @@ namespace MyForAPI.Controllers.Clients
         [HttpPost("{code}/comments"), Authorize]
         public async Task<IActionResult> CommentAsync(string code, [FromBody]string content)
         {
-            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
-            if (!int.TryParse(debasedCode, out int blogId))
+            (bool isSuccess, int blogId) = Blog.ParseCodeToId(code);
+            if (!isSuccess)
                 return Gone("该博文不存在，请刷新");
             if (!CurrentIsLogged) return Unauthorized();
 
@@ -144,8 +144,8 @@ namespace MyForAPI.Controllers.Clients
         [HttpGet("{code}/comments")]
         public async Task<IActionResult> GetCommentsListAsync(string code, int index, int size)
         {
-            string debasedCode = Encoding.UTF8.GetString(Convert.FromBase64String(code));
-            if (!int.TryParse(debasedCode, out int blogId))
+            (bool isSuccess, int blogId) = Blog.ParseCodeToId(code);
+            if (!isSuccess)
                 return Gone("该博文不存在，请刷新");
 
             Domain.Paginator pager = Domain.Paginator.New(index, size);

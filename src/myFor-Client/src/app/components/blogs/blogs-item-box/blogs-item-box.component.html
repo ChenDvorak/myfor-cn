@@ -37,7 +37,7 @@
         <mat-icon>sms</mat-icon>
       </button><span class="icon-label">{{blog.commentCount | kilo}}</span></span>
     <span matTooltip="同意" matTooltipPosition="above">
-      <button mat-icon-button (click)="agree()">
+      <button mat-icon-button [color]="blog.agreed ? 'warn' : 'primary'" (click)="agree()">
         <mat-icon>favorite</mat-icon>
       </button><span class="icon-label">{{blog.agreeCount | kilo}}</span></span>
     <span matTooltip="引用" matTooltipPosition="above">
