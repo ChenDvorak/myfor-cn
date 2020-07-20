@@ -3,6 +3,7 @@ import { BlogService, BlogItem } from '../../../components/blogs/blog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from '../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 import { ActivatedRoute } from '@angular/router';
+import { Identity } from '../../../global';
 
 @Component({
   selector: 'app-blog-list',
@@ -11,18 +12,22 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BlogListComponent implements OnInit {
 
+  isSeft = false;
   account = '';
   index = 1;
+  unfoldable = false;
   blogList: BlogItem[] = [];
 
   constructor(
     private blog: BlogService,
     private dia: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private identity: Identity
   ) { }
 
   ngOnInit(): void {
     this.account = this.route.snapshot.paramMap.get('account');
+    this.isSeft = this.identity.isAccountLoggedIn(this.account);
   }
 
   deletePost(blogId: number) {

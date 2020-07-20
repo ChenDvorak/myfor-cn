@@ -75,6 +75,20 @@ export class Identity {
         return localStorage.getItem(IDENTITY_KEY) !== null;
     }
     /**
+     * 当前登录的是否这个账户
+     * @param account 要验证登录的账号
+     */
+    isAccountLoggedIn(account: string): boolean {
+        if (!this.isLoggedIn) {
+            return false;
+        }
+        const info = this.getIdentityInfo();
+        if (info == null) {
+            return false;
+        }
+        return account === info.account;
+    }
+    /**
      * 清楚登录信息，执行完后需要手动重置页面，以同步登录信息
      */
     clean() {

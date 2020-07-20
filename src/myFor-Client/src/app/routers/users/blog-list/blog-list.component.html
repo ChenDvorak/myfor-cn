@@ -11,5 +11,5 @@
   <app-blogs-item-box [blog]="blog"></app-blogs-item-box>
 </div>
 <div class="more-list">
-  <button mat-button color="primary" (click)="getMore()">展开更多</button>
+  <button mat-button color="primary" (click)="getMore()" [disabled]="!unfoldable">展开更多</button>
 </div>
