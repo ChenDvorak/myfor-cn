@@ -41,14 +41,7 @@ export class UsersService {
     return this.http.get<Result>(`${ROUTE_PREFIX}users/${account}`)
     .pipe(
       retry(1),
-      catchError(this.base.handleError),
-      mergeMap((r: Result) => {
-        if (r.status === 410) {
-          this.router.navigate(['/pages', '404', { account }]);
-          return of(r);
-        }
-        of(r);
-      })
+      catchError(this.base.handleError)
     );
   }
 }

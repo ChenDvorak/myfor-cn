@@ -1,7 +1,7 @@
 <div class="comment-container" *ngIf="model">
   <div class="avatar-box">
     <a [routerLink]="['/', model.authorAccount]">
-      <img class="avatar" [src]="model.avatar" alt="avatar">
+      <img class="avatar" [src]="model.avatar | host" alt="avatar">
     </a>
   </div>
   <div class="name">

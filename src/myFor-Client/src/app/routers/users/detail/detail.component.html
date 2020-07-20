@@ -17,28 +17,28 @@
       <span>{{detail.account}}</span>
     </div>
     <div class="background">
-      <img class="avatar" src="assets/images/no-avatar.jpg" alt="avatar">
+      <img class="avatar" [src]="detail.avatar | host" alt="avatar">
     </div>
     <div class="account-information">
       <span class="name">{{detail.name}}</span>
-      <div class="account">@{{detail.account}}</div>
+      <div class="account">{{detail.account}}</div>
       <div class="introdution">{{detail.introdution}}</div>
-      <div class="join-date">
+      <div class="join-date" *ngIf="userExist">
         <mat-icon>date_range</mat-icon>于 {{detail.createDate}} 创建
       </div>
     </div>
-    <nav mat-tab-nav-bar>
-      <a class="nav-link" mat-tab-link [routerLink]="['/', detail.account]" routerLinkActive="nav-active"
-        #rla="routerLinkActive" [active]="rla.isActive">
-        博文
-      </a>
-      <a class="nav-link" mat-tab-link [routerLink]="['/', detail.account, 'comments']" routerLinkActive="nav-active"
-        #rla="routerLinkActive" [active]="rla.isActive">
-        你的评论
-      </a>
-    </nav>
-
-    <router-outlet></router-outlet>
+    <mat-tab-group *ngIf="userExist">
+      <mat-tab label="博文">
+        <ng-template matTabContent>
+          <app-blog-list></app-blog-list>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="评论">
+        <ng-template matTabContent>
+          <app-comment-list></app-comment-list>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
 
     <div class="layout-medium">
       <div class="login-bottom-box" *ngIf="!isLoggedIn">

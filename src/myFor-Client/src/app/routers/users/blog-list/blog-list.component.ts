@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService, BlogItem } from '../../../components/blogs/blog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from '../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-list',
@@ -10,15 +11,18 @@ import { DeleteConfirmDialogComponent } from '../../../shared/delete-confirm-dia
 })
 export class BlogListComponent implements OnInit {
 
+  account = '';
   index = 1;
   blogList: BlogItem[] = [];
 
   constructor(
     private blog: BlogService,
-    private dia: MatDialog
+    private dia: MatDialog,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.account = this.route.snapshot.paramMap.get('account');
   }
 
   deletePost(blogId: number) {
