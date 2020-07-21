@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonService } from '../../../shared/services/common';
 import { Identity } from '../../../global';
-import { BlogService, BlogItem } from '../blog.service';
+import { BlogItem } from '../../../components/blogs/blog.models';
+import { BlogService } from '../blog.service';
 import { PostCommentBoxComponent } from '../post-comment-box/post-comment-box.component';
 import { PostBlogBoxComponent } from '../post-blog-box/post-blog-box.component';
 import { timer } from 'rxjs';
@@ -75,6 +76,7 @@ export class BlogsItemBoxComponent implements OnInit {
     this.blogService.agrees(this.blog.code).subscribe(r => {
       if (r.status === 200) {
         this.blog.agreed = !this.blog.agreed;
+        this.blog.agreed ? this.blog.agreeCount++ : this.blog.agreeCount--;
       } else {
         this.common.snackOpen(r.data as string);
       }

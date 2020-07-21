@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Comment, CommentService } from '../comment.service';
+import { Comment } from '../../../components/blogs/comment.model';
+import { CommentService } from '../comment.service';
 
 @Component({
   selector: 'app-comment-box',

@@ -43,7 +43,7 @@ namespace Domain.Blogs
             html.Append(
                 System.Web.HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(blogModel.Id.ToString())))
             );
-            html.Append("'>《");
+            html.Append("'>@《");
             html.Append(blogModel.Title);
             html.Append("》</a>的见解<br>");
             return html.ToString();

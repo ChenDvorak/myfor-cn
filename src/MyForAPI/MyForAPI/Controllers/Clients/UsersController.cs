@@ -12,11 +12,7 @@ namespace MyForAPI.Controllers.Clients
     /// </summary>
     public class UsersController : ClientsSideController
     {
-        private readonly ICurrentUser _currentUser;
-        public UsersController(ICurrentUser _currentUser)
-        {
-            this._currentUser = _currentUser;
-        }
+        public UsersController() {}
 
         /*
          *  获取用户页详情

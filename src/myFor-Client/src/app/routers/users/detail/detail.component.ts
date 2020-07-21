@@ -28,7 +28,7 @@ export class DetailComponent implements OnInit, AfterContentChecked, OnDestroy {
     introdution: '',
     createDate: ''
   };
-  routeSub: Subscription;
+  subscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,26 +39,18 @@ export class DetailComponent implements OnInit, AfterContentChecked, OnDestroy {
   ) { }
 
   ngOnDestroy(): void {
-    this.routeSub.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.routeSub = this.route.paramMap.subscribe(p => {
+    this.subscription = this.route.paramMap.subscribe(p => {
       this.detail.account = p.get('account');
       this.global.setTitle(`@${this.detail.account}`);
       this.isLoggedIn = this.identity.isLoggedIn;
 
       this.user.getUserDetail(this.detail.account).subscribe(r => {
-        if (r.status === 200) {
-          this.userExist = true;
-          this.detail = r.data as UserDetail;
-        } else if (r.status === 410) {
-          this.userExist = false;
-          this.detail.account = `用户 ${this.detail.account} 不存在`;
-          this.detail.avatar = 'api/files/default.png';
-          this.detail.name = '';
-          this.detail.introdution = '';
-        }
+        this.userExist = r.status === 200;
+        this.detail = r.data as UserDetail;
       });
     });
   }

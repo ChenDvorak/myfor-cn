@@ -4,7 +4,8 @@ import { CommonService, Paginator } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Identity } from '../../../global';
-import { BlogService, BlogItem } from '../../../components/blogs/blog.service';
+import { BlogService } from '../../../components/blogs/blog.service';
+import { BlogItem } from '../../../components/blogs/blog.models';
 import { PostBlogBoxComponent } from '../../../components/blogs/post-blog-box/post-blog-box.component';
 
 @Component({

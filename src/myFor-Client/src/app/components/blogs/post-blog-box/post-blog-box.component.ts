@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { BlogService, NewBlog, ReferenceFrom } from '../blog.service';
+import { NewBlog, ReferenceFrom } from '../../../components/blogs/blog.models';
+import { BlogService } from '../blog.service';
 import { CommonService } from '../../../shared/services/common';
 import { Router } from '@angular/router';
 

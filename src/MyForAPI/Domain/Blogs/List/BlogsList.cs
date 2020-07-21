@@ -65,7 +65,7 @@ Blogs
                     Title = blog.Title,
                     PostedTime = blog.CreateDate.ToString("yyyy-MM-dd"),
                     Content = blog.Content,
-                    IsFull = blog.Content.EndsWith(BLOG_LIST_CONTENT_OVERFLOW_CHARS),
+                    IsFull = !blog.Content.EndsWith(BLOG_LIST_CONTENT_OVERFLOW_CHARS),
                     CommentCount = blog.CommentCount,
                     AgreeCount = blog.AgreedCount,
                     ReferenceCount = blog.ReferencedCount,

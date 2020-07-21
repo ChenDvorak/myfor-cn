@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogService, BlogItem } from '../../../components/blogs/blog.service';
+import { BlogItem } from '../../../components/blogs/blog.models';
+import { BlogService } from '../../../components/blogs/blog.service';
 import { Result, Paginator, CommonService } from '../../../shared/services/common';
 
 @Component({

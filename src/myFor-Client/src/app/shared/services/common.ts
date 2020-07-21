@@ -11,7 +11,6 @@ export const ADMINISTRATOR_SIDE = '/api/administrators/';
 
 /**
  * 响应数据会在拦截器中包装成这个 Result
- * 如果是 201，则会用 CreatedResult 包装
  */
 export interface Result<T = any> {
   /**

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from '../../../shared/delete-confirm-dialog/delete-confirm-dialog.component';
 import { ActivatedRoute } from '@angular/router';
-import { Comment } from '../../../components/blogs/comment.service';
+import { Comment } from '../../../components/blogs/comment.model';
 import { Identity } from '../../../global';
 
 @Component({

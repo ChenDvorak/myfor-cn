@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService, Paginator } from '../../../shared/services/common';
 import { ActivatedRoute } from '@angular/router';
-import { BlogService, BlogDetail } from '../../../components/blogs/blog.service';
+import { BlogService } from '../../../components/blogs/blog.service';
+import { BlogDetail } from '../../../components/blogs/blog.models';
 import { GlobalService, Identity } from '../../../global';
-import { Comment, IntroComment, CommentService } from '../../../components/blogs/comment.service';
+import { Comment, IntroComment } from '../../../components/blogs/comment.model';
+import { CommentService } from '../../../components/blogs/comment.service';
 
 @Component({
   selector: 'app-blog-detail',
