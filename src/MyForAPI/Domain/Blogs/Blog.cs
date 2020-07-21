@@ -31,6 +31,10 @@ namespace Domain.Blogs
         private Blog() { }
 
         private DB.Tables.Blog _blog;
+        /// <summary>
+        /// 作者 ID
+        /// </summary>
+        public int AuthorId => _blog.AuthorId;
 
         /// <summary>
         /// 获取详情

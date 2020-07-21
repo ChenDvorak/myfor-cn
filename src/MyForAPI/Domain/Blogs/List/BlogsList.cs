@@ -18,7 +18,8 @@ namespace Domain.Blogs.List
         public enum ListType
         {
             HomePage,
-            SearchPage
+            SearchPage,
+            UserSelf
         }
 
         /// <summary>

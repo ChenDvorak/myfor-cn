@@ -59,4 +59,25 @@ export class UsersService {
       })
     );
   }
+
+  /**
+   * 获取用户自己的博文列表
+   */
+  getUserBlogs(index: number, size: number, account: string, s: string = ''): Observable<Result> {
+    let p: HttpParams = new HttpParams()
+    .set('index', index.toString())
+    .set('size', size.toString());
+    if (s === null) {
+      s = '';
+    }
+    s = s.trim();
+    if (s) {
+      p = p.set('s', s.toString());
+    }
+    return this.http.get<Result>(`${ROUTE_PREFIX}users/${account}/blogs?${p.toString()}`)
+    .pipe(
+      retry(1),
+      catchError(this.base.handleError)
+    );
+  }
 }

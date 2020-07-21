@@ -1,9 +1,9 @@
 <div class="blog-item" *ngFor="let blog of blogList">
-  <button class="more-actions" mat-icon-button [matMenuTriggerFor]="appMenu">
+  <button class="more-actions" mat-icon-button [matMenuTriggerFor]="appMenu" *ngIf="isSeft">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #appMenu="matMenu">
-    <button class="delete-btn" mat-menu-item color="warn" (click)="deletePost(0)">
+    <button class="delete-btn" mat-menu-item color="warn" (click)="deletePost(blog.code)">
       <mat-icon color="warn">delete_forever</mat-icon>
       <span>删除</span>
     </button>

@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, retry, mergeMap } from 'rxjs/operators';
 import { NewBlog, BlogItem } from './blog.models';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class BlogService {
   constructor(
     private base: ServicesBase,
     private identity: Identity,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   /**
@@ -113,6 +115,23 @@ export class BlogService {
         }
         return of(r);
       })
+    );
+  }
+
+  /**
+   * 删除博文，只有自己能删除
+   */
+  deleteBlog(code: string): Observable<Result> {
+    const d: Result = DEFAULT_RESULT;
+    if (!this.identity.isLoggedIn) {
+      d.status = 401;
+      d.data = '请登录';
+      this.router.navigateByUrl('login');
+      return of(d);
+    }
+    return this.http.delete<Result>(`${ROUTE_PREFIX}blogs/${code}`)
+    .pipe(
+      catchError(this.base.handleError)
     );
   }
 }

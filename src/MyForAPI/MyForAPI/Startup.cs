@@ -43,7 +43,7 @@ namespace MyForAPI
                                   {
                                       builder.WithOrigins(Configuration.GetValue<string>("AllowedHosts"));
                                       builder.AllowAnyHeader();
-                                      builder.WithMethods("PATCH");
+                                      builder.AllowAnyMethod();
                                   });
             });
             services.AddResponseCaching();

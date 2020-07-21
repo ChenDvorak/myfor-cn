@@ -98,6 +98,7 @@ namespace Domain.Blogs
             {
                 List.BlogsList.ListType.HomePage => new List.HomePageList(),
                 List.BlogsList.ListType.SearchPage => new List.SearchList(),
+                List.BlogsList.ListType.UserSelf => new List.UserSelfList(),
                 _ => throw new ArgumentException()
             };
             return await list.GetListAsync(pager);
@@ -112,6 +113,27 @@ namespace Domain.Blogs
         {
             var model = await GetBlogModelAsync(blogId);
             return Blog.Parse(model);
+        }
+
+        /// <summary>
+        /// 删除一个博文
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<(bool, string)> DeleteBlog(Blog blog)
+        {
+             var blogModel = await GetBlogModelAsync(blog.Id);
+            if (blogModel == null)
+                return (true, "");
+
+            await using var db = new DB.MyForDbContext();
+            db.Remove(blogModel);
+
+            int changeCount = await db.SaveChangesAsync();
+            if (changeCount != 1)
+                throw new Exception("删除失败");
+            await RedisCache.GetRedis().HashDeleteAsync(Blog.REDIS_HASH_KEY, blogModel.Id);
+            return (true, "");
         }
 
         /// <summary>

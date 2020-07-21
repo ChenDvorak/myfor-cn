@@ -155,5 +155,40 @@ namespace MyForAPI.Controllers.Clients
             pager = await blog.GetCommentsListAsync(pager);
             return Ok(pager);
         }
+
+        /*
+         *  删除博文，只有自己能删除
+         *  return:
+         *      200
+         *      400
+         *      401
+         */
+        [HttpDelete("{code}"), Authorize]
+        public async Task<IActionResult> DeleteBlogAsync(string code)
+        {
+            if (!CurrentIsLogged)
+                return Unauthorized("请先登录");
+
+            (bool isSuccess, int blogId) = Blog.ParseCodeToId(code);
+            if (!isSuccess)
+                return Gone("该博文不存在，请刷新");
+
+            var blog = await BlogsHub.GetBlogAsync(blogId);
+            if (blog == null)
+                return Gone("该博文不存在");
+
+            var user = await _currentUser.GetUserAsync(CurrentAccount);
+            if (user == null)
+                return Unauthorized("请重新登录");
+
+            if (blog.AuthorId != user.Id)
+                return BadRequest("只有作者能删除这篇博文");
+
+            BlogsHub blogsHub = new BlogsHub();
+            (bool isSucc, string msg) = await blogsHub.DeleteBlog(blog);
+            if (isSucc) 
+                return Ok(); 
+            return BadRequest(msg);
+        }
     }
 }
