@@ -64,7 +64,7 @@ Blogs
                     AuthorAccount = blog.Author.Account,
                     Avatar = Files.File.GetVisitablePath(blog.Author.Avatar.SaveName, "api"),
                     Title = blog.Title,
-                    PostedTime = blog.CreateDate.ToString("yyyy-MM-dd"),
+                    PostedTime = blog.CreateDate.ToLocalTime().ToString("yyyy-MM-dd"),
                     Content = blog.Content,
                     IsFull = !blog.Content.EndsWith(BLOG_LIST_CONTENT_OVERFLOW_CHARS),
                     CommentCount = blog.CommentCount,

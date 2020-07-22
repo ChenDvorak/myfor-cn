@@ -35,7 +35,7 @@ namespace Domain.Comments.List
                                      AuthorName = comment.Commenter.Name,
                                      AuthorAccount = comment.Commenter.Account,
                                      Avatar = Files.File.GetVisitablePath(comment.Commenter.Avatar.SaveName, "api"),
-                                     DateTime = comment.CreateDate.ToString("yyyy-MM-dd HH:mm"),
+                                     DateTime = comment.CreateDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm"),
                                      Content = comment.Content,
                                      AgreeCount = comment.AgreedCount
                                  })

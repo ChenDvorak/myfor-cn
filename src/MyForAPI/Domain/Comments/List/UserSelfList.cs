@@ -38,7 +38,7 @@ namespace Domain.Comments.List
                                      Id = comment.Id,
                                      BlogCode = Convert.ToBase64String(Encoding.UTF8.GetBytes(comment.BlogId.ToString())),
                                      BlogTitle = comment.Blog.Title,
-                                     DateTime = comment.CreateDate.ToString("yyyy-MM-dd HH:mm"),
+                                     DateTime = comment.CreateDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm"),
                                      Content = comment.Content,
                                      AgreeCount = comment.AgreedCount
                                  })

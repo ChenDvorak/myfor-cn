@@ -70,7 +70,7 @@ namespace Domain.Users
                 Account = _userModel.Account,
                 Name = _userModel.Name,
                 Introdution = _userModel.Introduction,
-                CreateDate = _userModel.CreateDate.ToString("yyyy-MM-dd"),
+                CreateDate = _userModel.CreateDate.ToLocalTime().ToString("yyyy-MM-dd"),
                 Avatar = Files.File.GetVisitablePath(avatar.SaveName, "api")
             };
             return detail;

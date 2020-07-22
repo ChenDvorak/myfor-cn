@@ -51,7 +51,7 @@ namespace Domain.Blogs
                 AuthorAccount = _blog.Author.Account,
                 Avatar = Files.File.GetVisitablePath(_blog.Author.Avatar.SaveName, "api"),
                 Title = _blog.Title,
-                PostedTime = _blog.CreateDate.ToString("yyyy-MM-dd HH:mm"),
+                PostedTime = _blog.CreateDate.ToLocalTime().ToString("yyyy-MM-dd HH:mm"),
                 Content = _blog.Content,
                 CommentCount = _blog.CommentCount,
                 AgreeCount = _blog.AgreedCount,
