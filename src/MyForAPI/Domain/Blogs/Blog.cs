@@ -240,7 +240,7 @@ namespace Domain.Blogs
         public async Task<Paginator> GetCommentsListAsync(Paginator pager)
         {
             Comments.CommentsHub commentsHub = new Comments.CommentsHub();
-            return await commentsHub.GetCommentsListAsync(Id, pager);
+            return await commentsHub.GetCommentsListAsync(pager, Comments.List.CommentsList.ListType.BlogDetail);
         }
 
         /// <summary>

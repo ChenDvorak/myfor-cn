@@ -1,0 +1,17 @@
+<div class="comment-container" *ngIf="model">
+  <div class="blog-title">
+    <a [routerLink]="['/b', model.blogCode]">
+      {{model.blogTitle}}
+    </a>
+    <span class="comment-date">{{model.dateTime}}</span>
+  </div>
+  <div class="content">
+    <app-content-box [data]="model.content"></app-content-box>
+  </div>
+  <div class="actions">
+    <button mat-icon-button color="primary">
+      <mat-icon>favorite</mat-icon>
+    </button>
+    <span>{{model.agreeCount | kilo }}</span>
+  </div>
+</div>

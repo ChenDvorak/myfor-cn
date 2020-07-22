@@ -80,4 +80,25 @@ export class UsersService {
       catchError(this.base.handleError)
     );
   }
+
+  /**
+   * 获取用户自己的博文列表
+   */
+  getUserComments(index: number, size: number, account: string, blogTitle: string = ''): Observable<Result> {
+    let p: HttpParams = new HttpParams()
+    .set('index', index.toString())
+    .set('size', size.toString());
+    if (blogTitle === null) {
+      blogTitle = '';
+    }
+    blogTitle = blogTitle.trim();
+    if (blogTitle) {
+      p = p.set('blogTitle', blogTitle.toString());
+    }
+    return this.http.get<Result>(`${ROUTE_PREFIX}users/${account}/comments?${p.toString()}`)
+    .pipe(
+      retry(1),
+      catchError(this.base.handleError)
+    );
+  }
 }

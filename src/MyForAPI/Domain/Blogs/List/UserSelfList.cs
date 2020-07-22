@@ -25,7 +25,7 @@ namespace Domain.Blogs.List
                 throw new Exception("要获取的用户不存在");
 
             Expression<Func<DB.Tables.Blog, bool>> whereStatement = blog => blog.AuthorId == user.Id;
-            if (!bool.TryParse(pager["isSelf"], out bool isSelf))
+            if (!bool.TryParse(pager["IsSelf"], out bool isSelf))
                 throw new ArgumentException("参数有误");
             //  如果当前用户不是要获取的用户，就只能获取通过的博文列表
             if (!isSelf)

@@ -77,6 +77,18 @@ namespace Domain.Users
         }
 
         /// <summary>
+        /// 获取用户发表的评论
+        /// </summary>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public async Task<Paginator> GetCommentsLisnAsync(Paginator pager)
+        {
+            var commentsHub = new Comments.CommentsHub();
+            pager = await commentsHub.GetCommentsListAsync(pager, Comments.List.CommentsList.ListType.UserSelf);
+            return pager;
+        }
+
+        /// <summary>
         /// 将用户模型转换成用户(对象)
         /// </summary>
         /// <param name="userModel"></param>

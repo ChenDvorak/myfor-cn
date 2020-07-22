@@ -1,0 +1,29 @@
+@import ../../../../styles/_variable
+    
+.comment-container
+    display: grid
+    grid-auto-flow: row
+    grid-column-gap: 10px
+    padding: .5rem 1rem
+    border-bottom: 1px $border
+    &:hover
+        background-color: transparentize($primary, .95)
+    .blog-title
+        @extend %flex-row
+        padding-top: 1rem
+        flex-wrap: wrap
+        margin-right: 2rem
+        a
+            color: black
+            flex-grow: 1
+        .comment-date
+            margin-left: 1rem
+            font-size: .9rem
+            color: transparentize(black, .5)
+    .content
+        font-size: 1rem
+        margin: 1rem 0
+    .actions
+        @extend %flex-row
+        align-items: center
+        color: $primary

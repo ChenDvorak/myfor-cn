@@ -148,8 +148,8 @@ namespace MyForAPI.Controllers.Clients
             if (!isSuccess)
                 return Gone("该博文不存在，请刷新");
 
-            Domain.Paginator pager = Domain.Paginator.New(index, size);
-
+            Domain.Paginator pager = Domain.Paginator.New(index, size, 1);
+            pager["BlogId"] = blogId.ToString();
             var blog = await BlogsHub.GetBlogAsync(blogId);
             if (blog == null) return Gone("该博文不存在，请刷新");
             pager = await blog.GetCommentsListAsync(pager);

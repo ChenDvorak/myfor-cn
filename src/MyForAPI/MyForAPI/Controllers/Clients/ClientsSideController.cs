@@ -5,7 +5,6 @@ using System.Security.Claims;
 namespace MyForAPI.Controllers.Clients
 {
     [Route("api/clients/[controller]")]
-    [ApiController]
     public abstract class ClientsSideController : _base.MyForController
     {
         protected const string CLIENT_JWT_KEY = "no0ko72a";

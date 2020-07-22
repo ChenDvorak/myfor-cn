@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
@@ -47,6 +48,11 @@ namespace MyForAPI
                                   });
             });
             services.AddResponseCaching();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Authorization.Policy.ADMINISTRATOR, policy => policy.RequireClaim(ClaimTypes.Role, "Administrator"));
+            });
 
             //  JWT 验证规则
             services.AddAuthentication(options =>

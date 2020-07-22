@@ -38,7 +38,7 @@ export class BlogListComponent implements OnInit {
   }
 
   getBlogsList() {
-    this.user.getUserBlogs(this.index++, 10, this.account).subscribe(r => {
+    this.user.getUserBlogs(++this.index, 10, this.account).subscribe(r => {
       if (r.status === 200) {
         const d = r.data as Paginator<BlogItem>;
         this.blogList.push(...d.list);

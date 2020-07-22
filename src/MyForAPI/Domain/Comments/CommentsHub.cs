@@ -36,34 +36,19 @@ namespace Domain.Comments
         }
 
         /// <summary>
-        /// 获取评论
+        /// 获取评论列表
         /// </summary>
         /// <param name="pager"></param>
         /// <returns></returns>
-        internal async Task<Paginator> GetCommentsListAsync(int blogId, Paginator pager)
+        internal async Task<Paginator> GetCommentsListAsync(Paginator pager, List.CommentsList.ListType type)
         {
-            Expression<Func<DB.Tables.Comment, bool>> whereStatement = comment => comment.BlogId == blogId;
-
-            await using var db = new MyForDbContext();
-            pager.TotalSize = await db.Comments.CountAsync(whereStatement);
-            pager.List = await db.Comments.AsNoTracking()
-                                          .OrderByDescending(comment => comment.CreateDate)
-                                          .Where(whereStatement)
-                                          .Skip(pager.Skip)
-                                          .Take(pager.Size)
-                                          .Include(comment => comment.Commenter)
-                                              .ThenInclude(commenter => commenter.Avatar)
-                                          .Select(comment => new Results.CommentItem
-                                          { 
-                                              Id = comment.Id,
-                                              AuthorName = comment.Commenter.Name,
-                                              AuthorAccount = comment.Commenter.Account,
-                                              Avatar = Files.File.GetVisitablePath(comment.Commenter.Avatar.SaveName, "api"),
-                                              DateTime = comment.CreateDate.ToString("yyyy-MM-dd HH:mm"),
-                                              Content = comment.Content,
-                                              AgreeCount = comment.AgreedCount
-                                          })
-                                          .ToListAsync();
+            List.CommentsList list = type switch
+            { 
+                List.CommentsList.ListType.BlogDetail => new List.ListInBlogDetail(),
+                List.CommentsList.ListType.UserSelf => new List.UserSelfList(),
+                _ => throw new ArgumentException()
+            };
+            pager = await list.GetListAsync(pager);
             return pager;
         }
     }
