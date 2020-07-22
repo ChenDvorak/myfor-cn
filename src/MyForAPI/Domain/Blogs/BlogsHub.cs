@@ -122,7 +122,7 @@ namespace Domain.Blogs
         /// <returns></returns>
         public async Task<(bool, string)> DeleteBlog(Blog blog)
         {
-             var blogModel = await GetBlogModelAsync(blog.Id);
+            var blogModel = await GetBlogModelAsync(blog.Id);
             if (blogModel == null)
                 return (true, "");
 
@@ -158,11 +158,11 @@ namespace Domain.Blogs
         /// </summary>
         /// <param name="blogModel"></param>
         /// <returns></returns>
-        internal static async Task SaveCacheBlogAsync(DB.Tables.Blog blogModel)
+        internal static Task SaveCacheBlogAsync(DB.Tables.Blog blogModel)
         {
-            if (blogModel == null) return;
+            if (blogModel == null) return Task.FromResult(0);
             string saveValue = JsonConvert.SerializeObject(blogModel);
-            await RedisCache.GetRedis().HashSetAsync(Blog.REDIS_HASH_KEY, blogModel.Id, saveValue);
+            return RedisCache.GetRedis().HashSetAsync(Blog.REDIS_HASH_KEY, blogModel.Id, saveValue);
         }
     }
 }
