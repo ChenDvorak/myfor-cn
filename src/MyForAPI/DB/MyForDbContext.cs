@@ -9,6 +9,15 @@ namespace DB
         {
             optionsBuilder.UseMySql(Config.GetConnectionString("myfor-mysql"));
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Tables.File>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
+            modelBuilder.Entity<Tables.User>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
+            modelBuilder.Entity<Tables.Blog>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
+            modelBuilder.Entity<Tables.Comment>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
+            modelBuilder.Entity<Tables.AgreesRecord>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
+        }
         /// <summary>
         /// 文件
         /// </summary>

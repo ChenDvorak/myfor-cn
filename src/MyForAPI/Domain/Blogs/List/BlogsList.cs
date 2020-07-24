@@ -86,7 +86,6 @@ Blogs
             {
                 blog.Agreed = await Blog.IsUserAgreedBlogAsync(currentUserAccount, blog.Code);
             }
-            //list.ForEach(async blog => blog.Agreed = await Blog.IsUserAgreedBlogAsync(currentUserAccount, blog.Code));
             return list;
         }
     }
