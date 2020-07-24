@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB
