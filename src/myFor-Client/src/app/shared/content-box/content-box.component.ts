@@ -9,13 +9,14 @@ import { DOCUMENT } from '@angular/common';
     <span class="reference" #reference></span>
     <span class="thought" #thought></span>
 </div>
-<div #dataBox class="box"></div>
+<div class="box">
+    <p *ngFor="let segment of contentSegments" class="content-section">{{segment}}</p>
+</div>
     `,
     styleUrls: ['./content-box.component.sass']
 })
 export class ContentBoxComponent implements AfterViewInit {
 
-    @ViewChild('dataBox', {static: true}) dataBox: ElementRef;
     @ViewChild('reference', {static: true}) reference: ElementRef;
     @ViewChild('thought', {static: true}) thought: ElementRef;
     /**
@@ -37,13 +38,9 @@ export class ContentBoxComponent implements AfterViewInit {
         }
     }
     @Input() set data(value: string) {
-        value = value.replace('\r\n', '<br>')
-                     .replace('\r', '<br>')
-                     .replace('\n', '<br>');
-        value = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + value;
-
-        this.dataBox.nativeElement.innerHTML = value;
+        this.contentSegments = value.split('\n');
     }
+    contentSegments: string[] = [];
     constructor(
         @Inject(DOCUMENT) private doc: any
     ) {}
