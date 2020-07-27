@@ -42,8 +42,8 @@
 
     <div class="layout-medium">
       <div class="login-bottom-box" *ngIf="!isLoggedIn">
-        <a [routerLink]="['/detail.account', 'login']" mat-raised-button color="primary">登录</a>
-        <a [routerLink]="['/detail.account', 'signup']" mat-stroked-button color="primary">注册</a>
+        <a [routerLink]="['/', 'login']" mat-raised-button color="primary">登录</a>
+        <a [routerLink]="['/', 'signup']" mat-stroked-button color="primary">注册</a>
       </div>
     </div>
 
