@@ -5,8 +5,7 @@ namespace MyForAPI.Controllers._base
     /// <summary>
     /// 所有控制器的基类
     /// </summary>
-    [ApiController]
-    [Route("api")]
+    [ApiController, Route("api")]
     public class MyForController : ControllerBase
     {
         /// <summary>

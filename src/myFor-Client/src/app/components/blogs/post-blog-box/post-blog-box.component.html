@@ -11,8 +11,8 @@
       <mat-label>
         {{think.innerHTML ? '有何指教?' : '想说什么?'}}
       </mat-label>
-      <textarea matInput cdkTextareaAutosize required
-      [(ngModel)]="newBlog.content" name="content" maxlength="1000"></textarea>
+      <textarea matInput cdkTextareaAutosize required id="txt-content"
+      name="content" maxlength="1000" (keyup)="enter($event.target.value)"></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>

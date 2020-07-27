@@ -1,20 +1,22 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NewBlog, ReferenceFrom } from '../../../components/blogs/blog.models';
 import { BlogService } from '../blog.service';
 import { CommonService } from '../../../shared/services/common';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post-blog-box',
   templateUrl: './post-blog-box.component.html',
   styleUrls: ['./post-blog-box.component.sass']
 })
-export class PostBlogBoxComponent implements OnInit {
+export class PostBlogBoxComponent implements OnInit, OnDestroy {
 
   @ViewChild('reference', {static: true}) reference: ElementRef;
   @ViewChild('think', {static: true}) think: ElementRef;
 
+  enterContent = '';
   posting = false;
   newBlog: NewBlog = {
     title: '',
@@ -39,6 +41,11 @@ export class PostBlogBoxComponent implements OnInit {
     private router: Router
   ) { }
 
+  subScription: Subscription;
+  ngOnDestroy(): void {
+    this.subScription.unsubscribe();
+  }
+
   ngOnInit(): void {
     this.thinkFrom = this.data?.thinkFrom;
     this.referenceFrom = this.data?.referenceFrom;
@@ -54,15 +61,23 @@ export class PostBlogBoxComponent implements OnInit {
       this.think.nativeElement.innerHTML = thinkTarget;
       this.newBlog.thoughtFrom = this.thinkFrom.code;
     }
+
+    this.subScription = this.common.insteadKeydownEventChar(document.getElementById('txt-content'), 'Tab', '    ');
+    this.subScription.add(this.common.insteadKeydownEventChar(document.getElementById('txt-content'), 'Enter', '\n        '));
+  }
+
+  enter(enterContent: string) {
+    this.enterContent = enterContent;
   }
 
   post() {
     this.posting = true;
-
-    if (!this.newBlog.content.trim()) {
+    this.enterContent = this.enterContent.trim();
+    if (this.enterContent === '') {
       this.common.snackOpen('内容不能为空');
       return;
     }
+    this.newBlog.content = this.enterContent;
 
     this.blog.postBlog(this.newBlog).subscribe(r => {
       if (r.status === 201) {
