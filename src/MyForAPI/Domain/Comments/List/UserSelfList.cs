@@ -26,7 +26,6 @@ namespace Domain.Comments.List
             await using var db = new MyForDbContext();
             pager.TotalSize = await db.Comments.CountAsync(whereStatement);
             pager.List = await db.Comments
-                                 .FromSqlRaw(CommentsQueryString)
                                  .AsNoTracking()
                                  .OrderByDescending(comment => comment.CreateDate)
                                  .Where(whereStatement)
