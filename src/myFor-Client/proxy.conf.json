@@ -3,5 +3,10 @@
         "target": "https://api.myfor.cn",
         "secure": false,
         "changeOrigin": true
+    },
+    "/chathubs": {
+      "target": "https://api.myfor.cn",
+      "changeOrigin": true,
+      "ws": true
     }
 }
