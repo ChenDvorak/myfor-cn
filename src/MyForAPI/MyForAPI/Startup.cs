@@ -72,7 +72,7 @@ namespace MyForAPI
 
             //  DI
             services.AddScoped<Domain.Users.ICurrentUser, Domain.Users.CurrentUser>();
-
+            services.AddSignalR();
             services.AddControllers();
         }
 
