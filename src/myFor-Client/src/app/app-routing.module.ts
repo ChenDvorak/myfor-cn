@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MustLoggedInGuard } from './guards/must-logged-in.guard';
 
 const routes: Routes = [
   {
