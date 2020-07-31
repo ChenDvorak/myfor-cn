@@ -72,7 +72,7 @@ export class DefaultInterceptor implements HttpInterceptor {
           //  case 400: { } break;
           case 401: {
             this.common.snackOpen('请先登录');
-            this.router.navigate(['/account', 'login', { redirect: this.loc.path(true) }]);
+            open('login');
           }         break;
           case 403: {
             this.common.snackOpen('您没有权限访问');
