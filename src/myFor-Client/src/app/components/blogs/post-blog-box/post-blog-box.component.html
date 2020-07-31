@@ -11,13 +11,13 @@
       <mat-label>
         {{think.innerHTML ? '有何指教?' : '想说什么?'}}
       </mat-label>
-      <textarea matInput cdkTextareaAutosize required id="txt-content"
+      <textarea matInput cdkTextareaAutosize required id="txt-content" #postContent
       name="content" maxlength="1000" (keyup)="enter($event.target.value)"></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <app-number-limit [maxLength]="1000" [currentLength]="newBlog.content.length"></app-number-limit>
+  <app-number-limit [maxLength]="1000" [currentLength]="postContent.value.length"></app-number-limit>
   <button mat-button mat-dialog-close color="accent">取消</button>
   <button mat-raised-button color="primary" [disabled]="postBlog.invalid || posting" (click)="post()">发布</button>
 </mat-dialog-actions>

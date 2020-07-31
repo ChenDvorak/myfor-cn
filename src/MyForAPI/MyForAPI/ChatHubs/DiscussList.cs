@@ -11,6 +11,9 @@ namespace MyForAPI.ChatHubs
     /// </summary>
     public class DiscussList : Hub<IDiscussList>
     {
-
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
     }
 }

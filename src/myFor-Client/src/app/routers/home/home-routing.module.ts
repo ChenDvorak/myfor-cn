@@ -10,6 +10,10 @@ const routes: Routes = [
     component: IndexComponent,
     children: [
       { path: '', component: HomeListComponent, pathMatch: 'full' },
+      // {
+      //   path: 'list',
+      //   loadChildren: () => import('./discuss/discuss.module').then(m => m.DiscussModule)
+      // },
       { path: ':code', component: BlogDetailComponent }
     ]
   }

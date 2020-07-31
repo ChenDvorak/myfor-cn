@@ -6,12 +6,16 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./routers/home/home.module').then(m => m.HomeModule),
     pathMatch: 'full',
-    data: { preload: true, title: 'myFor' }
+    data: { preload: true, title: 'myFor -- 思考，见解' }
   },
   {
     path: 'b',
     loadChildren: () => import('./routers/home/home.module').then(m => m.HomeModule),
     data: { preload: true },
+  },
+  {
+    path: 'discuss',
+    loadChildren: () => import('./routers/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'search',
