@@ -5,14 +5,14 @@ import { environment } from '@env/environment';
 import { AdminLayoutComponent } from '../theme/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from '../theme/auth-layout/auth-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './sessions/login/login.component';
 import { LoginGuard } from '../guard/login.guard';
+import { LoginComponent } from './sessions/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
-    canActivate: [LoginGuard],
+    //  canActivate: [LoginGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
@@ -24,21 +24,6 @@ const routes: Routes = [
         path: 'clients',
         loadChildren: () => import('./clients/clients.module').then(mod => mod.ClientsModule),
         data: { title: 'Clients', titleI18n: 'Clients' }
-      },
-      {
-        path: 'questions',
-        loadChildren: () => import('./questions/questions.module').then(mod => mod.QuestionsModule),
-        data: { title: 'Questions', titleI18n: 'Questions' }
-      },
-      {
-        path: 'answers',
-        loadChildren: () => import('./answers/answers.module').then(mod => mod.AnswersModule),
-        data: { title: 'Answers', titleI18n: 'Answers' }
-      },
-      {
-        path: 'sessions',
-        loadChildren: () => import('./sessions/sessions.module').then(m => m.SessionsModule),
-        data: { title: 'Sessions', titleI18n: 'Sessions' },
       }
     ],
   },
@@ -50,12 +35,7 @@ const routes: Routes = [
         path: 'login',
         component: LoginComponent,
         data: { title: 'Login', titleI18n: 'Login' },
-      },
-      // {
-      //   path: 'register',
-      //   component: RegisterComponent,
-      //   data: { title: 'Register', titleI18n: 'Register' },
-      // },
+      }
     ],
   },
   {

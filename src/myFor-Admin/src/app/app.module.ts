@@ -2,8 +2,6 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HTTP_INTERCEPTOR_PROVIDERS } from './interceptors/barrel';
-
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { ThemeModule } from './theme/theme.module';
@@ -39,8 +37,7 @@ export function StartupServiceFactory(startupService: StartupService) {
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true,
-    },
-    HTTP_INTERCEPTOR_PROVIDERS
+    }
   ],
   bootstrap: [AppComponent],
 })

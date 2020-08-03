@@ -1,0 +1,30 @@
+<div class="d-answer">
+  <div class="d-info">
+    <span>赞同数：{{answer.votes}}</span>
+    <span class="m-l-3">回答时间：{{answer.createDate}}</span>
+    <span class="m-l-3">回答人：
+      <img src="{{answer.avatar}}" alt="logo" width="27" height="27">
+      {{answer.userName}}
+    </span>
+    <span class="m-l-3">当前状态：{{answer.state.value}}</span>
+
+    <markdown [data]="answer.content"></markdown>
+
+  </div>
+  <div class="m-b-3">
+    <mat-divider></mat-divider>
+  </div>
+  <div [ngSwitch]="answer.state.key">
+    <button mat-raised-button color="primary" *ngSwitchCase="0" (click)="enabled()">启用</button>
+    <div *ngSwitchCase="1" class="d-display-action">
+      <div class="m-r-3">
+        <button mat-raised-button color="warn" (click)="disabled(disabledSource.value)">禁用</button>
+      </div>
+      <mat-form-field>
+        <input matInput #disabledSource placeholder="禁用原因">
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" *ngSwitchCase="2" (click)="enabled()">重新启用</button>
+    <button mat-raised-button color="primary" *ngSwitchCase="3" (click)="enabled()">通过审核</button>
+  </div>
+</div>
