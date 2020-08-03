@@ -25,17 +25,9 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/styles.css",
-              "./node_modules/prismjs/themes/prism-okaidia.css",
-              "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
-              "./node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css"
+              "src/styles.css"
             ],
-            "scripts": [
-              "./node_modules/marked/lib/marked.js",
-              "./node_modules/prismjs/prism.js",
-              "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js",
-              "./node_modules/prismjs/plugins/line-highlight/prism-line-highlight.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -114,9 +106,7 @@
               "src/styles.scss",
               "src/styles.css"
             ],
-            "scripts": [
-              "./node_modules/marked/lib/marked.js"
-            ]
+            "scripts": []
           }
         },
         "lint": {

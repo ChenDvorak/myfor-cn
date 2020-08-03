@@ -6,7 +6,6 @@ import { QuestionsListComponent } from './questions-list/questions-list.componen
 import { QuestionDetailComponent } from './question-detail/question-detail.component';
 import { AnswersItemComponent } from './answers-item/answers-item.component';
 
-import { MarkdownModule } from 'ngx-markdown';
 import { ReportsComponent } from './reports/reports.component';
 import { ReportsDetailComponent } from './reports-detail/reports-detail.component';
 
@@ -20,8 +19,7 @@ import { ReportsDetailComponent } from './reports-detail/reports-detail.componen
   ],
   imports: [
     SharedModule,
-    QuestionsRoutingModule,
-    MarkdownModule.forChild()
+    QuestionsRoutingModule
   ]
 })
 export class QuestionsModule { }
