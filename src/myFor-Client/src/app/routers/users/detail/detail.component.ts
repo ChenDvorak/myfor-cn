@@ -25,7 +25,7 @@ export class DetailComponent implements OnInit, AfterContentChecked, OnDestroy {
     account: '',
     name: '',
     avatar: 'api/files/default.png',
-    introdution: '',
+    introduction: '',
     createDate: ''
   };
   subscription: Subscription;

@@ -26,7 +26,7 @@ namespace MyForAPI.Controllers.Clients
          *  -   200: login success, the user name in body
          *  -   400: login fault, the reason in body
          */
-        //  patch: /api/clients/login
+        //  patch: /api/clients/accounts/login
         [HttpPatch("login")]
         public async Task<IActionResult> LoginAsync([FromBody] string base64)
         {
@@ -85,7 +85,7 @@ namespace MyForAPI.Controllers.Clients
         /*
          * sign up
          * return:
-         *  -   200:    sign up successfull
+         *  -   201:    sign up successfull
          *  -   400:    default
          */
         [HttpPost("signup")]
@@ -101,7 +101,7 @@ namespace MyForAPI.Controllers.Clients
             UsersHub usersHub = new UsersHub();
             (var isSuccess, string msg) = await usersHub.SignUpAsync(model);
             if (isSuccess)
-                return Ok();
+                return Created($"/{model.Account}", null);
             return BadRequest(msg);
         }
     }

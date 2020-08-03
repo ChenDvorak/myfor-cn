@@ -45,14 +45,14 @@ namespace Domain.Users
             var result = new Results.LoginInfo
             {
                 Account = _userModel.Account,
-                NickName = _userModel.Name
+                Nickname = _userModel.Name
             };
             if (_userModel.Avatar == null)
             {
                 string path = Files.File.SaveWebPath;
                 await using var db = new DB.MyForDbContext();
                 _userModel.Avatar = await db.Files.AsNoTracking().FirstOrDefaultAsync(file => file.Id == _userModel.AvatarId);
-                result.Avatar = Files.File.GetVisitablePath(_userModel.Avatar?.SaveName);
+                result.Avatar = Files.File.GetVisitablePath(_userModel.Avatar?.SaveName, "api");
             }
             return result;
         }
@@ -69,7 +69,7 @@ namespace Domain.Users
             {
                 Account = _userModel.Account,
                 Name = _userModel.Name,
-                Introdution = _userModel.Introduction,
+                Introduction = _userModel.Introduction,
                 CreateDate = _userModel.CreateDate.ToLocalTime().ToString("yyyy-MM-dd"),
                 Avatar = Files.File.GetVisitablePath(avatar.SaveName, "api")
             };

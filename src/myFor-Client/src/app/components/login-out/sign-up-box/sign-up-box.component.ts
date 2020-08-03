@@ -29,7 +29,7 @@ export class SignUpBoxComponent implements OnInit {
   postSignUp() {
     this.signUping = true;
     this.loginOut.signUp(this.signUp).subscribe(r => {
-      if (r.status === 200) {
+      if (r.status === 201) {
         this.common.snackOpen('注册成功');
         this.router.navigate(['/login']);
       } else if (r.data) {

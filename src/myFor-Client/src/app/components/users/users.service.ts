@@ -12,7 +12,7 @@ export interface UserDetail {
   name: string;
   account: string;
   avatar: string;
-  introdution: string;
+  introduction: string;
   createDate: string;
 }
 
@@ -53,7 +53,7 @@ export class UsersService {
           r.data.account = `用户 ${r.data.account} 不存在`;
           r.data.avatar = 'api/files/default.png';
           r.data.name = '';
-          r.data.introdution = '';
+          r.data.introduction = '';
         }
         return of(r);
       })

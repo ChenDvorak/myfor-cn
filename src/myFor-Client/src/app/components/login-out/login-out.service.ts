@@ -48,7 +48,7 @@ export class LoginOutService {
       mergeMap((r: Result<IdentityInfo>) => {
         if (r.status === 200) {
           r.data = r.data as IdentityInfo;
-          r.data.avatar = '/api' + r.data.avatar;
+          r.data.avatar = r.data.avatar;
           this.identity.setIdentityInfo(r.data);
         }
         return of(r);

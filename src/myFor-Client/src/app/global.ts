@@ -34,7 +34,7 @@ export class GlobalService {
 
 const IDENTITY_KEY = 'NO9A[';
 export interface IdentityInfo {
-    nickName: string;
+    nickname: string;
     account: string;
     avatar: string;
     jwt: string;

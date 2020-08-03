@@ -18,12 +18,5 @@ export class AppComponent implements OnInit {
     this.global.title.subscribe(title => {
       this.doc.title = title;
     });
-
-    // const info: IdentityInfo = {
-    //   nickName: 'myfor',
-    //   account: 'myFor_chen',
-    //   avatar: 'assets/images/no-avatar.jpg'
-    // };
-    // this.identity.setIdentityInfo(info);
   }
 }

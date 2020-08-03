@@ -1,0 +1,20 @@
+<page-header></page-header>
+<div class="container flex-column">
+  <mat-form-field>
+    <input matInput placeholder="名称" readonly value="{{detail.userName}}">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="邮箱" readonly value="{{detail.email}}">
+  </mat-form-field>
+  <label>头像</label>
+  <img class="avatar" src="{{detail.avatar}}" alt="头像" height="128" width="128">
+  <br>
+  当前状态：{{detail.state.value}}
+  <mat-slide-toggle [checked]="detail.state.key === 1" [id]="id" (change)="enabledOrDisabled($event)"></mat-slide-toggle>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="创建日期" readonly value="{{detail.createDate}}">
+  </mat-form-field>
+  <br>
+  <app-back></app-back>
+</div>

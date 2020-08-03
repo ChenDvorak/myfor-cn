@@ -3,13 +3,9 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "myFor-Admin": {
+    "myfor-admin": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "sass"
-        }
-      },
+      "schematics": {},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -17,20 +13,29 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/myFor-Admin",
+            "outputPath": "dist/myfor-admin",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
+            "aot": false,
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.scss",
+              "src/styles.css",
+              "./node_modules/prismjs/themes/prism-okaidia.css",
+              "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.css",
+              "./node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/marked/lib/marked.js",
+              "./node_modules/prismjs/prism.js",
+              "./node_modules/prismjs/plugins/line-numbers/prism-line-numbers.js",
+              "./node_modules/prismjs/plugins/line-highlight/prism-line-highlight.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -45,6 +50,7 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
+              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -60,24 +66,37 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "hmr": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hmr.ts"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "myFor-Admin:build"
+            "browserTarget": "myfor-admin:build",
+            "proxyConfig": "proxy.config.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "myFor-Admin:build:production"
+              "browserTarget": "myfor-admin:build:production"
+            },
+            "hmr": {
+              "hmr": true,
+              "browserTarget": "myfor-admin:build:hmr"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "myFor-Admin:build"
+            "browserTarget": "myfor-admin:build"
           }
         },
         "test": {
@@ -92,9 +111,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.scss",
+              "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/marked/lib/marked.js"
+            ]
           }
         },
         "lint": {
@@ -114,15 +136,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "myFor-Admin:serve"
+            "devServerTarget": "myfor-admin:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "myFor-Admin:serve:production"
+              "devServerTarget": "myfor-admin:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "myFor-Admin"
+    }
+  },
+  "defaultProject": "myfor-admin"
 }

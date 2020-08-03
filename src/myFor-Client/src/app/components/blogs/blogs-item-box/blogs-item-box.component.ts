@@ -29,8 +29,8 @@ export class BlogsItemBoxComponent implements OnInit {
     agreeCount: 0,
     referenceCount: 0,
     thinkCount: 0,
-    thoughtFrom: '',
-    referenceFrom: '',
+    thoughtFrom: { key: '', value: '' },
+    referenceFrom: { key: '', value: '' },
     agreed: false
   };
   agreeDisable = false;

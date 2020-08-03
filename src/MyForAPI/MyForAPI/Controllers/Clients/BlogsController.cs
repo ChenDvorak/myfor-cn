@@ -126,7 +126,7 @@ namespace MyForAPI.Controllers.Clients
 
             var user = await _currentUser.GetUserAsync(CurrentAccount);
             if (user == null)
-                return Gone("请重新登录");
+                return Unauthorized("请重新登录");
 
             var blog = await BlogsHub.GetBlogAsync(blogId);
             if (blog == null)

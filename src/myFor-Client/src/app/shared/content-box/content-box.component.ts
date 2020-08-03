@@ -1,5 +1,5 @@
-import { Component, Inject, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { KeyValue } from '@angular/common';
 
 @Component({
     selector: 'app-content-box',
@@ -15,7 +15,7 @@ import { DOCUMENT } from '@angular/common';
     `,
     styleUrls: ['./content-box.component.sass']
 })
-export class ContentBoxComponent implements AfterViewInit {
+export class ContentBoxComponent {
 
     @ViewChild('reference', {static: true}) reference: ElementRef;
     @ViewChild('thought', {static: true}) thought: ElementRef;
@@ -27,14 +27,14 @@ export class ContentBoxComponent implements AfterViewInit {
      * 是否使 a 标签不能点击
      */
     @Input() disabledATarget = false;
-    @Input() set referenceFrom(value: string) {
+    @Input() set referenceFrom(value: KeyValue<string, string>) {
         if (value) {
-            this.reference.nativeElement.innerHTML = value;
+            this.reference.nativeElement.innerHTML = this.setReferenceHTML(value.key, value.value);
         }
     }
-    @Input() set thoughtFrom(value: string) {
+    @Input() set thoughtFrom(value: KeyValue<string, string>) {
         if (value) {
-            this.thought.nativeElement.innerHTML = value;
+            this.thought.nativeElement.innerHTML = this.setThoughtHTML(value.key, value.value);
         }
     }
     @Input() set data(value: string) {
@@ -42,17 +42,18 @@ export class ContentBoxComponent implements AfterViewInit {
     }
     contentSegments: string[] = [];
     constructor(
-        @Inject(DOCUMENT) private doc: any
     ) {}
 
-    ngAfterViewInit(): void {
-        //  暂时失去作用
-        // const aTargets = this.doc.getElementsByName(`a-${this.code}`);
-        // if (this.disabledATarget) {
-        //     aTargets.forEach((e: any) => {
-        //         e.href = 'javascript:;';
-        //         e.style = 'text-decoration: none';
-        //     });
-        // }
+    private setReferenceHTML(code: string, title: string): string {
+        if (!code) {
+            return '';
+        }
+        return `引用<a target='_blank' href='/b/${escape(code)}'>@${title}</a><br>`;
+    }
+    private setThoughtHTML(code: string, title: string): string {
+        if (!code) {
+            return '';
+        }
+        return `对<a target='_blank' href='/b/${escape(code)}'>《${title}》</a>的见解<br>`;
     }
 }

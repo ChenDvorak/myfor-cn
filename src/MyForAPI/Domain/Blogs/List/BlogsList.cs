@@ -71,8 +71,8 @@ Blogs
                     AgreeCount = blog.AgreedCount,
                     ReferenceCount = blog.ReferencedCount,
                     ThinkCount = blog.ThoughtCount,
-                    ThoughtFrom = await BlogText.GetThoughtHTML(blog.ThoughtFromId),
-                    ReferenceFrom = await BlogText.GetReferenceHTML(blog.ReferencedFromId)
+                    ThoughtFrom = await BlogText.GetThought(blog.ThoughtFromId),
+                    ReferenceFrom = await BlogText.GetReference(blog.ReferencedFromId)
                 });
             }
             return list;

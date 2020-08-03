@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Domain.Blogs
 {
@@ -14,8 +12,8 @@ namespace Domain.Blogs
             public string Avatar { get; set; } = "";
             public string Title { get; set; } = "";
             public string PostedTime { get; set; } = "";
-            public string ThoughtFrom { get; set; } = "";
-            public string ReferenceFrom { get; set; } = "";
+            public KeyValue<string, string> ThoughtFrom { get; set; }
+            public KeyValue<string, string> ReferenceFrom { get; set; }
             public string Content { get; set; } = "";
             public bool IsFull { get; set; } = false;
             public int CommentCount { get; set; } = 0;
@@ -33,8 +31,8 @@ namespace Domain.Blogs
             public string Avatar { get; set; } = "";
             public string Title { get; set; } = "";
             public string PostedTime { get; set; } = "";
-            public string ThoughtFrom { get; set; } = "";
-            public string ReferenceFrom { get; set; } = "";
+            public KeyValue<string, string> ThoughtFrom { get; set; }
+            public KeyValue<string, string> ReferenceFrom { get; set; }
             public string Content { get; set; } = "";
             public int CommentCount { get; set; } = 0;
             public int AgreeCount { get; set; } = 0;

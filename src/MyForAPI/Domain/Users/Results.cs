@@ -9,7 +9,7 @@ namespace Domain.Users
         public class LoginInfo
         {
             public string Account { get; set; } = "";
-            public string NickName { get; set; } = "";
+            public string Nickname { get; set; } = "";
             public string Avatar { get; set; } = "";
             public string Jwt { get; set; } = "";
         }
@@ -19,7 +19,7 @@ namespace Domain.Users
             public string Account { get; set; } = "";
             public string Name { get; set; } = "";
             public string Avatar { get; set; } = "";
-            public string Introdution { get; set; } = "";
+            public string Introduction { get; set; } = "";
             public string CreateDate { get; set; } = "";
         }
     }

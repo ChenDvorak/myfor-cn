@@ -1,3 +1,5 @@
+import { KeyValue } from '@angular/common';
+
 export interface NewBlog {
   title: string;
   content: string;
@@ -61,8 +63,8 @@ export interface BlogItem {
    * 见解数
    */
   thinkCount: number;
-  thoughtFrom: string;
-  referenceFrom: string;
+  thoughtFrom: KeyValue<string, string>;
+  referenceFrom: KeyValue<string, string>;
   agreed: boolean;
 }
 

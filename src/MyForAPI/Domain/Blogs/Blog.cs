@@ -57,8 +57,8 @@ namespace Domain.Blogs
                 AgreeCount = _blog.AgreedCount,
                 ReferenceCount = _blog.ReferencedCount,
                 ThinkCount = _blog.ThoughtCount,
-                ThoughtFrom = await BlogText.GetThoughtHTML(_blog.ThoughtFromId),
-                ReferenceFrom = await BlogText.GetReferenceHTML(_blog.ReferencedFromId)
+                ThoughtFrom = await BlogText.GetThought(_blog.ThoughtFromId),
+                ReferenceFrom = await BlogText.GetReference(_blog.ReferencedFromId)
             };
             return detail;
         }

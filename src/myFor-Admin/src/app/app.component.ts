@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { PreloaderService } from '@core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  template: '<router-outlet></router-outlet>',
 })
-export class AppComponent {
-  title = 'myFor-Admin';
+export class AppComponent implements OnInit, AfterViewInit {
+  constructor(private preloader: PreloaderService) {}
+
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.preloader.hide();
+  }
 }

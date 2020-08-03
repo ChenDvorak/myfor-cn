@@ -2,7 +2,7 @@
   <div class="avatar-row">
     <a class="account-box" [routerLink]="['/', identityInfo.account]">
       <img class="avatar" [src]="identityInfo.avatar | host" alt="avatar">
-      <span class="name">{{identityInfo.nickName}}</span>
+      <span class="name">{{identityInfo.nickname}}</span>
       <span class="account">@{{identityInfo.account}}</span>
     </a>
     <button mat-icon-button [matMenuTriggerFor]="appMenu">
