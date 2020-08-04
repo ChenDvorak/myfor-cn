@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-branding',
   template: `
     <a class="matero-branding" href="/">
-      <img src="./assets/images/B.png" class="matero-branding-logo-expanded" alt="logo" />
-      <span class="matero-branding-name">yougebug</span>
+      <img src="assets/images/logo.png" class="matero-branding-logo-expanded" alt="logo" />
+      <span class="matero-branding-name">myFor</span>
     </a>
   `,
 })
