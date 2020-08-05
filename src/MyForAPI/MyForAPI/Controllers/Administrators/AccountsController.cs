@@ -6,13 +6,14 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Administartors;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace MyForAPI.Controllers.Administrators.Accounts
+namespace MyForAPI.Controllers.Administrators
 {
     /// <summary>
     /// 账号控制器
@@ -32,7 +33,7 @@ namespace MyForAPI.Controllers.Administrators.Accounts
          *      200:    登录成功
          *      400：    登录失败
          */
-        [HttpPatch("login")]
+        [HttpPatch("login"), AllowAnonymous]
         public async Task<IActionResult> LoginAsync([FromBody]string base64)
         {
             if (string.IsNullOrWhiteSpace(base64))
@@ -47,14 +48,14 @@ namespace MyForAPI.Controllers.Administrators.Accounts
                 return BadRequest("密码不能为空");
 
             AdministartorHub hub = new AdministartorHub();
-            var userInfo = await hub.LoginAsync(model);
-            if (userInfo == null) return Unauthorized("账号不存在或密码错误");
+            var admin = await hub.LoginAsync(model);
+            if (admin == null) return Unauthorized("账号不存在或密码错误");
 
             //  build JWT
             var claims = new[]
             {
                 new Claim(ClaimTypes.Role, "Administrator"),
-                new Claim(ClaimTypes.NameIdentifier, userInfo.UserName)
+                new Claim(ClaimTypes.Sid, admin.Id.ToString())
             };
 
             string secret = _configuration.GetSection("JwtSettings:Secret").Value;
@@ -72,8 +73,25 @@ namespace MyForAPI.Controllers.Administrators.Accounts
             );
             var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 
+            var userInfo = admin.GetLoginInfo();
             userInfo.JWT = token;
-            return Ok(userInfo);
+            return Ok(admin);
+        }
+
+        /*
+         *  登出
+         *  retrun:
+         *      204:
+         */
+        [HttpPatch("logout")]
+        public async Task<IActionResult> LogoutAsync()
+        {
+            if (!CurrentAdministartorAccount.HasValue)
+                return Unauthorized();
+
+            AdministartorHub hub = new AdministartorHub();
+            await hub.LogoutAsync(CurrentAdministartorAccount.Value);
+            return NoContent();
         }
     }
 }

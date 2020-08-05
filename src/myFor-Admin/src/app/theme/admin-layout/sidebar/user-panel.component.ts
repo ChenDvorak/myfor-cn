@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonService } from '../../../services/common.service';
-import { UsersService } from '../../../services/users/users.service';
 import { Global } from '../../../global';
+import { UsersService } from 'app/services/users/users.service';
 
 @Component({
   selector: 'app-user-panel',
@@ -36,14 +34,10 @@ export class UserPanelComponent {
   email = Global.email;
 
   constructor(
-    private router: Router,
-    private user: UsersService
+    private user: UsersService,
   ) {}
 
   logout() {
-    this.user.logout().subscribe(() => {
-      Global.loginggOut();
-      this.router.navigateByUrl('/auth/login');
-    });
+    this.user.logout().subscribe();
   }
 }

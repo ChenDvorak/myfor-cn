@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { UsersService } from '../../../services/users/users.service';
 import { Global } from '../../../global';
 
@@ -37,14 +36,10 @@ export class UserComponent {
   userName = Global.userName;
 
   constructor(
-    private router: Router,
     private user: UsersService
   ) {}
 
   logout() {
-    this.user.logout().subscribe(() => {
-      Global.loginggOut();
-      this.router.navigateByUrl('/auth/login');
-    });
+    this.user.logout().subscribe();
   }
 }

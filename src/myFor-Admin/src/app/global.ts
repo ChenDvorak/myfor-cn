@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+
 export class Global {
   //  名字
   static userName = '';
@@ -20,9 +22,20 @@ export class Global {
     return false;
   }
 
-  //  登出，清除登录状态
-  public static loginggOut() {
+  /**
+   * 清除本地登录状态
+   */
+  public static RemoveLocalLoginData() {
     localStorage.removeItem(JWT);
+    Global.userName = Global.email = '';
+  }
+
+  public static get JWT() {
+    const value = localStorage.getItem(JWT);
+    if (value) {
+      return value;
+    }
+    return '';
   }
 }
 

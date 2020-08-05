@@ -15,7 +15,7 @@ namespace Domain.Administartors
         /// <summary>
         /// 管理员登录
         /// </summary>
-        public async Task<Results.UserInfo> LoginAsync(Models.Login model)
+        public async Task<Administartor> LoginAsync(Models.Login model)
         {
             if (string.IsNullOrWhiteSpace(model.Account))
                 throw new ArgumentException("账号不能为空");
@@ -32,13 +32,18 @@ namespace Domain.Administartors
 
             await AdministartorCache.SetAdministartorModelCacheAsync(adminModel);
 
-            return new Results.UserInfo
-            { 
-                UserName = adminModel.UserName,
-                Email = adminModel.Email
-            };
+            return Administartor.Parse(adminModel);
         }
 
+        /// <summary>
+        /// 登出
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public async Task LogoutAsync(int administartorId)
+        {
+            await AdministartorCache.RemoveAdministartorModelAsync(administartorId);
+        }
         
     }
 }

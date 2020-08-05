@@ -6,6 +6,7 @@ import { debounceTime, catchError, retry, mergeMap } from 'rxjs/operators';
 
 import sha256 from 'crypto-js/sha256';
 import { enc } from 'crypto-js';
+import { Global } from 'app/global';
 
 //  登录需要的信息
 export interface LoginInfo {
@@ -47,13 +48,24 @@ export class UsersService {
     );
   }
 
-  //  登出
-  logout(): Observable<Result> {
+  /**
+   * 登出
+   * @param syncServer 是否同步服务器
+   */
+  logout(syncServer: boolean = true): Observable<Result> {
+    if (!syncServer) {
+      Global.RemoveLocalLoginData();
+      return;
+    }
     const URL = `${ROUTER_PREFIX}accounts/logout`;
     return this.http.patch<Result>(URL, '')
     .pipe(
       debounceTime(500),
-      catchError(this.base.handleError)
+      catchError(this.base.handleError),
+      mergeMap((r: Result) => {
+        Global.RemoveLocalLoginData();
+        return of(r);
+      })
     );
   }
 

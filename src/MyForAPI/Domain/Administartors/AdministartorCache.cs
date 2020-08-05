@@ -40,7 +40,17 @@ namespace Domain.Administartors
         internal static async Task RemoveAdministartorModelAsync(DB.Tables.Administartor administartorModel)
         {
             if (administartorModel == null) return;
-            await RedisCache.GetRedis().HashDeleteAsync(Administartor.REDIS_HASH_KEY, administartorModel.Id);
+            await RemoveAdministartorModelAsync(administartorModel.Id);
+        }
+
+        /// <summary>
+        /// 删除一个缓存
+        /// </summary>
+        /// <param name="administartorModel"></param>
+        /// <returns></returns>
+        internal static async Task RemoveAdministartorModelAsync(int administartorId)
+        {
+            await RedisCache.GetRedis().HashDeleteAsync(Administartor.REDIS_HASH_KEY, administartorId);
         }
 
         /// <summary>
