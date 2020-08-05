@@ -16,6 +16,37 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `administartors`
+--
+
+DROP TABLE IF EXISTS `administartors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `administartors` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `State` int(11) NOT NULL,
+  `CreateDate` datetime(6) NOT NULL,
+  `UserName` varchar(32) CHARACTER SET utf8mb4 NOT NULL,
+  `Password` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `Email` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
+  `AvatarId` int(11) NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `IX_Administartors_AvatarId` (`AvatarId`),
+  CONSTRAINT `FK_Administartors_Files_AvatarId` FOREIGN KEY (`AvatarId`) REFERENCES `files` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `administartors`
+--
+
+LOCK TABLES `administartors` WRITE;
+/*!40000 ALTER TABLE `administartors` DISABLE KEYS */;
+INSERT INTO `administartors` VALUES (1,1,'2020-01-01 00:00:00.000000','myforadmin','15da5a3cf3a6b79034ad05c0bddcb0b846629bdb41256bf4703a5b66662a3ece','mrmyfor@outlook.com',1);
+/*!40000 ALTER TABLE `administartors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `agreesrecords`
 --
 
