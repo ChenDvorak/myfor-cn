@@ -18,6 +18,10 @@ export class LoginGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
+    if (Global.isLogged()) {
+      return true;
+    }
+
     return this.isLogged();
   }
 

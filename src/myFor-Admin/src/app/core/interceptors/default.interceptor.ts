@@ -12,7 +12,7 @@ import { Global } from '../../global';
 import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Result, CommonService } from '../../services/common.service';
+import { Result, CommonService, ROUTER_PREFIX } from '../../services/common.service';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users/users.service';
 
@@ -30,7 +30,10 @@ export class DefaultInterceptor implements HttpInterceptor {
 
     const jwt = Global.JWT;
     const sourceUrl = req.url;
-    let newUrl = environment.SERVER_URL;
+    let newUrl = req.url;
+    if (sourceUrl.startsWith(ROUTER_PREFIX)) {
+      newUrl = environment.SERVER_URL;
+    }
     if (newUrl.endsWith('/') && sourceUrl.startsWith('/')) {
       newUrl = newUrl.substring(0, newUrl.length - 1) + sourceUrl;
     } else if (!newUrl.endsWith('/') && !sourceUrl.startsWith('/')) {
@@ -75,11 +78,11 @@ export class DefaultInterceptor implements HttpInterceptor {
           //  case 400: { } break;
           case 401: {
             this.common.snackOpen('请先登录');
-            this.user.logout().subscribe();
+            this.user.logout(false).subscribe();
           }         break;
           case 403: {
             this.common.snackOpen('您没有权限访问');
-            this.user.logout().subscribe();
+            this.user.logout(false).subscribe();
           }         break;
           case 404: {
             this.router.navigate(['/pages', '404']);

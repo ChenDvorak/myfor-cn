@@ -10,8 +10,7 @@ export class StartupService {
 
   load(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.http
-        .get('assets/data/menu.json?_t=' + Date.now())
+      this.http.get('assets/data/menu.json?_t=' + Date.now())
         .pipe(
           catchError(res => {
             resolve();
@@ -20,7 +19,7 @@ export class StartupService {
         )
         .subscribe(
           (res: any) => {
-            this.menuService.set(res.menu);
+            this.menuService.set(res.data.menu);
           },
           () => {},
           () => {

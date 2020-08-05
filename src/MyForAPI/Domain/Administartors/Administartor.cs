@@ -19,6 +19,7 @@ namespace Domain.Administartors
         public Administartor(DB.Tables.Administartor _model)
         {
             this._model = _model;
+            Id = _model.Id;
         }
 
 

@@ -3,4 +3,9 @@ insert into files
 values
 (1, '2020/01/01', 'default.png', '.png', 'default.png', 4000);
 
+insert into administartors
+(state, createdate, username, password, email, avatarid)
+values
+(1, '2020/01/01', 'myforadmin', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', 'mrmyfor@outlook.com', 1);
+
 docker run --name myfor-api -p 8100:8100 -v /data/myFor/myfor-api/appsettings.json:/app/appsettings.json -v /data/myFor/myfor-api/files:/app/files -d --link mysql:mysql --link redis:redis myfor-api

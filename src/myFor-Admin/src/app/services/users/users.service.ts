@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ServicesBase, Result, ROUTER_PREFIX } from '../common.service';
 import { debounceTime, catchError, retry, mergeMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 import sha256 from 'crypto-js/sha256';
 import { enc } from 'crypto-js';
@@ -27,7 +28,8 @@ export class UsersService {
 
   constructor(
     private http: HttpClient,
-    private base: ServicesBase
+    private base: ServicesBase,
+    private router: Router
   ) { }
 
   /*
@@ -40,7 +42,7 @@ export class UsersService {
     const base64 = enc.Base64.stringify(words);
     const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-    const URL = `${ROUTER_PREFIX}login`;
+    const URL = `${ROUTER_PREFIX}accounts/login`;
     return this.http.patch<Result<UserInfo>>(URL, `\"${base64}\"`, { headers })
     .pipe(
       debounceTime(500),
@@ -55,6 +57,7 @@ export class UsersService {
   logout(syncServer: boolean = true): Observable<Result> {
     if (!syncServer) {
       Global.RemoveLocalLoginData();
+      this.router.navigate(['/auth', 'login']);
       return;
     }
     const URL = `${ROUTER_PREFIX}accounts/logout`;
@@ -63,7 +66,10 @@ export class UsersService {
       debounceTime(500),
       catchError(this.base.handleError),
       mergeMap((r: Result) => {
-        Global.RemoveLocalLoginData();
+        if (r.status === 204) {
+          Global.RemoveLocalLoginData();
+          this.router.navigate(['/auth', 'login']);
+        }
         return of(r);
       })
     );
@@ -71,7 +77,7 @@ export class UsersService {
 
   //  当前用户是否登录
   isLogged(): Observable<boolean> {
-    const URL = `${ROUTER_PREFIX}accounts/islogged`;
+    const URL = `${ROUTER_PREFIX}accounts/isLoggedIn`;
     return this.http.get<boolean>(URL)
     .pipe(
       mergeMap((result: any) => {

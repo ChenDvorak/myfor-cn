@@ -15,7 +15,7 @@ namespace MyForAPI.Controllers.Administrators
         {
             get
             {
-                var idStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                var idStr = User.FindFirst(ClaimTypes.PrimarySid)?.Value;
                 if (int.TryParse(idStr, out int id))
                     return id;
                 return null;

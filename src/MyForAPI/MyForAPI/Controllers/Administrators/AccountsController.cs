@@ -55,7 +55,7 @@ namespace MyForAPI.Controllers.Administrators
             var claims = new[]
             {
                 new Claim(ClaimTypes.Role, "Administrator"),
-                new Claim(ClaimTypes.Sid, admin.Id.ToString())
+                new Claim(ClaimTypes.PrimarySid, admin.Id.ToString())
             };
 
             string secret = _configuration.GetSection("JwtSettings:Secret").Value;
@@ -75,7 +75,7 @@ namespace MyForAPI.Controllers.Administrators
 
             var userInfo = admin.GetLoginInfo();
             userInfo.JWT = token;
-            return Ok(admin);
+            return Ok(userInfo);
         }
 
         /*
@@ -92,6 +92,18 @@ namespace MyForAPI.Controllers.Administrators
             AdministartorHub hub = new AdministartorHub();
             await hub.LogoutAsync(CurrentAdministartorAccount.Value);
             return NoContent();
+        }
+
+        /// <summary>
+        /// 当前用户是否登录
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("isLoggedIn"), Authorize]
+        public IActionResult IsLoggedIn()
+        {
+            if (CurrentAdministartorAccount.HasValue)
+                return NoContent();
+            return Unauthorized();
         }
     }
 }
