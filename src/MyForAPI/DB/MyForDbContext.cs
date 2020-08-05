@@ -18,6 +18,7 @@ namespace DB
             modelBuilder.Entity<Tables.Blog>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
             modelBuilder.Entity<Tables.Comment>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
             modelBuilder.Entity<Tables.AgreesRecord>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
+            modelBuilder.Entity<Tables.Administartor>().Property(e => e.CreateDate).HasConversion(v => v.ToUniversalTime(), v => v.ToLocalTime());
         }
         /// <summary>
         /// 文件
@@ -36,5 +37,6 @@ namespace DB
         /// </summary>
         public DbSet<Tables.Comment> Comments { get; set; }
         public DbSet<Tables.AgreesRecord> AgreesRecords { get; set; }
+        public DbSet<Tables.Administartor> Administartors { get; set; }
     }
 }

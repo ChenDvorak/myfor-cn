@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 import { ServicesBase, Result, ROUTER_PREFIX } from '../common.service';
-import { debounceTime, catchError, retry } from 'rxjs/operators';
+import { debounceTime, catchError, retry, mergeMap } from 'rxjs/operators';
 
 import sha256 from 'crypto-js/sha256';
+import { enc } from 'crypto-js';
 
 //  登录需要的信息
 export interface LoginInfo {
@@ -15,6 +16,7 @@ export interface LoginInfo {
 export interface UserInfo {
   userName: string;
   email: string;
+  jwt: string;
 }
 
 @Injectable({
@@ -33,16 +35,21 @@ export class UsersService {
   login(loginInfo: LoginInfo): Observable<Result<UserInfo>> {
     loginInfo.password = sha256(loginInfo.password).toString();
 
-    const URL = `${ROUTER_PREFIX}/api/login`;
-    return this.http.patch<Result<UserInfo>>(URL, loginInfo)
+    const words = enc.Utf8.parse(JSON.stringify(loginInfo));
+    const base64 = enc.Base64.stringify(words);
+    const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+
+    const URL = `${ROUTER_PREFIX}login`;
+    return this.http.patch<Result<UserInfo>>(URL, `\"${base64}\"`, { headers })
     .pipe(
       debounceTime(500),
       catchError(this.base.handleError)
     );
   }
+
   //  登出
   logout(): Observable<Result> {
-    const URL = `${ROUTER_PREFIX}/api/logout`;
+    const URL = `${ROUTER_PREFIX}accounts/logout`;
     return this.http.patch<Result>(URL, '')
     .pipe(
       debounceTime(500),
@@ -51,12 +58,15 @@ export class UsersService {
   }
 
   //  当前用户是否登录
-  isLogged(): Observable<Result> {
-    const URL = `${ROUTER_PREFIX}/api/accounts/islogged`;
-    return this.http.get<Result>(URL)
+  isLogged(): Observable<boolean> {
+    const URL = `${ROUTER_PREFIX}accounts/islogged`;
+    return this.http.get<boolean>(URL)
     .pipe(
-      retry(1),
-      catchError(this.base.handleError)
+      mergeMap((result: any) => {
+        const isLoggedIn: boolean = result.status === 204;
+        return of(isLoggedIn);
+      }),
+      retry(1)
     );
   }
 }

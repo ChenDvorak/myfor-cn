@@ -1,9 +1,9 @@
 const PROXY_CONFIG = {
-  '/users/**': {
-    target: 'https://api.github.com',
+  '/api/': {
+    'target': "https://api.myfor.cn",
     changeOrigin: true,
     secure: false,
-    logLevel: 'debug',
+    //  logLevel: 'debug',
     onProxyReq: (proxyReq, req, res) => {
       // const cookieMap = {
       //   SID: '',

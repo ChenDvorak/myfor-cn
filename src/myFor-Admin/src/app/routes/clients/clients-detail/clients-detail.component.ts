@@ -13,14 +13,14 @@ export class ClientsDetailComponent implements OnInit {
 
   id = 0;
   detail: ClientDetail = {
-    userName: 'userName',
-    email: 'email',
+    userName: '',
+    email: '',
     avatar: 'assets/images/avatar.png',
     state: {
       key: 1,
-      value: '启用'
+      value: ''
     },
-    createDate: '2020-20-20'
+    createDate: ''
   };
 
   constructor(
@@ -33,12 +33,12 @@ export class ClientsDetailComponent implements OnInit {
     this.id = parseInt(this.route.snapshot.paramMap.get('id'), null);
     this.client.getClientDetail(this.id)
     .subscribe(r => {
-      if (r.isFault) {
-        this.common.snackOpen(r.message);
+      if (r.status !== 200) {
+        this.common.snackOpen(r.data as string);
         history.back();
         return;
       }
-      this.detail = r.data;
+      this.detail = r.data as ClientDetail;
     });
   }
 
@@ -46,8 +46,8 @@ export class ClientsDetailComponent implements OnInit {
     if (value.checked) {
       this.client.enabledClient(parseInt(value.source.id, null))
       .subscribe(r => {
-        if (r.isFault) {
-          this.common.snackOpen(r.message, 2000);
+        if (r.status !== 204) {
+          this.common.snackOpen(r.data as string);
           value.checked = true;
           return;
         }
@@ -55,8 +55,8 @@ export class ClientsDetailComponent implements OnInit {
     } else {
       this.client.disabledClient(parseInt(value.source.id, null))
       .subscribe(r => {
-        if (r.isFault) {
-          this.common.snackOpen(r.message, 2000);
+        if (r.status !== 204) {
+          this.common.snackOpen(r.data as string);
           value.checked = false;
           return;
         }

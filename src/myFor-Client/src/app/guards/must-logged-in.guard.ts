@@ -25,7 +25,7 @@ export class MustLoggedInGuard implements CanActivate {
     }
 
     return new Observable<boolean | UrlTree>(ob => {
-      ob.next(this.router.parseUrl('/explore'));
+      ob.next(this.router.parseUrl('/login'));
       ob.complete();
     });
   }

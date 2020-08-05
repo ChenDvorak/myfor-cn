@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsersService, LoginInfo } from '../../../services/users/users.service';
+import { UsersService, LoginInfo, UserInfo } from '../../../services/users/users.service';
 
 import { CommonService } from '../../../services/common.service';
 import { Global } from '../../../global';
@@ -40,13 +40,14 @@ export class LoginComponent implements OnInit {
     };
     this.btnDisabled = true;
     this.user.login(loginInfo).subscribe((result) => {
-      if (result.isFault) {
-        this.common.snackOpen(result.message);
-        this.btnDisabled = false;
+      if (result.status === 200) {
+        const userInfo = result.data as UserInfo;
+        Global.setGlobalUserInfo(userInfo.userName, userInfo.email, userInfo.jwt);
+        this.router.navigateByUrl('/');
         return;
       }
-      Global.setGlobalUserInfo(result.data.userName, result.data.email);
-      this.router.navigateByUrl('/');
+      this.common.snackOpen(result.data as string);
+      this.btnDisabled = false;
     });
   }
 }

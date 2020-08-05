@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService, ClientItem } from '../../../services/clients/clients.service';
 import { PageEvent, MatSlideToggleChange } from '@angular/material';
-import { CommonService } from '../../../services/common.service';
+import { CommonService, Paginator } from '../../../services/common.service';
 
 @Component({
   selector: 'app-clients-list',
@@ -16,7 +16,6 @@ export class ClientsListComponent implements OnInit {
   totalSize = 0;
 
   dataSource: ClientItem[] = [
-    //  { id: 1, userName: 'myfor', email: 'mfory@qq.com', createDate: '2020-20-20', state: 1 }
   ];
   columnsToDisplay = ['userName', 'email', 'createDate', 'action'];
 
@@ -35,14 +34,16 @@ export class ClientsListComponent implements OnInit {
   }
 
   private getClientsList() {
-    this.client.getClients(this.index, this.searchTitle).subscribe(result => {
-      if (result.isFault) {
-        this.common.snackOpen(result.message, 2000);
-        return;
+    this.client.getClients(++this.index, this.searchTitle).subscribe(result => {
+      if (result.status === 200) {
+        const pageData = result.data as Paginator<ClientItem>;
+        this.dataSource = pageData.list;
+        this.size = pageData.size;
+        this.totalSize = pageData.totalSize;
+        this.index = pageData.index;
+      } else {
+        this.common.snackOpen(result.data as string);
       }
-      this.dataSource = result.data.list;
-      this.size = result.data.size;
-      this.totalSize = result.data.totalRows;
     });
   }
 
@@ -50,8 +51,8 @@ export class ClientsListComponent implements OnInit {
     if (value.checked) {
       this.client.enabledClient(parseInt(value.source.id, null))
       .subscribe(r => {
-        if (r.isFault) {
-          this.common.snackOpen(r.message, 2000);
+        if (r.status !== 204) {
+          this.common.snackOpen(r.data as string);
           value.checked = true;
           return;
         }
@@ -59,8 +60,8 @@ export class ClientsListComponent implements OnInit {
     } else {
       this.client.disabledClient(parseInt(value.source.id, null))
       .subscribe(r => {
-        if (r.isFault) {
-          this.common.snackOpen(r.message, 2000);
+        if (r.status !== 204) {
+          this.common.snackOpen(r.data as string);
           value.checked = false;
           return;
         }
@@ -69,6 +70,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   search(value: string) {
+    this.index = 0;
     value = value.trim();
     this.searchTitle = value;
     this.getClientsList();

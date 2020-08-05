@@ -1,61 +1,77 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { KeyValue } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, Observable, fromEvent, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 //  路由前缀
-export const ROUTER_PREFIX = '/admin';
+export const ROUTER_PREFIX = '/api/administrators/';
 
 /**
- * 服务器响应模型
+ * 响应数据会在拦截器中包装成这个 Result
  */
 export interface Result<T = any> {
-    message: string;
-    data: T;
-    /**
-     * 是否为失败请求, 在拦截器中设置
-     */
-    isFault: boolean;
+  /**
+   * 状态码，对应原生 HTTP 状态码
+   */
+  status: number;
+  /**
+   * 响应 body 里的数据
+   */
+  data: T | string;
+  location: string;
 }
 
 /**
- * 请求失败, 可以和 Result 的 data 对比
+ * status: 400
  */
-export const FAULT: undefined = undefined;
+export const DEFAULT_RESULT: Result = {
+  status: 400,
+  data: {},
+  location: ''
+};
 
 /**
  * 分页模型
  */
 export interface Paginator<T = any> {
-    index: number;
-    size: number;
-    totalPages: number;
-    totalRows: number;
-    list: T[];
+  index: number;
+  size: number;
+  totalPages: number;
+  totalSize: number;
+  list: T[];
 }
+
 //  基本服务
 @Injectable({
     providedIn: 'root'
 })
 export class ServicesBase {
-    handleError(error: HttpErrorResponse) {
-        const result: Result = {
-          message: '请求失败, 稍后重试',
-          data: FAULT,
-          isFault: true
-        };
-        switch (error.status) {
-            case 401: {
-                result.message = '请先登录';
-                return of(result);
-            }
-            default: break;
-        }
-        console.error(`backend returned code ${error.status}`);
-        console.error(`error: ${error.error}`);
-        return of(result);
+
+  constructor() { }
+
+  /**
+   * 在这个错误处理中，只负责返回一个合法的值，
+   * 如果需要打印，跳转等其他操作，在拦截器中定义
+   */
+  handleError(error: HttpErrorResponse): Observable<Result> {
+    const R: Result = {
+      status: error.status,
+      data: '',
+      location: error.headers.get('Location')
+    };
+    switch (error.status) {
+      case 400: {
+        R.data = error.error;
+      }         break;
+      case 401: {
+        R.data = '请先登录';
+        break;
+      }
+      default: break;
     }
+    return of(R);
+  }
 }
 
 //  通用服务
@@ -65,10 +81,10 @@ export class ServicesBase {
 export class CommonService {
 
   constructor(
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
   ) { }
 
-  snackOpen(message: string, duration?: number) {
+  snackOpen(message: string, duration: number = 2000) {
     if (!duration) {
       duration = null;
     }
@@ -77,27 +93,25 @@ export class CommonService {
       duration,
     });
   }
-}
-//  基本状态
-export class State {
-  //  状态，禁用
-  static disabled: KeyValue<number, string> = {
-    key: 0,
-    value: '禁用'
-  };
-  //  状态，启用
-  static enabled: KeyValue<number, string> = {
-    key: 1,
-    value: '启用'
-  };
-  //  状态，移除
-  static remove: KeyValue<number, string> = {
-    key: 2,
-    value: '移除'
-  };
-  //  状态，待审核
-  static toAudit: KeyValue<number, string> = {
-    key: 3,
-    value: '待审核'
-  };
+
+  /**
+   * 监听一个元素的键盘点击事件，将指定的字符替换为其他的字符
+   * @param element 要监听的元素
+   * @param source 要替换的原字符
+   * @param instead 要替换为的字符
+   */
+  insteadKeydownEventChar(element: any, source: string, instead: string): Subscription {
+    return fromEvent(element, 'keydown')
+    .pipe(
+      filter(k => (k as KeyboardEvent).key === source)
+    )
+    .subscribe(k => {
+      const KEY_BOARD = k as KeyboardEvent;
+      const INSERT_CHARS = instead;
+      KEY_BOARD.returnValue = false;
+      const INDEX = element.selectionStart;
+      element.value = element.value.substring(0, INDEX) + INSERT_CHARS + element.value.substring(INDEX);
+      element.setSelectionRange(INDEX + INSERT_CHARS.length, INDEX + INSERT_CHARS.length);
+    });
+  }
 }

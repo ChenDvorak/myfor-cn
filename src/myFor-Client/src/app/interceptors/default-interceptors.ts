@@ -1,5 +1,4 @@
-import { Injectable, isDevMode, Inject } from '@angular/core';
-import { Location } from '@angular/common';
+import { Injectable, isDevMode } from '@angular/core';
 import {
   HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpResponse
 } from '@angular/common/http';
@@ -10,14 +9,11 @@ import { CommonService, Result } from '../shared/services/common';
 import { environment } from '../../environments/environment';
 import { Identity } from '../global';
 
-const JWT_KEY = 'no0ko72a';
-
 @Injectable()
 export class DefaultInterceptor implements HttpInterceptor {
 
   constructor(
     private router: Router,
-    private loc: Location,
     private common: CommonService,
     private identity: Identity
   ) { }
