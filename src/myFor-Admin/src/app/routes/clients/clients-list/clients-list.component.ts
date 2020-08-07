@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService, ClientItem } from '../../../services/clients/clients.service';
-import { PageEvent, MatSlideToggleChange } from '@angular/material';
+import { PageEvent } from '@angular/material/paginator/paginator';
 import { CommonService, Paginator } from '../../../services/common.service';
 
 @Component({
@@ -44,28 +44,6 @@ export class ClientsListComponent implements OnInit {
         this.common.snackOpen(result.data as string);
       }
     });
-  }
-
-  enabledOrDisabled(value: MatSlideToggleChange) {
-    if (value.checked) {
-      this.client.enabledClient(parseInt(value.source.id, null))
-      .subscribe(r => {
-        if (r.status !== 204) {
-          this.common.snackOpen(r.data as string);
-          value.checked = true;
-          return;
-        }
-      });
-    } else {
-      this.client.disabledClient(parseInt(value.source.id, null))
-      .subscribe(r => {
-        if (r.status !== 204) {
-          this.common.snackOpen(r.data as string);
-          value.checked = false;
-          return;
-        }
-      });
-    }
   }
 
   search(value: string) {

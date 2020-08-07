@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 @Pipe({name: 'host'})
 export class HostPipe implements PipeTransform {
   transform(value: string): string {
-        if (!value.startsWith('/api')) {
+        if (!value.startsWith('/api') && !value.startsWith('api')) {
           return value;
         }
         if (environment.SERVER_URL.endsWith('/') && value.startsWith('/')) {
