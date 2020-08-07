@@ -18,6 +18,15 @@ namespace Domain.Users
     public class UsersHub
     {
         /// <summary>
+        /// 列表类型
+        /// </summary>
+        [Flags]
+        public enum ListType
+        {
+            AdministartorSide
+        }
+
+        /// <summary>
         /// 用户登录
         /// </summary>
         /// <param name="model"></param>
@@ -26,7 +35,7 @@ namespace Domain.Users
         {
             await using var db = new DB.MyForDbContext();
             var userModel = await db.Users.AsNoTracking().FirstOrDefaultAsync(user => (user.Account.Equals(model.Account, StringComparison.OrdinalIgnoreCase)
-                                                                    || user.Email.Equals(model.Account, StringComparison.OrdinalIgnoreCase)) 
+                                                                    || user.Email.Equals(model.Account, StringComparison.OrdinalIgnoreCase))
                                                                     && user.Password.Equals(model.Password, StringComparison.OrdinalIgnoreCase));
             if (userModel == null) return (null, "账号不存在或密码错误");
             return (User.Parse(userModel), null);
@@ -52,7 +61,7 @@ namespace Domain.Users
                 return (false, "该邮箱已被使用");
 
             userModel = new DB.Tables.User
-            { 
+            {
                 Account = model.Account,
                 Password = model.Password,
                 Name = model.Account,
@@ -62,6 +71,19 @@ namespace Domain.Users
             if (await db.SaveChangesAsync() == 1)
                 return (true, null);
             throw new Exception("注册失败");
+        }
+
+        /// <summary>
+        /// 获取用户分页
+        /// </summary>
+        public async Task<Paginator> GetUserListAsync(Paginator pager, ListType type)
+        {
+            List.IUserList list = type switch
+            {
+                ListType.AdministartorSide => new List.FromAdministartorSide(),
+                _ => throw new ArgumentException()
+            };
+            return await list.GetListAsync(pager);
         }
 
         /// <summary>

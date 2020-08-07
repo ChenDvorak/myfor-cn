@@ -4,8 +4,7 @@ using System.Security.Claims;
 
 namespace MyForAPI.Controllers.Administrators
 {
-    [Route("api/administrators/[controller]"), Authorize]
-    [Authorize(policy: Authorization.Policy.ADMINISTRATOR)]
+    [Route("api/administrators/[controller]"), Authorize(policy: Authorization.Policy.ADMINISTRATOR)]
     public abstract class AdministartorsSideController : _base.MyForController
     {
         /// <summary>
