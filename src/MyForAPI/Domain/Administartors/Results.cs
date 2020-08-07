@@ -15,5 +15,14 @@ namespace Domain.Administartors
             public string Email { get; set; }
             public string JWT { get; set; } = "";
         }
+
+        public class UserItem
+        {
+            public int Id { get; set; }
+            public string Account { get; set; }
+            public string Email { get; set; }
+            public string Avatar { get; set; }
+            public string CreateDate { get; set; }
+        }
     }
 }

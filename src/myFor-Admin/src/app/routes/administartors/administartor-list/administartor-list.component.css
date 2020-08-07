@@ -1,0 +1,13 @@
+.avatar-thumbnail {
+    width: 40px;
+    height: 40px;
+}
+
+.tool-row, .create {
+    display: flex;
+}
+.create {
+    flex-direction: row-reverse;
+    flex-grow: 1;
+    align-items: center;
+}

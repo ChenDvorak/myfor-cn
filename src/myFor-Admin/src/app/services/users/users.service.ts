@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { ServicesBase, Result, ROUTER_PREFIX } from '../common.service';
 import { debounceTime, catchError, retry, mergeMap } from 'rxjs/operators';
@@ -21,6 +21,17 @@ export interface UserInfo {
   jwt: string;
 }
 
+export interface UserItem {
+  id: number;
+  account: string;
+  email: string;
+  avatar: string;
+  createDate: string;
+}
+
+/**
+ * 管理员
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -86,5 +97,32 @@ export class UsersService {
       }),
       retry(1)
     );
+  }
+
+  /**
+   * 获取系统管理员列表
+   */
+  getAdministartorList(index: number, size: number, account: string): Observable<Result> {
+    let p = new HttpParams();
+
+    if (account) {
+      p = p.append('account', account);
+    }
+    if (index <= 0) {
+      index = 1;
+    }
+    p = p.append('index', index.toString())
+      .append('size', size.toString());
+
+    return this.http.get<Result>(`${ROUTER_PREFIX}administartors?${p.toString()}`)
+    .pipe(
+      debounceTime(1000),
+      retry(1),
+      catchError(this.base.handleError)
+    );
+  }
+
+  createAdministartor() {
+
   }
 }

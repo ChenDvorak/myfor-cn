@@ -24,6 +24,10 @@ const routes: Routes = [
         path: 'clients',
         loadChildren: () => import('./clients/clients.module').then(mod => mod.ClientsModule),
         data: { title: 'Clients', titleI18n: 'Clients' }
+      },
+      {
+        path: 'administartors',
+        loadChildren: () => import('./administartors/administartors.module').then(mod => mod.AdministartorsModule)
       }
     ],
   },
