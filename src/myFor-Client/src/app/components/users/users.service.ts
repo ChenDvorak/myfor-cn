@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ServicesBase, Result, DEFAULT_RESULT, ROUTE_PREFIX, Paginator } from '../../shared/services/common';
-import { Identity } from '../../global';
+import { ServicesBase, Result, DEFAULT_RESULT, ROUTE_PREFIX } from '../../shared/services/common';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, retry, mergeMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { Comment } from '../../components/blogs/comment.model';
-import { BlogItem } from '../../components/blogs/blog.models';
 
 export interface UserDetail {
   name: string;
   account: string;
   avatar: string;
+  email: string;
   introduction: string;
   createDate: string;
 }
-
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +20,7 @@ export class UsersService {
 
   constructor(
     private base: ServicesBase,
-    private identity: Identity,
-    private http: HttpClient,
-    private router: Router
+    private http: HttpClient
   ) { }
 
 

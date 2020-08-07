@@ -69,6 +69,7 @@ namespace Domain.Users
             {
                 Account = _userModel.Account,
                 Name = _userModel.Name,
+                Email = _userModel.Email,
                 Introduction = _userModel.Introduction,
                 CreateDate = _userModel.CreateDate.ToLocalTime().ToString("yyyy-MM-dd"),
                 Avatar = Files.File.GetVisitablePath(avatar.SaveName, "api")

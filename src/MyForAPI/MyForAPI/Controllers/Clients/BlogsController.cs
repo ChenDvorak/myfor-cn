@@ -11,8 +11,8 @@ namespace MyForAPI.Controllers.Clients
 {
     public class BlogsController : ClientsSideController
     {
-        private readonly Domain.Users.ICurrentUser _currentUser;
-        public BlogsController(Domain.Users.ICurrentUser _currentUser)
+        private readonly Domain.Users.IUser _currentUser;
+        public BlogsController(Domain.Users.IUser _currentUser)
         {
             this._currentUser = _currentUser;
         }

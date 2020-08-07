@@ -24,6 +24,7 @@ export class DetailComponent implements OnInit, AfterContentChecked, OnDestroy {
   detail: UserDetail = {
     account: '',
     name: '',
+    email: '',
     avatar: 'api/files/default.png',
     introduction: '',
     createDate: ''

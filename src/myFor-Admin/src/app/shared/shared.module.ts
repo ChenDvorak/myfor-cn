@@ -18,6 +18,8 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { ErrorCodeComponent } from './components/error-code/error-code.component';
 import { BackComponent } from './components/back/back.component';
 
+import { HostPipe } from './pipe/host.pipe';
+
 const THIRD_MODULES = [
   MaterialModule,
   MaterialExtensionsModule,
@@ -30,7 +32,7 @@ const THIRD_MODULES = [
 const COMPONENTS = [BreadcrumbComponent, PageHeaderComponent, ErrorCodeComponent, BackComponent];
 const COMPONENTS_DYNAMIC = [];
 const DIRECTIVES = [];
-const PIPES = [];
+const PIPES = [HostPipe];
 
 @NgModule({
   declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, ...DIRECTIVES, ...PIPES],

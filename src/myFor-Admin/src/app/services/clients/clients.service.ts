@@ -8,18 +8,19 @@ import { KeyValue } from '@angular/common';
 //  客户列表单项
 export interface ClientItem {
   id: number;
-  userName: string;
-  email: string;
+  account: string;
+  name: string;
+  avatar: string;
   createDate: string;
-  state: KeyValue<number, string>;
 }
 
 //  客户详情
 export interface ClientDetail {
-  userName: string;
+  account: string;
+  name: string;
   email: string;
   avatar: string;
-  state: KeyValue<number, string>;
+  introduction: string;
   createDate: string;
 }
 
@@ -34,11 +35,11 @@ export class ClientsService {
   ) { }
 
   //  获取客户列表
-  getClients(index: number, search = '', size = 20): Observable<Result<Paginator<ClientItem>>> {
+  getClients(index: number, account = '', size = 20): Observable<Result<Paginator<ClientItem>>> {
     let p = new HttpParams();
 
-    if (search) {
-      p = p.append('search', search);
+    if (account) {
+      p = p.append('account', account);
     }
     if (index <= 0) {
       index = 1;
@@ -46,18 +47,18 @@ export class ClientsService {
     p = p.append('index', index.toString())
       .append('size', size.toString());
 
-    const URL = `${ROUTER_PREFIX}/api/clients?${p.toString()}`;
+    const URL = `${ROUTER_PREFIX}clients?${p.toString()}`;
     return this.http.get<Result<Paginator<ClientItem>>>(URL)
     .pipe(
-      debounceTime(500),
+      debounceTime(1000),
       retry(1),
       catchError(this.base.handleError)
     );
   }
 
   //  获取详情
-  getClientDetail(id: number): Observable<Result<ClientDetail>> {
-    const URL = `${ROUTER_PREFIX}/api/clients/${id}`;
+  getClientDetail(id: string): Observable<Result<ClientDetail>> {
+    const URL = `${ROUTER_PREFIX}clients/${id}`;
     return this.http.get<Result>(URL)
     .pipe(
       retry(1),

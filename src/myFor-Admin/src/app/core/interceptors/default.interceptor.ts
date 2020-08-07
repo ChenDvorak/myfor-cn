@@ -12,7 +12,7 @@ import { Global } from '../../global';
 import { Observable, of, throwError } from 'rxjs';
 import { mergeMap, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Result, CommonService, ROUTER_PREFIX } from '../../services/common.service';
+import { Result, CommonService } from '../../services/common.service';
 import { Router } from '@angular/router';
 import { UsersService } from '../../services/users/users.service';
 
@@ -31,7 +31,7 @@ export class DefaultInterceptor implements HttpInterceptor {
     const jwt = Global.JWT;
     const sourceUrl = req.url;
     let newUrl = req.url;
-    if (sourceUrl.startsWith(ROUTER_PREFIX)) {
+    if (sourceUrl.startsWith('/api')) {
       newUrl = environment.SERVER_URL;
     }
     if (newUrl.endsWith('/') && sourceUrl.startsWith('/')) {

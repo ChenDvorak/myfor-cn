@@ -8,7 +8,7 @@ namespace Domain.Users
     /// <summary>
     /// 当前登录用户
     /// </summary>
-    public class CurrentUser: ICurrentUser
+    public class DIUser : IUser
     {
         
     }

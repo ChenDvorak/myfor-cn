@@ -15,9 +15,8 @@ export class ClientsListComponent implements OnInit {
   size = 0;
   totalSize = 0;
 
-  dataSource: ClientItem[] = [
-  ];
-  columnsToDisplay = ['userName', 'email', 'createDate', 'action'];
+  dataSource: ClientItem[] = [];
+  columnsToDisplay = ['account', 'name', 'avatar', 'createDate', 'action'];
 
   constructor(
     private client: ClientsService,
@@ -34,7 +33,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   private getClientsList() {
-    this.client.getClients(++this.index, this.searchTitle).subscribe(result => {
+    this.client.getClients(this.index, this.searchTitle).subscribe(result => {
       if (result.status === 200) {
         const pageData = result.data as Paginator<ClientItem>;
         this.dataSource = pageData.list;
@@ -70,7 +69,7 @@ export class ClientsListComponent implements OnInit {
   }
 
   search(value: string) {
-    this.index = 0;
+    this.index = 1;
     value = value.trim();
     this.searchTitle = value;
     this.getClientsList();

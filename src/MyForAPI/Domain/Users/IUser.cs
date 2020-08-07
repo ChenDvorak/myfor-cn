@@ -3,9 +3,9 @@
 namespace Domain.Users
 {
     /// <summary>
-    /// 当前登录用户，用作 DI
+    /// 用户，用作 DI
     /// </summary>
-    public interface ICurrentUser
+    public interface IUser
     {
         /// <summary>
         /// 获取用户

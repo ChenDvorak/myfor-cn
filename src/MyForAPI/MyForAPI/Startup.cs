@@ -71,7 +71,7 @@ namespace MyForAPI
             });
 
             //  DI
-            services.AddScoped<Domain.Users.ICurrentUser, Domain.Users.CurrentUser>();
+            services.AddScoped<Domain.Users.IUser, Domain.Users.DIUser>();
             services.AddSignalR();
             services.AddControllers();
         }
