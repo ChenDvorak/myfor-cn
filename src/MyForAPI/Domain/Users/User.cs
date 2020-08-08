@@ -78,14 +78,51 @@ namespace Domain.Users
         }
 
         /// <summary>
+        /// 获取该用户下所有博文
+        /// </summary>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public async Task<Paginator> GetAllBlogsAsync(Paginator pager)
+        {
+            pager["author"] = Id.ToString();
+            var blogsHub = new Blogs.BlogsHub();
+            pager = await blogsHub.GetListAsync(Blogs.List.BlogsList.ListType.AdministartorSide, pager);
+            return pager;
+        }
+        /// <summary>
+        /// 获取该用户下的博文
+        /// </summary>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public async Task<Paginator> GetBlogsAsync(Paginator pager)
+        {
+            var blogsHub = new Blogs.BlogsHub();
+            pager = await blogsHub.GetListAsync(Blogs.List.BlogsList.ListType.UserSelf, pager);
+            return pager;
+        }
+
+        /// <summary>
         /// 获取用户发表的评论
         /// </summary>
         /// <param name="pager"></param>
         /// <returns></returns>
-        public async Task<Paginator> GetCommentsLisnAsync(Paginator pager)
+        public async Task<Paginator> GetCommentsListAsync(Paginator pager)
         {
             var commentsHub = new Comments.CommentsHub();
             pager = await commentsHub.GetCommentsListAsync(pager, Comments.List.CommentsList.ListType.UserSelf);
+            return pager;
+        }
+
+        /// <summary>
+        /// 获取该用户的所有评论
+        /// </summary>
+        /// <param name="pager"></param>
+        /// <returns></returns>
+        public async Task<Paginator> GetAllCommentsAsync(Paginator pager)
+        {
+            pager["author"] = Id.ToString();
+            var commentsHub = new Comments.CommentsHub();
+            pager = await commentsHub.GetCommentsListAsync(pager, Comments.List.CommentsList.ListType.AdministartorSide);
             return pager;
         }
 

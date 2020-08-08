@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Domain;
 using Domain.Administartors;
@@ -32,8 +33,15 @@ namespace MyForAPI.Controllers.Administrators
          *      201:    
          */
         [HttpPost]
-        public async Task<IActionResult> CreateAsync(Models.NewAdministarnor model)
+        public async Task<IActionResult> CreateAsync([FromBody] string base64)
         {
+            if (string.IsNullOrWhiteSpace(base64))
+                return BadRequest("请输入要账号/邮箱、密码");
+
+            string decoding = Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+
+            var model = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.NewAdministarnor>(decoding);
+
             if (string.IsNullOrWhiteSpace(model.Account)) return BadRequest("账号不能为空");
             if (string.IsNullOrWhiteSpace(model.Password)) return BadRequest("密码不能为空");
             if (string.IsNullOrWhiteSpace(model.Email)) return BadRequest("邮箱不能为空");

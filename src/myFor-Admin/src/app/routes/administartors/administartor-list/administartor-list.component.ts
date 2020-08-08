@@ -18,7 +18,7 @@ export class AdministartorListComponent implements OnInit {
   totalSize = 0;
 
   dataSource: UserItem[] = [];
-  columnsToDisplay = ['account', 'email', 'avatar', 'createDate', 'action'];
+  columnsToDisplay = ['account', 'email', 'avatar', 'createDate'];
 
   constructor(
     private common: CommonService,

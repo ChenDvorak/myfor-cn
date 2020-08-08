@@ -19,7 +19,8 @@ namespace Domain.Blogs.List
         {
             HomePage,
             SearchPage,
-            UserSelf
+            UserSelf,
+            AdministartorSide
         }
 
         /// <summary>

@@ -1,0 +1,12 @@
+.detail-container {
+    display: inline-grid !important;
+    grid-template-columns: max-content auto 100%;
+    gap: 1rem;
+}
+
+.list-container {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
+}

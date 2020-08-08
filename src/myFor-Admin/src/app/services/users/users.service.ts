@@ -29,6 +29,13 @@ export interface UserItem {
   createDate: string;
 }
 
+export interface NewUser
+{
+  email: string;
+  account: string;
+  password: string;
+}
+
 /**
  * 管理员
  */
@@ -122,7 +129,19 @@ export class UsersService {
     );
   }
 
-  createAdministartor() {
+  createAdministartor(model: NewUser): Observable<Result> {
+    const postModel: NewUser = {
+      ...model
+    };
+    postModel.password = sha256(postModel.password).toString();
+    const words = enc.Utf8.parse(JSON.stringify(postModel));
+    const base64 = enc.Base64.stringify(words);
+    const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
+    return this.http.post<Result>(`${ROUTER_PREFIX}Administartors`, `\"${base64}\"`, { headers })
+    .pipe(
+      debounceTime(500),
+      catchError(this.base.handleError)
+    );
   }
 }

@@ -1,13 +1,16 @@
 <h1>新增管理员账号</h1>
-<form class="create-form">
+<form class="create-form" #newForm="ngForm">
   <mat-form-field>
-    <input type="text" matInput placeholder="新系统管理员账号" required>
+    <input type="text" matInput placeholder="新系统管理员账号" [(ngModel)]="newModel.account" name="account"
+     required minlength="5">
   </mat-form-field>
   <mat-form-field>
-    <input type="text" matInput placeholder="新系统管理员邮箱" required>
+    <input type="email" matInput placeholder="新系统管理员邮箱" [(ngModel)]="newModel.email" name="email"
+    required>
   </mat-form-field>
   <mat-form-field>
-    <input type="password" matInput placeholder="新系统管理员密码" required>
+    <input type="password" matInput placeholder="新系统管理员密码" [(ngModel)]="newModel.password" name="password"
+    required>
   </mat-form-field>
-  <button mat-raised-button color="primary">新增</button>
+  <button mat-raised-button color="primary" [disabled]="newForm.invalid || posting" (click)="create()">新增</button>
 </form>

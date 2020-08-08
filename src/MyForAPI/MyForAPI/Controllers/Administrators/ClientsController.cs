@@ -16,17 +16,17 @@ namespace MyForAPI.Controllers.Administrators
     public class ClientsController : AdministartorsSideController
     {
         private readonly IUser _user;
-        
+
         public ClientsController(IUser _user)
         {
             this._user = _user;
         }
 
         /*
-*  获取客户列表
-*  return:
-*      200:    success
-*/
+         *  获取客户列表
+         *  return:
+         *      200:    success
+         */
         [HttpGet]
         public async Task<IActionResult> GetClientListAsync(int index, int size, string account)
         {
@@ -51,6 +51,36 @@ namespace MyForAPI.Controllers.Administrators
             if (user == null) return Gone($"该用户@{clientAccount}不存在");
             var detail = await user.GetUserDetailAsync();
             return Ok(detail);
+        }
+
+        /*
+         *  获取客户发布的博文
+         *  return:
+         *      200:    success
+         */
+        [HttpGet("{clientAccount}/blogs")]
+        public async Task<IActionResult> GetClientBlogsAsync(string clientAccount, int index, int size, string title)
+        {
+            var pager = Paginator.New(index, size, 2);
+            pager["s"] = title ?? "";
+
+            var user = await _user.GetUserAsync(clientAccount);
+            pager = await user.GetAllBlogsAsync(pager);
+            return Ok(pager);
+        }
+
+        /*
+         *  获取客户发布的评论
+         *  return:
+         *      200:    success
+         */
+        [HttpGet("{clientAccount}/comments")]
+        public async Task<IActionResult> GetClientCommentsAsync(string clientAccount, int index, int size)
+        {
+            var pager = Paginator.New(index, size, 1);
+            var user = await _user.GetUserAsync(clientAccount);
+            pager = await user.GetAllCommentsAsync(pager);
+            return Ok(pager);
         }
     }
 }

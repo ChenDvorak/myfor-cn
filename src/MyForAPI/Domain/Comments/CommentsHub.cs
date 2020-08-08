@@ -46,6 +46,7 @@ namespace Domain.Comments
             { 
                 List.CommentsList.ListType.BlogDetail => new List.ListInBlogDetail(),
                 List.CommentsList.ListType.UserSelf => new List.UserSelfList(),
+                List.CommentsList.ListType.AdministartorSide => new List.CommentsFromAdministartorSide(),
                 _ => throw new ArgumentException()
             };
             pager = await list.GetListAsync(pager);

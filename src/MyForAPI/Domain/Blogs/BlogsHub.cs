@@ -99,6 +99,7 @@ namespace Domain.Blogs
                 List.BlogsList.ListType.HomePage => new List.HomePageList(),
                 List.BlogsList.ListType.SearchPage => new List.SearchList(),
                 List.BlogsList.ListType.UserSelf => new List.UserSelfList(),
+                List.BlogsList.ListType.AdministartorSide => new List.BlogsFromAdministartorSide(),
                 _ => throw new ArgumentException()
             };
             return await list.GetListAsync(pager);

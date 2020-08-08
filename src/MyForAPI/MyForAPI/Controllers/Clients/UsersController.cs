@@ -12,10 +12,10 @@ namespace MyForAPI.Controllers.Clients
     /// </summary>
     public class UsersController : ClientsSideController
     {
-        private readonly IUser _currentUser;
+        private readonly IUser _user;
         public UsersController(IUser _currentUser)
         {
-            this._currentUser = _currentUser;
+            this._user = _currentUser;
         }
 
         /*
@@ -44,8 +44,11 @@ namespace MyForAPI.Controllers.Clients
             pager["CurrentUser"] = CurrentAccount;
             pager["IsSelf"] = (CurrentIsLogged && CurrentAccount.Equals(account, StringComparison.OrdinalIgnoreCase)).ToString();
 
-            var blogsHub = new Domain.Blogs.BlogsHub();
-            pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.UserSelf, pager);
+            var user = await _user.GetUserAsync(account);
+            pager = await user.GetBlogsAsync(pager);
+
+            //var blogsHub = new Domain.Blogs.BlogsHub();
+            //pager = await blogsHub.GetListAsync(Domain.Blogs.List.BlogsList.ListType.UserSelf, pager);
             return Ok(pager);
         }
 
@@ -62,9 +65,9 @@ namespace MyForAPI.Controllers.Clients
             pager["BlogTitle"] = blogTitle;
             pager["CurrentUser"] = CurrentAccount;
 
-            var user = await _currentUser.GetUserAsync(account);
+            var user = await _user.GetUserAsync(account);
             if (user == null) return Gone("用户不存在");
-            pager = await user.GetCommentsLisnAsync(pager);
+            pager = await user.GetCommentsListAsync(pager);
             return Ok(pager);
         }
     }

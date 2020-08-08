@@ -47,7 +47,7 @@ namespace MyForAPI.Controllers.Administrators
 
             AdministartorHub hub = new AdministartorHub();
             var admin = await hub.LoginAsync(model);
-            if (admin == null) return Unauthorized("账号不存在或密码错误");
+            if (admin == null) return BadRequest("账号不存在或密码错误");
 
             //  build JWT
             var claims = new[]

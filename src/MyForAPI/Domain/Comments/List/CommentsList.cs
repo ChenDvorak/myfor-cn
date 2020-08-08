@@ -20,7 +20,11 @@ namespace Domain.Comments.List
             /// <summary>
             /// 用户详情页的评论列表
             /// </summary>
-            UserSelf
+            UserSelf,
+            /// <summary>
+            /// 管理员端
+            /// </summary>
+            AdministartorSide
         }
         public abstract Task<Paginator> GetListAsync(Paginator pager);
     }
