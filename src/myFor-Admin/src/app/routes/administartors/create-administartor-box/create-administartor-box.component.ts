@@ -19,7 +19,7 @@ export class CreateAdministartorBoxComponent implements OnInit {
 
   constructor(
     private user: UsersService,
-    private dialogRef: MatDialogRef,
+    private dialogRef: MatDialogRef<CreateAdministartorBoxComponent>,
     private common: CommonService
   ) { }
 
