@@ -67,6 +67,7 @@ export class DefaultInterceptor implements HttpInterceptor {
         switch (err.status) {
           //  case 400: { } break;
           case 401: {
+            this.identity.clean();
             this.common.snackOpen('请先登录');
             open('login');
           }         break;
